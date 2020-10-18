@@ -21,7 +21,7 @@ On the registration day of the students,fingerprints and student details are tak
 
 solution architecture contains with four steps
 * step one
-<img src="/images/f1.jpg"><hr>
+![](/images/f1.jpg)
 * step two
 <img src="/images/f2.jpg"><hr>
 * step three
