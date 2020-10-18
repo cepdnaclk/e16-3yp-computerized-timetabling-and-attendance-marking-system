@@ -21,6 +21,11 @@ On the registration day of the students,fingerprints and student details are tak
 
 solution architecture contains with four steps
 
+<img src="/images/f1.jpg"><hr>
+<img src="/images/f2.jpg"><hr>
+<img src="/images/f3.jpg"><hr>
+<img src="/images/f4.jpg"><hr>
+
 
 
 
