@@ -23,11 +23,11 @@ solution architecture contains with four steps
 * step one
 ![](/images/f1.jpg)
 * step two
-<img src="/images/f2.jpg"><hr>
+![](/images/f2.jpg)
 * step three
-<img src="/images/f3.jpg"><hr>
+![](/images/f3.jpg)
 * step four
-<img src="/images/f4.jpg"><hr>
+![](/images/f4.jpg)
 
 
 
