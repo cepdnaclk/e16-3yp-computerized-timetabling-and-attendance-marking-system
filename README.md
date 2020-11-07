@@ -29,6 +29,16 @@ solution architecture contains with four steps
 * step four
 ![](/images/f4.jpg)
 
+## Advising Lecturers
+* Dr. Isuru Navinne </br>
+* Mr. Ziyan Maraikar
+
+## Related Links
+* [University Of Peradeniya](https://www.pdn.ac.lk/)
+* [Faculty of Engineering, University of Peradeniya](http://eng.pdn.ac.lk/)
+* [Department of Computer Engineering, Faculty of Engineering, University of Peradeniya](http://www.ce.pdn.ac.lk/)
+
+
 
 
 
