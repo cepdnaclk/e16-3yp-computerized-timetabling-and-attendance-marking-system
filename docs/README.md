@@ -26,6 +26,44 @@ solution architecture contains with four steps
 *  *E/16/286 Piyarathna M.G.N.H*  e16286@eng.pdn.ac.lk
 *  *E/16/399  Wijerathna D.G.K.E* e16399@eng.pdn.ac.lk
 
+<h2>UI Designs</h2>
+<h3>Website</h3>
+<table style="width:100%">
+  <tr>
+       <th><img src="/docs/images/web/1.png" alt="loading screenshot"  width="420" height="220"</th>
+    <th><img src="/docs/images/web/2.png" alt="loading screenshot"  width="420" height="220"</th>
+
+   </tr>
+ <tr>
+    <th><img src="/docs/images/web/3.png" alt="loading screenshot"  width="420" height="220"</th>
+    <th><img src="/docs/images/web/4.png" alt="loading screenshot"  width="420" height="220"</th>
+   </tr>
+ <tr>
+    <th><img src="/docs/images/web/5.png" alt="loading screenshot"  width="420" height="220"</th>
+    <th><img src="/docs/images/web/6.png" alt="loading screenshot"  width="420" height="220"</th>
+   </tr>
+ <tr>
+    <th><img src="/docs/images/web/7.png" alt="loading screenshot"  width="420" height="220"</th>
+    <th><img src="/docs/images/web/8.png" alt="loading screenshot"  width="420" height="220"</th>
+   </tr>
+ <tr>
+    <th><img src="/docs/images/web/9.png" alt="loading screenshot"  width="420" height="220"</th>
+    <th><img src="/docs/images/web/10.png" alt="loading screenshot"  width="420" height="220"</th>
+   </tr>
+ <tr>
+    <th><img src="/docs/images/web/11.png" alt="loading screenshot"  width="420" height="220"</th>
+    <th><img src="/docs/images/web/12.png" alt="loading screenshot"  width="420" height="220"</th>
+   </tr>
+ <tr>
+    <th><img src="/docs/images/web/13.png" alt="loading screenshot"  width="420" height="220"</th>
+    <th><img src="/docs/images/web/14.png" alt="loading screenshot"  width="420" height="220"</th>
+   </tr>
+ <tr>
+    <th><img src="/docs/images/web/15.png" alt="loading screenshot"  width="420" height="220"</th>
+    <th><img src="/docs/images/web/16.png" alt="loading screenshot"  width="420" height="220"</th>
+   </tr>
+</table>
+
 
 
 
