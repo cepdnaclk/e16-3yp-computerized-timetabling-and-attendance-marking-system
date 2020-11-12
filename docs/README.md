@@ -1,9 +1,4 @@
-# e16-3yp-computerized-timetabling-and-attendance-marking-system
-
-# Group Members:
-*  *E/16/242 Munasinghe A.V.S.S.A* e16242@eng.pdn.ac.lk
-*  *E/16/286 Piyarathna M.G.N.H*  e16286@eng.pdn.ac.lk
-*  *E/16/399  Wijerathna D.G.K.E* e16399@eng.pdn.ac.lk
+<h1>Computerized Timetabling And Attendance Marking System</h1>
 
 # Problem Motivation
 
@@ -25,6 +20,11 @@ solution architecture contains with four steps
 <img src="/docs/images/solution architecture/f2.jpg"><hr>
 <img src="/docs/images/solution architecture/f3.jpg"><hr>
 <img src="/docs/images/solution architecture/f4.jpg"><hr>
+
+# Group Members:
+*  *E/16/242 Munasinghe A.V.S.S.A* e16242@eng.pdn.ac.lk
+*  *E/16/286 Piyarathna M.G.N.H*  e16286@eng.pdn.ac.lk
+*  *E/16/399  Wijerathna D.G.K.E* e16399@eng.pdn.ac.lk
 
 
 
