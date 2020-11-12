@@ -1,5 +1,7 @@
 # e16-3yp-computerized-timetabling-and-attendance-marking-system
 
+<h2>See the website <a href="https://cepdnaclk.github.io/e16-3yp-computerized-timetabling-and-attendance-marking-system/index.html">link</a></h2><br>
+
 # Group Members:
 *  *E/16/242 Munasinghe A.V.S.S.A* e16242@eng.pdn.ac.lk
 *  *E/16/286 Piyarathna M.G.N.H*  e16286@eng.pdn.ac.lk
