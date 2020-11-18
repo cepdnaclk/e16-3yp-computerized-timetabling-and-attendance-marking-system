@@ -30,20 +30,18 @@ public class LectureRoomController {
         return lectureRoomService.addLectureRoom(lectureRoom);
     }
 
-    @GetMapping(value = "find/{id}")
+    @GetMapping(value = "/find/{id}")
     public Optional<LectureRoom> getLectureRoomById(@PathVariable("id") String id){
         return lectureRoomService.getLectureRoomById(id);
     }
 
-    @DeleteMapping(value = "delete/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public Optional<LectureRoom> deleteLectureRoomById(@PathVariable("id") String id){
         return lectureRoomService.deleteLectureRoomById(id);
     }
 
-    @PutMapping(value = "update/{id}")
+    @PutMapping(value = "/update/{id}")
     public Optional<LectureRoom> updateLectureRoomById(@PathVariable("id") String id,@RequestBody LectureRoomUpdatePayLoad lectureRoomUpdatePayLoad){
         return lectureRoomService.updateLectureRoomById(id,lectureRoomUpdatePayLoad);
     }
-
-
 }

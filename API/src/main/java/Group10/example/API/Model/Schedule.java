@@ -1,11 +1,16 @@
 package Group10.example.API.Model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Schedule {
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
      private LocalDate date;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
      private LocalTime start_time;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
      private LocalTime end_time;
      private int lab_or_lecture;
      //lab = 1 , lecture = 0
