@@ -1,10 +1,14 @@
 package Group10.example.API.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@Document(collection = "Course")
 public class Course {
+
+    @Id
     private String course_id;
     private String course_name;
     private int semester;
