@@ -1,6 +1,5 @@
 package Group10.example.API.DAO;
 
-import Group10.example.API.Model.Course;
 import Group10.example.API.Model.LectureRoom;
 import Group10.example.API.Model.LectureRoomUpdatePayLoad;
 import Group10.example.API.Repository.LectureRoomRepository;
