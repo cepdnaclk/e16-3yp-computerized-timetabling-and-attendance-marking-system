@@ -1,9 +1,11 @@
 package Group10.example.API.Model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "LectureRoom")
 public class LectureRoom {
+    @Id
     private String room_id;
     private String device_id;
 

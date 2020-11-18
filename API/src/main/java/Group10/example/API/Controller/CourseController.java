@@ -30,17 +30,17 @@ public class CourseController {
         return courseService.addCourse(course);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/find/{id}")
     public Optional<Course> getCourseById(@PathVariable("id") String id){
         return courseService.getCourseById(id);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public Optional<Course> deleteCourseById(@PathVariable("id") String id){
         return courseService.deleteCourseById(id);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/update/{id}")
     public Optional<Course> updateCourseById(@PathVariable("id") String id,@RequestBody CourseUpdatePayLoad courseUpdatePayLoad){
         return courseService.updateCourseById(id,courseUpdatePayLoad);
     }
