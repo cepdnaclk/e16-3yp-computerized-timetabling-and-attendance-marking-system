@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class LectureRoomService {
 
-    private LectureRoomDAO lectureRoomDAO;
+    private final LectureRoomDAO lectureRoomDAO;
 
     @Autowired
     public LectureRoomService(LectureRoomDAO lectureRoomDAO) {
@@ -40,4 +40,9 @@ public class LectureRoomService {
     public Optional<LectureRoom> updateLectureRoomById(String id, LectureRoomUpdatePayLoad lectureRoomUpdatePayLoad) {
         return lectureRoomDAO.updateLectureRoomById(id,lectureRoomUpdatePayLoad);
     }
+
+    public Optional<LectureRoom> findByDevice(int device_id) {
+        return lectureRoomDAO.findByDevice(device_id);
+    }
+
 }

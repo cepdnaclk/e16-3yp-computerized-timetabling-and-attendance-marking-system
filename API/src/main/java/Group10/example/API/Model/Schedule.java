@@ -1,34 +1,36 @@
 package Group10.example.API.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Schedule {
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-     private LocalDate date;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
+     private String date;
+    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
      private LocalTime start_time;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
      private LocalTime end_time;
      private int lab_or_lecture;
      //lab = 1 , lecture = 0
     //LocalDate localDate = LocalDate.of( 2015 , 6 , 7 );
 //    LocalTime time = LocalTime.of(10,43,12);
 
-    public Schedule(LocalDate date, LocalTime start_time, LocalTime end_time, int lab_or_lecture) {
+
+    public Schedule(String date, LocalTime start_time, LocalTime end_time, int lab_or_lecture) {
         this.date = date;
         this.start_time = start_time;
         this.end_time = end_time;
         this.lab_or_lecture = lab_or_lecture;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -1,6 +1,7 @@
 package Group10.example.API.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -14,8 +15,15 @@ public class Course {
     private int semester;
     private int days;
 
-    private static List<Schedule> time_table;
-    private static List<Log> course_log;
+    private List<Schedule> time_table;
+    private List<Log> course_log;
+
+    @DBRef(lazy = true)
+    private List<LectureRoom> lectureRooms;
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
+    }
 
     public String getCourse_id() {
         return course_id;
@@ -45,19 +53,27 @@ public class Course {
         this.days = days;
     }
 
-    public static List<Schedule> getTime_table() {
+    public List<Schedule> getTime_table() {
         return time_table;
     }
 
-    public static void setTime_table(List<Schedule> time_table) {
-        Course.time_table = time_table;
+    public void setTime_table(List<Schedule> time_table) {
+        this.time_table = time_table;
     }
 
-    public static List<Log> getCourse_log() {
+    public List<Log> getCourse_log() {
         return course_log;
     }
 
-    public static void setCourse_log(List<Log> course_log) {
-        Course.course_log = course_log;
+    public void setCourse_log(List<Log> course_log) {
+        this.course_log = course_log;
+    }
+
+    public List<LectureRoom> getLectureRooms() {
+        return lectureRooms;
+    }
+
+    public void setLectureRooms(List<LectureRoom> lectureRooms) {
+        this.lectureRooms = lectureRooms;
     }
 }

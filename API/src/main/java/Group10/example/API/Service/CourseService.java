@@ -38,4 +38,8 @@ public class CourseService {
     public Optional<Course> updateCourseById(String id, CourseUpdatePayLoad courseUpdatePayLoad) {
         return courseDAO.updateCourseById(id,courseUpdatePayLoad);
     }
+
+    public Collection<Course> findBySemester(int semester) {
+        return courseDAO.findBySemester(semester);
+    }
 }

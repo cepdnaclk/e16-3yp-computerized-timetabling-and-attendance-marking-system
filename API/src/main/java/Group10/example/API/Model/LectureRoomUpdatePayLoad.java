@@ -1,9 +1,9 @@
 package Group10.example.API.Model;
 
 public class LectureRoomUpdatePayLoad {
-    private String device_id;
+    private int device;
 
-    public String getDevice_id() {
-        return device_id;
+    public int getDevice() {
+        return device;
     }
 }
