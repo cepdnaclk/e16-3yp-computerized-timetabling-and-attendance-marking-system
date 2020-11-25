@@ -7,8 +7,8 @@ public class CourseUpdatePayLoad {
     private int semester;
     private int days;
 
-    private static List<Schedule> time_table;
-    private static List<Log> course_log;
+    private List<Schedule> time_table;
+    private List<Log> course_log;
 
     public String getCourse_name() {
         return course_name;
@@ -22,11 +22,11 @@ public class CourseUpdatePayLoad {
         return days;
     }
 
-    public static List<Schedule> getTime_table() {
+    public List<Schedule> getTime_table() {
         return time_table;
     }
 
-    public static List<Log> getCourse_log() {
+    public List<Log> getCourse_log() {
         return course_log;
     }
 }

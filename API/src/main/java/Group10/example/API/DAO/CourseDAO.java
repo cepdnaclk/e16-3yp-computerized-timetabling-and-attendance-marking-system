@@ -43,9 +43,13 @@ public class CourseDAO {
         course.ifPresent(c -> c.setCourse_name(courseUpdatePayLoad.getCourse_name()));
         course.ifPresent(c -> c.setSemester(courseUpdatePayLoad.getSemester()));
         course.ifPresent(c -> c.setDays(courseUpdatePayLoad.getDays()));
-        course.ifPresent(c -> Course.setTime_table(CourseUpdatePayLoad.getTime_table()));
-        course.ifPresent(c -> Course.setCourse_log(CourseUpdatePayLoad.getCourse_log()));
+        course.ifPresent(c -> c.setTime_table(courseUpdatePayLoad.getTime_table()));
+        course.ifPresent(c -> c.setCourse_log(courseUpdatePayLoad.getCourse_log()));
         course.ifPresent(b -> courseRepository.save(b));
         return course;
+    }
+
+    public Collection<Course> findBySemester(int semester) {
+        return courseRepository.findBySemester(semester);
     }
 }

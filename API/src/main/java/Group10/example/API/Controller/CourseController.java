@@ -45,4 +45,9 @@ public class CourseController {
         return courseService.updateCourseById(id,courseUpdatePayLoad);
     }
 
+    @GetMapping(value = "/findBySemester/{semester}")
+    public Collection<Course> findBySemester(@PathVariable("semester") int semester){
+        return courseService.findBySemester(semester);
+    }
+
 }
