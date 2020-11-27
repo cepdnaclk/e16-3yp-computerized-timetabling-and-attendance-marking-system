@@ -8,30 +8,37 @@ import java.time.LocalTime;
 
 public class Schedule {
     @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
-     private String date;
+     private LocalDate date;
+    private String dayOfWeek;
     @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
      private LocalTime start_time;
     @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
      private LocalTime end_time;
      private int lab_or_lecture;
-     //lab = 1 , lecture = 0
-    //LocalDate localDate = LocalDate.of( 2015 , 6 , 7 );
-//    LocalTime time = LocalTime.of(10,43,12);
+     //lab = 1 , lecture = 0 , exam = 2
 
 
-    public Schedule(String date, LocalTime start_time, LocalTime end_time, int lab_or_lecture) {
+    public Schedule(LocalDate date,String dayOfWeek, LocalTime start_time, LocalTime end_time, int lab_or_lecture) {
         this.date = date;
+        this.dayOfWeek = dayOfWeek;
         this.start_time = start_time;
         this.end_time = end_time;
         this.lab_or_lecture = lab_or_lecture;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public LocalTime getStart_time() {

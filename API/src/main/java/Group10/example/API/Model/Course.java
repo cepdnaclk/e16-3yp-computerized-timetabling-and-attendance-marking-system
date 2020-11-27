@@ -69,6 +69,10 @@ public class Course {
         this.course_log = course_log;
     }
 
+    public void addCourse_log(Log log){
+        this.course_log.add(log);
+    }
+
     public List<LectureRoom> getLectureRooms() {
         return lectureRooms;
     }
@@ -76,4 +80,5 @@ public class Course {
     public void setLectureRooms(List<LectureRoom> lectureRooms) {
         this.lectureRooms = lectureRooms;
     }
+
 }
