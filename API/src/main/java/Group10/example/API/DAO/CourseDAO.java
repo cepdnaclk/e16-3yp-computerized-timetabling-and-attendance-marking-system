@@ -7,6 +7,7 @@ import Group10.example.API.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -57,15 +58,14 @@ public class CourseDAO {
 
     public String addLogItem(String course_id, Log log) {
 //        return "Success";
-        Optional<Course> course = courseRepository.findById(course_id);
-        if(course.isPresent()){
-            List<Log> log_list = courseRepository.findLog
-        }
-        course.ifPresent(c -> courseRepository.save(c));
+//        Optional<Course> course = courseRepository.findById(course_id);
+//        if(course.isPresent()){
+//        }
+//        course.ifPresent(c -> courseRepository.save(c));
         return "Success";
     }
 
     public List<Log> findLogListByCourseID(String id) {
-        return courseRepository.;
+        return new ArrayList<Log>();
     }
 }
