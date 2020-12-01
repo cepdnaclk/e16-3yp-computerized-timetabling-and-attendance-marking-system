@@ -2,11 +2,13 @@ package Group10.example.API.DAO;
 
 import Group10.example.API.Model.Course;
 import Group10.example.API.Model.CourseUpdatePayLoad;
+import Group10.example.API.Model.Log;
 import Group10.example.API.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -43,9 +45,27 @@ public class CourseDAO {
         course.ifPresent(c -> c.setCourse_name(courseUpdatePayLoad.getCourse_name()));
         course.ifPresent(c -> c.setSemester(courseUpdatePayLoad.getSemester()));
         course.ifPresent(c -> c.setDays(courseUpdatePayLoad.getDays()));
-        course.ifPresent(c -> Course.setTime_table(CourseUpdatePayLoad.getTime_table()));
-        course.ifPresent(c -> Course.setCourse_log(CourseUpdatePayLoad.getCourse_log()));
-        course.ifPresent(b -> courseRepository.save(b));
+        course.ifPresent(c -> c.setTime_table(courseUpdatePayLoad.getTime_table()));
+        course.ifPresent(c -> c.setCourse_log(courseUpdatePayLoad.getCourse_log()));
+        course.ifPresent(courseRepository::save);
         return course;
+    }
+
+    public Collection<Course> findBySemester(int semester) {
+        return courseRepository.findBySemester(semester);
+    }
+
+    public String addLogItem(String course_id, Log log) {
+//        return "Success";
+        Optional<Course> course = courseRepository.findById(course_id);
+        if(course.isPresent()){
+            List<Log> log_list = courseRepository.findLog
+        }
+        course.ifPresent(c -> courseRepository.save(c));
+        return "Success";
+    }
+
+    public List<Log> findLogListByCourseID(String id) {
+        return courseRepository.;
     }
 }

@@ -1,24 +1,26 @@
 package Group10.example.API.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Schedule {
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
      private LocalDate date;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    private String dayOfWeek;
+    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
      private LocalTime start_time;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
      private LocalTime end_time;
      private int lab_or_lecture;
-     //lab = 1 , lecture = 0
-    //LocalDate localDate = LocalDate.of( 2015 , 6 , 7 );
-//    LocalTime time = LocalTime.of(10,43,12);
+     //lab = 1 , lecture = 0 , exam = 2
 
-    public Schedule(LocalDate date, LocalTime start_time, LocalTime end_time, int lab_or_lecture) {
+
+    public Schedule(LocalDate date,String dayOfWeek, LocalTime start_time, LocalTime end_time, int lab_or_lecture) {
         this.date = date;
+        this.dayOfWeek = dayOfWeek;
         this.start_time = start_time;
         this.end_time = end_time;
         this.lab_or_lecture = lab_or_lecture;
@@ -30,6 +32,13 @@ public class Schedule {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public LocalTime getStart_time() {
