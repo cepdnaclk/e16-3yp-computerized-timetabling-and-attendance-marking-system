@@ -5,36 +5,41 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Optional;
 
 @Document(collection = "Course")
 public class Course {
 
-    @Id
-    private String course_id;
-    private String course_name;
+    private String id;
+    private String courseNumber;
+    private String courseName;
     private int semester;
     private int days;
 
-    private List<Schedule> time_table;
-    private List<Log> course_log;
+    private List<Schedule> timeTable;
+    private List<Log> courseLog;
 
     @DBRef(lazy = true)
     private List<LectureRoom> lectureRooms;
 
-    public void setCourse_id(String course_id) {
-        this.course_id = course_id;
+    public String getId() {
+        return id;
     }
 
-    public String getCourse_id() {
-        return course_id;
+    public String getCourseNumber() {
+        return courseNumber;
     }
 
-    public String getCourse_name() {
-        return course_name;
+    public void setCourseNumber(String courseNumber) {
+        this.courseNumber = courseNumber;
     }
 
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public int getSemester() {
@@ -53,24 +58,20 @@ public class Course {
         this.days = days;
     }
 
-    public List<Schedule> getTime_table() {
-        return time_table;
+    public List<Schedule> getTimeTable() {
+        return timeTable;
     }
 
-    public void setTime_table(List<Schedule> time_table) {
-        this.time_table = time_table;
+    public void setTimeTable(List<Schedule> timeTable) {
+        this.timeTable = timeTable;
     }
 
-    public List<Log> getCourse_log() {
-        return course_log;
+    public List<Log> getCourseLog() {
+        return courseLog;
     }
 
-    public void setCourse_log(List<Log> course_log) {
-        this.course_log = course_log;
-    }
-
-    public void addCourse_log(Log log){
-        this.course_log.add(log);
+    public void setCourseLog(List<Log> courseLog) {
+        this.courseLog = courseLog;
     }
 
     public List<LectureRoom> getLectureRooms() {
@@ -81,4 +82,15 @@ public class Course {
         this.lectureRooms = lectureRooms;
     }
 
+    public void addCourseLog(Log log) {
+        this.courseLog.add(log);
+    }
+
+    public void addCourseSchedule(Schedule schedule) {
+        this.timeTable.add(schedule);
+    }
+
+    public void addLectureRoom(Optional<LectureRoom> lectureRoom) {
+        lectureRoom.ifPresent(lr -> this.lectureRooms.add(lr));
+    }
 }

@@ -4,6 +4,7 @@ import Group10.example.API.DAO.CourseDAO;
 import Group10.example.API.Model.Course;
 import Group10.example.API.Model.CourseUpdatePayLoad;
 import Group10.example.API.Model.Log;
+import Group10.example.API.Model.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,11 +46,27 @@ public class CourseService {
         return courseDAO.findBySemester(semester);
     }
 
-    public String addLogItem(String course_id, Log log) {
+    public Optional<Course> addLogItem(String course_id, Log log) {
         return courseDAO.addLogItem(course_id,log);
     }
 
-    public List<Log> findLogListByCourseID(String id) {
-        return courseDAO.findLogListByCourseID(id);
+    public Optional<Course> addScheduleItem(String course_id, Schedule schedule) {
+        return courseDAO.addScheduleItem(course_id,schedule);
+    }
+
+    public Optional<Course> findByCourseNumber(String courseNumber) {
+        return courseDAO.findByCourseNumber(courseNumber);
+    }
+
+    public Optional<Course> addLectureRoom(String course_id, String roomId) {
+        return courseDAO.addLectureRoom(course_id,roomId);
+    }
+
+    public Collection<Log> findAllLogs() {
+        return courseDAO.findAllLogs();
+    }
+
+    public Collection<Schedule> findAllSchedules() {
+        return courseDAO.findAllSchedules();
     }
 }
