@@ -39,6 +39,7 @@ public class LectureRoomDAO {
 
     public Optional<LectureRoom> updateLectureRoomById(String id, LectureRoomUpdatePayLoad lectureRoomUpdatePayLoad) {
         Optional<LectureRoom> lectureRoom = lectureRoomRepository.findById(id);
+        lectureRoom.ifPresent(lr -> lr.setRoom_name(lectureRoomUpdatePayLoad.getRoom_name()));
         lectureRoom.ifPresent(lr -> lr.setDevice(lectureRoomUpdatePayLoad.getDevice()));
         lectureRoom.ifPresent(lr -> lectureRoomRepository.save(lr));
         return lectureRoom;
