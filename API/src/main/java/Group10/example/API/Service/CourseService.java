@@ -50,9 +50,18 @@ public class CourseService {
         return courseDAO.addLogItem(course_id,log);
     }
 
+    public Collection<Log> findAllLogs() {
+        return courseDAO.findAllLogs();
+    }
+
     public Optional<Course> addScheduleItem(String course_id, Schedule schedule) {
         return courseDAO.addScheduleItem(course_id,schedule);
     }
+
+    public Collection<Schedule> findAllSchedules() {
+        return courseDAO.findAllSchedules();
+    }
+
 
     public Optional<Course> findByCourseNumber(String courseNumber) {
         return courseDAO.findByCourseNumber(courseNumber);
@@ -62,11 +71,4 @@ public class CourseService {
         return courseDAO.addLectureRoom(course_id,roomId);
     }
 
-    public Collection<Log> findAllLogs() {
-        return courseDAO.findAllLogs();
-    }
-
-    public Collection<Schedule> findAllSchedules() {
-        return courseDAO.findAllSchedules();
-    }
 }

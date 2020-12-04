@@ -21,12 +21,13 @@ public class Schedule {
     private String course_id;//this will generated
 
 
-    public Schedule(LocalDate date,String dayOfWeek, LocalTime start_time, LocalTime end_time, int lab_or_lecture) {
+    public Schedule(LocalDate date,String dayOfWeek, LocalTime start_time, LocalTime end_time, int lab_or_lecture,String room_id) {
         this.date = date;
         this.dayOfWeek = dayOfWeek;
         this.start_time = start_time;
         this.end_time = end_time;
         this.lab_or_lecture = lab_or_lecture;
+        this.room_id = room_id;
     }
 
     public LocalDate getDate() {

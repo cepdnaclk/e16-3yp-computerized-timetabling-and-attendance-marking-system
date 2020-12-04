@@ -24,7 +24,6 @@ public class CourseDAO {
         this.lectureRoomRepository = lectureRoomRepository;
     }
 
-
     public Collection<Course> getCourses() {
         return courseRepository.findAll();
     }
@@ -34,7 +33,6 @@ public class CourseDAO {
         c.getTimeTable().forEach(sc -> {
             sc.setCourse_id(c.getId());
         });
-        courseRepository.save(c);
         return c;
     }
 

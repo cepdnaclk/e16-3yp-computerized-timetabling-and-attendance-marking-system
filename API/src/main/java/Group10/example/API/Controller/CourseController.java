@@ -53,7 +53,6 @@ public class CourseController {
         return courseService.findBySemester(semester);
     }
 
-    @PutMapping(value = "/addlogitem/{id}")//checked
     public Optional<Course> addLogItem(@PathVariable("id") String course_id, @RequestBody Log log){
         return courseService.addLogItem(course_id,log);
     }
@@ -73,13 +72,14 @@ public class CourseController {
         return courseService.findByCourseNumber(courseNumber);
     }
 
-    @GetMapping(value = "/findAllLogs")//checked
+    @GetMapping(value = "/findlogs/all")
     public Collection<Log> findAllLogs(){
         return courseService.findAllLogs();
     }
 
-    @GetMapping(value = "/findAllSchedules")//checked
+    @GetMapping(value = "/findschedules/all")
     public Collection<Schedule> findAllSchedules(){
         return courseService.findAllSchedules();
     }
+    
 }

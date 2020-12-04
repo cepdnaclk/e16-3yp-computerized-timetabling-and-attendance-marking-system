@@ -11,6 +11,8 @@ import java.util.Optional;
 public class Course {
 
     private String id;
+    @Id
+    private String courseId;
     private String courseNumber;
     private String courseName;
     private int semester;
@@ -24,6 +26,9 @@ public class Course {
 
     public String getId() {
         return id;
+    }
+    public String getCourseId() {
+        return courseId;
     }
 
     public String getCourseNumber() {

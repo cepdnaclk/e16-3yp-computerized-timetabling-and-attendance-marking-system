@@ -42,4 +42,5 @@ public class CourseUpdatePayLoad {
     public List<LectureRoom> getLectureRooms() {
         return lectureRooms;
     }
+
 }
