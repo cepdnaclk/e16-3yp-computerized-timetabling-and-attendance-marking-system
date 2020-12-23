@@ -1,6 +1,8 @@
 package Group10.example.API.Model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CourseUpdatePayLoad {
     private String courseNumber;
@@ -10,6 +12,8 @@ public class CourseUpdatePayLoad {
 
     private List<Schedule> timeTable;
     private List<Log> courseLog;
+
+    private Set<LectureRoomRef> lectureRoomIDs = new HashSet<>();
 
     public String getCourseNumber() {
         return courseNumber;
@@ -34,4 +38,9 @@ public class CourseUpdatePayLoad {
     public List<Log> getCourseLog() {
         return courseLog;
     }
+
+    public Set<LectureRoomRef> getLectureRooms() {
+        return this.lectureRoomIDs;
+    }
+
 }

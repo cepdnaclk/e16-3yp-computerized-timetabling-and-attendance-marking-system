@@ -4,8 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Document(collection = "Course")
 public class Course {
@@ -20,15 +20,15 @@ public class Course {
     private List<Schedule> timeTable;
     private List<Log> courseLog;
 
-    @DBRef(lazy = true)
-    private List<LectureRoom> lectureRooms;
+    //this stores  the lecture Room ID s belongs to this course
+    private Set<LectureRoomRef> lectureRoomIDs = new HashSet<>();
 
     public String getCourseId() {
-        return courseId;
+        return this.courseId;
     }
 
     public String getCourseNumber() {
-        return courseNumber;
+        return this.courseNumber;
     }
 
     public void setCourseNumber(String courseNumber) {
@@ -75,23 +75,48 @@ public class Course {
         this.courseLog = courseLog;
     }
 
-    public List<LectureRoom> getLectureRooms() {
-        return lectureRooms;
-    }
-
-    public void setLectureRooms(List<LectureRoom> lectureRooms) {
-        this.lectureRooms = lectureRooms;
-    }
-
-    public void addCourseLog(Log log){
+    public void addCourseLog(Log log) {
         this.courseLog.add(log);
     }
 
-    public void addCourseSchedule(Schedule schedule){
+    public void addCourseSchedule(Schedule schedule) {
         this.timeTable.add(schedule);
     }
 
-    public void addLectureRoom(Optional<LectureRoom> lectureRoom) {
-        lectureRoom.ifPresent(lr -> this.lectureRooms.add(lr));
+    public void addLectureRoom(LectureRoom lectureRoom){
+        this.lectureRoomIDs.add(new LectureRoomRef(lectureRoom.getRoomId()));
+    }
+
+    public Set<String> getLectureRoomIDs(){
+        return this.lectureRoomIDs.stream()
+                .map(LectureRoomRef::getRoomId)
+                .collect(Collectors.toSet());
+    }
+
+    public void addLectureRooms(HashSet<LectureRoomRef> set){
+        this.lectureRoomIDs.addAll(set);
+    }
+
+    public void setLectureRoomIDs(Set<LectureRoomRef> lectureRoomIDs) {
+        this.lectureRoomIDs = lectureRoomIDs;
+    }
+
+    public void removeLectureRoomID(LectureRoomRef lectureRoomRef,LectureRoom lectureRoom){
+        //lecture room can be stored in a course at two places
+        //1.in Schedule field  2.lecturerooms field
+        //both will be removed and saved
+
+//        System.out.println("prev = "+this.lectureRoomIDs);
+        this.lectureRoomIDs.removeIf(lRef -> lRef.getRoomId().equals(lectureRoomRef.getRoomId()));
+//        System.out.println("post = "+this.lectureRoomIDs);
+
+        for(Schedule s :this.timeTable){
+            if(s.getRoomName().equals(lectureRoom.getRoomName())){
+                timeTable.remove(s);
+                break;
+            }
+        }
+
+
     }
 }
