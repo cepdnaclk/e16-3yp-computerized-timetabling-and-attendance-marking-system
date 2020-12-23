@@ -1,11 +1,11 @@
 package Group10.example.API.Model;
 
 public class LectureRoomUpdatePayLoad {
-    private String room_name;
+    private String roomName;
     private int device;
 
-    public String getRoom_name() {
-        return room_name;
+    public String getRoomName() {
+        return roomName;
     }
 
     public int getDevice() {

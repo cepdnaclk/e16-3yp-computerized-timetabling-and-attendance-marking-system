@@ -45,8 +45,14 @@ public class LectureRoomController {
         return lectureRoomService.updateLectureRoomById(id,lectureRoomUpdatePayLoad);
     }
 
-    @GetMapping(value = "/findByDevice/{id}")
+    @GetMapping(value = "/findbydevice/{id}")
     public Optional<LectureRoom> findByDevice(@PathVariable("id") int device_id){
         return lectureRoomService.findByDevice(device_id);
     }
+
+    @GetMapping(value = "/findbyroomname/{roomName}")
+    public Optional<LectureRoom> findByRoomName(@PathVariable("roomName") String roomName){
+        return lectureRoomService.findByRoomName(roomName);
+    }
+
 }

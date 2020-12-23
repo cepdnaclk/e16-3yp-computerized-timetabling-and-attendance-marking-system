@@ -1,8 +1,6 @@
 package Group10.example.API.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.data.annotation.Id;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,17 +15,17 @@ public class Schedule {
     @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
     private LocalTime end_time;
     private int lab_or_lecture;//lab = 1 , lecture = 0 , exam = 2
-    private String room_id;
+    private String roomName;
     private String course_id;//this will generated
 
 
-    public Schedule(LocalDate date,String dayOfWeek, LocalTime start_time, LocalTime end_time, int lab_or_lecture,String room_id) {
+    public Schedule(LocalDate date,String dayOfWeek, LocalTime start_time, LocalTime end_time, int lab_or_lecture,String roomName) {
         this.date = date;
         this.dayOfWeek = dayOfWeek;
         this.start_time = start_time;
         this.end_time = end_time;
         this.lab_or_lecture = lab_or_lecture;
-        this.room_id = room_id;
+        this.roomName = roomName;
     }
 
     public LocalDate getDate() {
@@ -69,12 +67,12 @@ public class Schedule {
         this.lab_or_lecture = lab_or_lecture;
     }
 
-    public String getRoom_id() {
-        return room_id;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public void setRoom_id(String room_id) {
-        this.room_id = room_id;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public String getCourse_id() {
