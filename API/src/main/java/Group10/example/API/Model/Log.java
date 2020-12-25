@@ -1,60 +1,58 @@
 package Group10.example.API.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.Id;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Log {
-    private LocalDate original_date;
-    private LocalTime original_time;
-    private LocalDate temp_date;
-    private LocalTime temp_time;
-    private LocalDate expire_date;
+    //EEEE = day of week
+    //HH:mm:ss-HH:mm:ss = startTIme-endTime
+    @JsonFormat(pattern = "EEEE HH:mm:ss-HH:mm:ss",shape = JsonFormat.Shape.STRING)
+    private String original_datetime;
+    @JsonFormat(pattern = "EEEE HH:mm:ss-HH:mm:ss",shape = JsonFormat.Shape.STRING)
+    private String temp_datetime;
+    @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
+    private String expire_date;
+    //course_id field will automatically added
+    private String course_id;
 
-    public Log(LocalDate original_date, LocalTime original_time, LocalDate temp_date, LocalTime temp_time, LocalDate expire_date) {
-        this.original_date = original_date;
-        this.original_time = original_time;
-        this.temp_date = temp_date;
-        this.temp_time = temp_time;
+    public Log(String original_datetime, String temp_datetime, String expire_date) {
+        this.original_datetime = original_datetime;
+        this.temp_datetime = temp_datetime;
         this.expire_date = expire_date;
     }
 
-    public LocalDate getOriginal_date() {
-        return original_date;
+    public String getOriginal_datetime() {
+        return original_datetime;
     }
 
-    public void setOriginal_date(LocalDate original_date) {
-        this.original_date = original_date;
+    public void setOriginal_datetime(String original_datetime) {
+        this.original_datetime = original_datetime;
     }
 
-    public LocalTime getOriginal_time() {
-        return original_time;
+    public String getTemp_datetime() {
+        return temp_datetime;
     }
 
-    public void setOriginal_time(LocalTime original_time) {
-        this.original_time = original_time;
+    public void setTemp_datetime(String temp_datetime) {
+        this.temp_datetime = temp_datetime;
     }
 
-    public LocalDate getTemp_date() {
-        return temp_date;
-    }
-
-    public void setTemp_date(LocalDate temp_date) {
-        this.temp_date = temp_date;
-    }
-
-    public LocalTime getTemp_time() {
-        return temp_time;
-    }
-
-    public void setTemp_time(LocalTime temp_time) {
-        this.temp_time = temp_time;
-    }
-
-    public LocalDate getExpire_date() {
+    public String getExpire_date() {
         return expire_date;
     }
 
-    public void setExpire_date(LocalDate expire_date) {
+    public void setExpire_date(String expire_date) {
         this.expire_date = expire_date;
+    }
+
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
     }
 }

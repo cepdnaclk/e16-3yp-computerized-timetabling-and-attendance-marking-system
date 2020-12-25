@@ -1,17 +1,26 @@
 package Group10.example.API.Model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CourseUpdatePayLoad {
-    private String course_name;
+    private String courseNumber;
+    private String courseName;
     private int semester;
     private int days;
 
-    private static List<Schedule> time_table;
-    private static List<Log> course_log;
+    private List<Schedule> timeTable;
+    private List<Log> courseLog;
 
-    public String getCourse_name() {
-        return course_name;
+    private Set<LectureRoomRef> lectureRoomIDs = new HashSet<>();
+
+    public String getCourseNumber() {
+        return courseNumber;
+    }
+
+    public String getCourseName() {
+        return courseName;
     }
 
     public int getSemester() {
@@ -22,11 +31,16 @@ public class CourseUpdatePayLoad {
         return days;
     }
 
-    public static List<Schedule> getTime_table() {
-        return time_table;
+    public List<Schedule> getTimeTable() {
+        return timeTable;
     }
 
-    public static List<Log> getCourse_log() {
-        return course_log;
+    public List<Log> getCourseLog() {
+        return courseLog;
     }
+
+    public Set<LectureRoomRef> getLectureRooms() {
+        return this.lectureRoomIDs;
+    }
+
 }
