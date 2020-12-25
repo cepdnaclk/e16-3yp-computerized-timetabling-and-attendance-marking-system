@@ -3,6 +3,7 @@ package Group10.example.API.Service;
 import Group10.example.API.Model.Group;
 import Group10.example.API.Model.Lecturer;
 import Group10.example.API.Model.Student;
+import Group10.example.API.Repository.CourseRepository;
 import Group10.example.API.Repository.GroupRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
@@ -24,6 +25,9 @@ public class GroupService {
 
     @Autowired
     LecturerRepository lecRepo;
+
+    @Autowired
+    CourseRepository courseRepo;
 
 
 
@@ -175,7 +179,7 @@ public class GroupService {
 
     }
 
-    public HashMap<String,Object> removeLecFromGroup(List<String> lecturer, String ID){
+    public HashMap<String,Object> removeCourseFromGroup(List<String> lecturer, String ID){
         Optional<Group> group = groupRepository.findById(ID);
         HashMap<String, Object> map = new HashMap<>();
         map.put("msg","student successfully deleted");
