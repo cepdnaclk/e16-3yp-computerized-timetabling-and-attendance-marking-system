@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.HashSet;
 
 @RestController
 public class UsersController {
@@ -46,57 +48,66 @@ public class UsersController {
 
     @PostMapping(value="/user/registration/student",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String registerStudent(@Valid @RequestBody Student student)
+    public HashMap<String,Object> registerStudent(@Valid @RequestBody Student student)
     {
+        HashMap<String,Object> map = new HashMap<>();
         Student stud = stuRepo.findByuserName(student.getUserName());
         Admin admin = adminRepo.findByuserName(student.getUserName());
         Lecturer lec = lecRepo.findByuserName(student.getUserName());
         //check whether user is already exists
         if(stud != null || admin!=null || lec!=null) {
-            return "User Name is already exist";
+            map.put("msg","user Name is already exists");
+            return map;
         }
         student.setRole("STUDENT");
         student.setPassword(passwordEncoder.encode(student.getPassword()));
         stuRepo.save(student);
         //successfully registered and return the registered user
-        return "successfully registred";
+        map.put("Student",stuRepo.findByuserName(student.getUserName()));
+        return map;
     }
 
     @PostMapping(value="/user/registration/admin",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String registerAdmin(@Valid @RequestBody Admin adminUser)
+    public HashMap<String,Object>  registerAdmin(@Valid @RequestBody Admin adminUser)
     {
+        HashMap<String,Object> map = new HashMap<>();
         Student stud = stuRepo.findByuserName(adminUser.getUserName());
         Admin admin = adminRepo.findByuserName(adminUser.getUserName());
         Lecturer lec = lecRepo.findByuserName(adminUser.getUserName());
 
         //check whether user is already exists
         if(stud != null || admin!=null || lec!=null) {
-            return "User Name is already exist";
+            map.put("msg","user Name is already exists");
+            return map;
         }
         adminUser.setRole("ADMIN");
         adminUser.setPassword(passwordEncoder.encode(adminUser.getPassword()));
         adminRepo.save(adminUser);
         //successfully registered and return the registered user
-        return "successfully registred";
+        map.put("Admin",adminRepo.findByuserName(adminUser.getUserName()));
+        return map;
     }
 
     @PostMapping(value="/user/registration/lecturer",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String registerLecturer(@Valid @RequestBody Lecturer lecturer)
+    public HashMap<String,Object> registerLecturer(@Valid @RequestBody Lecturer lecturer)
     {
+        HashMap<String,Object> map = new HashMap<>();
         Student stud = stuRepo.findByuserName(lecturer.getUserName());
         Admin admin = adminRepo.findByuserName(lecturer.getUserName());
         Lecturer lec = lecRepo.findByuserName(lecturer.getUserName());
         //check whether user is already exists
         if(stud != null || admin!=null || lec!=null) {
-            return "User Name is already exist";
+            map.put("msg","user Name is already exists");
+            return map;
         }
         lecturer.setRole("LECTURER");
         lecturer.setPassword(passwordEncoder.encode(lecturer.getPassword()));
         lecRepo.save(lecturer);
         //successfully registered and return the registered user
-        return "successfully registred";
+        map.put("Lecturer",lecRepo.findByuserName(lecturer.getUserName()));
+        return map;
     }
 
 }
