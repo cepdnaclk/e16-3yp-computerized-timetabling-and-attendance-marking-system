@@ -1,20 +1,24 @@
 package Group10.example.API.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.data.annotation.Id;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import javax.validation.constraints.NotNull;
 
 public class Log {
     //EEEE = day of week
     //HH:mm:ss-HH:mm:ss = startTIme-endTime
+    @NotNull(message = "Original Date Time Cannot Be Null")
     @JsonFormat(pattern = "EEEE HH:mm:ss-HH:mm:ss",shape = JsonFormat.Shape.STRING)
     private String original_datetime;
+
+    @NotNull(message = "Temporary Date Time cannot be Null")
     @JsonFormat(pattern = "EEEE HH:mm:ss-HH:mm:ss",shape = JsonFormat.Shape.STRING)
     private String temp_datetime;
+
+    @NotNull(message = "Expire Date cannot be null")
     @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
     private String expire_date;
+
     //course_id field will automatically added
     private String course_id;
 
