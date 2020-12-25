@@ -25,6 +25,7 @@ public class Schedule {
 
     @NotNull(message = "Lecture Room name cannot be Null")
     private String roomName;
+
     private String course_id;//this will generated
 
 
