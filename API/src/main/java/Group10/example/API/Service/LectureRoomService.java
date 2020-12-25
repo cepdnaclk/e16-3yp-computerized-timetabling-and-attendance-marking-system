@@ -1,6 +1,7 @@
 package Group10.example.API.Service;
 
 import Group10.example.API.DAO.LectureRoomDAO;
+import Group10.example.API.Model.Course;
 import Group10.example.API.Model.CourseUpdatePayLoad;
 import Group10.example.API.Model.LectureRoom;
 import Group10.example.API.Model.LectureRoomUpdatePayLoad;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 public class LectureRoomService {
 
-    private LectureRoomDAO lectureRoomDAO;
+    private final LectureRoomDAO lectureRoomDAO;
 
     @Autowired
     public LectureRoomService(LectureRoomDAO lectureRoomDAO) {
@@ -40,4 +41,13 @@ public class LectureRoomService {
     public Optional<LectureRoom> updateLectureRoomById(String id, LectureRoomUpdatePayLoad lectureRoomUpdatePayLoad) {
         return lectureRoomDAO.updateLectureRoomById(id,lectureRoomUpdatePayLoad);
     }
+
+    public Optional<LectureRoom> findByDevice(int device_id) {
+        return lectureRoomDAO.findByDevice(device_id);
+    }
+
+    public Optional<LectureRoom> findByRoomName(String roomName) {
+        return lectureRoomDAO.findByRoomName(roomName);
+    }
+
 }

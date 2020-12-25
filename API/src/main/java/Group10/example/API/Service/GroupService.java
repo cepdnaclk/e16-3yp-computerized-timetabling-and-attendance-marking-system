@@ -1,5 +1,6 @@
 package Group10.example.API.Service;
 
+import Group10.example.API.Model.Course;
 import Group10.example.API.Model.Group;
 import Group10.example.API.Model.Lecturer;
 import Group10.example.API.Model.Student;
@@ -134,7 +135,7 @@ public class GroupService {
     public HashMap<String,Object> removeLecFromGroup(List<String> lecturer, String ID){
         Optional<Group> group = groupRepository.findById(ID);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("msg","student successfully deleted");
+        map.put("msg","lecturer successfully deleted");
 
         if(group==null){
             map.put("msg","Group is not found");
@@ -154,7 +155,7 @@ public class GroupService {
         return map;
     }
 
-    public HashMap<String, Object> addCourse(List<String> lecturer, String ID){
+    public HashMap<String, Object> addCourse(List<String> courses, String ID){
         HashMap<String, Object> map = new HashMap<>();
         map.put("msg","course successfully added");
         Optional<Group> group = groupRepository.findById(ID);
@@ -164,12 +165,12 @@ public class GroupService {
             return map;
         }
 
-        HashSet<String> lecList = group.get().getCourseList();
+        HashSet<String> courseList = group.get().getCourseList();
 
-        for(String a:lecturer) {
-            Optional<Lecturer> lec = lecRepo.findById(a);
-            if (lec.isPresent()) {
-                lec.ifPresent(l -> lecList.add(lec.get().getLectID()));
+        for(String a:courses) {
+            Optional<Course> course = courseRepo.findById(a);
+            if (course.isPresent()) {
+                course.ifPresent(c -> courseList.add(course.get().getCourseId()));
             }
         }
 
@@ -179,21 +180,21 @@ public class GroupService {
 
     }
 
-    public HashMap<String,Object> removeCourseFromGroup(List<String> lecturer, String ID){
+    public HashMap<String,Object> removeCourseFromGroup(List<String> courses, String ID){
         Optional<Group> group = groupRepository.findById(ID);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("msg","student successfully deleted");
+        map.put("msg","course successfully deleted");
 
         if(group==null){
             map.put("msg","Group is not found");
             return map;
 
         }
-        HashSet<String> lecList = group.get().getLecList();
+        HashSet<String> courseList = group.get().getCourseList();
         if(group.isPresent()) {
 
-            for(String a:lecturer) {
-                lecList.remove(a);
+            for(String a:courses) {
+                courseList.remove(a);
             }
         }
 

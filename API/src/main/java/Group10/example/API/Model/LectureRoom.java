@@ -1,27 +1,37 @@
 package Group10.example.API.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "LectureRoom")
 public class LectureRoom {
     @Id
-    private String room_id;
-    private String device_id;
+    private String roomId;
+    private String roomName;
+    private int device;
 
-    public String getRoom_id() {
-        return room_id;
+    public String getRoomId() {
+        return roomId;
     }
 
-    public void setRoom_id(String room_id) {
-        this.room_id = room_id;
+    public String getRoomName() {
+        return roomName;
     }
 
-    public String getDevice_id() {
-        return device_id;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
-    public void setDevice_id(String device_id) {
-        this.device_id = device_id;
+    public int getDevice() {
+        return device;
     }
+
+    public void setDevice(int device) {
+        this.device = device;
+    }
+
 }

@@ -1,7 +1,8 @@
 package Group10.example.API.Controller;
 
-import Group10.example.API.Model.Group;
-import Group10.example.API.Model.groupPayLoad;
+import Group10.example.API.Model.*;
+import Group10.example.API.Repository.CourseRepository;
+import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
 import Group10.example.API.Service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,12 @@ public class GroupController {
 
     @Autowired
     StudentRepository studentRepo;
+
+    @Autowired
+    CourseRepository courseRepo;
+
+    @Autowired
+    LecturerRepository lecRepo;
 
     @Autowired
     public GroupController(GroupService groupService){
@@ -42,13 +49,23 @@ public class GroupController {
     }
 
    @GetMapping(value="/all/lecturers/{group_id}")
-    public HashSet<String> getLecturers(@PathVariable("group_id") String groupId){
-        Optional<Group> group =groupService.findGroupByID(groupId);
-        if(group.isPresent()){
-            return group.get().getLecList();
-        }
+    public List<Lecturer> getLecturers(@PathVariable("group_id") String groupId){
+       Optional<Group> group =groupService.findGroupByID(groupId);
+       List<Lecturer> lecs = new ArrayList<Lecturer>();
+       Set<String> lecID ;
 
-        return new HashSet<>();
+       if(group.isPresent()){
+           lecID = group.get().getLecList();
+           for(String a:lecID){
+
+               Optional<Lecturer> lec = lecRepo.findById(a);
+               lec.ifPresent(c->lecs.add(c));
+
+           }
+
+       }
+
+       return lecs;
     }
 
 
@@ -75,13 +92,23 @@ public class GroupController {
     }
 
     @GetMapping(value="/all/students/{group_id}")
-    public HashSet<String> getStudents(@PathVariable("group_id") String groupId){
+    public List<Student> getStudents(@PathVariable("group_id") String groupId){
         Optional<Group> group =groupService.findGroupByID(groupId);
+        List<Student> students = new ArrayList<Student>();
+        Set<String> stuID ;
+
         if(group.isPresent()){
-            return group.get().getStudentList();
+            stuID = group.get().getStudentList();
+            for(String a:stuID){
+
+                Optional<Student> student = studentRepo.findById(a);
+                student.ifPresent(c->students.add(c));
+
+            }
+
         }
 
-        return new HashSet<>();
+        return students;
     }
 
 
@@ -97,24 +124,34 @@ public class GroupController {
 
     }
 
-    @PostMapping("add/course")
+    @PostMapping("add/courses")
     public HashMap<String, Object> addCourse(@RequestBody groupPayLoad course){
         HashMap<String, Object> map ;
-        List<String> studentList = course.getIdList();
+        List<String> courseList = course.getIdList();
         String groupID = course.getGroupId();
-        map  = groupService.(studentList,groupID);
+        map  = groupService.addCourse(courseList,groupID);
         return map;
 
     }
 
     @GetMapping(value="/all/courses/{group_id}")
-    public HashSet<String> getCourses(@PathVariable("group_id") String groupId){
+    public List<Course> getCourses(@PathVariable("group_id") String groupId){
         Optional<Group> group =groupService.findGroupByID(groupId);
+        List<Course> courses = new ArrayList<Course>();
+        Set<String> courseID ;
+
         if(group.isPresent()){
-            return group.get().getCourseList();
+           courseID = group.get().getCourseList();
+            for(String a:courseID){
+
+                Optional<Course> course = courseRepo.findById(a);
+                course.ifPresent(c->courses.add(c));
+
+            }
+
         }
 
-        return new HashSet<>();
+        return courses;
     }
 
 
@@ -123,8 +160,8 @@ public class GroupController {
 
         HashMap<String, Object> map ;
         String groupId = course.getGroupId();
-        List<String> studentList = course.getIdList();
-        map = groupService.removeStudentFromGroup(studentList,groupId);
+        List<String> courseList = course.getIdList();
+        map = groupService.removeCourseFromGroup(courseList,groupId);
         return map;
 
 

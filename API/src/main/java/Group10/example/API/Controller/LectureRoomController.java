@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequestMapping("/lecturerooms")
 public class LectureRoomController {
 
-    private LectureRoomService lectureRoomService;
+    private final LectureRoomService lectureRoomService;
 
     @Autowired
     public LectureRoomController(LectureRoomService lectureRoomService) {
@@ -44,4 +44,15 @@ public class LectureRoomController {
     public Optional<LectureRoom> updateLectureRoomById(@PathVariable("id") String id,@RequestBody LectureRoomUpdatePayLoad lectureRoomUpdatePayLoad){
         return lectureRoomService.updateLectureRoomById(id,lectureRoomUpdatePayLoad);
     }
+
+    @GetMapping(value = "/findbydevice/{id}")
+    public Optional<LectureRoom> findByDevice(@PathVariable("id") int device_id){
+        return lectureRoomService.findByDevice(device_id);
+    }
+
+    @GetMapping(value = "/findbyroomname/{roomName}")
+    public Optional<LectureRoom> findByRoomName(@PathVariable("roomName") String roomName){
+        return lectureRoomService.findByRoomName(roomName);
+    }
+
 }

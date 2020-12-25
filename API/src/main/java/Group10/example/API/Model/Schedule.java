@@ -1,27 +1,31 @@
 package Group10.example.API.Model;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Schedule {
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-     private LocalDate date;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-     private LocalTime start_time;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-     private LocalTime end_time;
-     private int lab_or_lecture;
-     //lab = 1 , lecture = 0
-    //LocalDate localDate = LocalDate.of( 2015 , 6 , 7 );
-//    LocalTime time = LocalTime.of(10,43,12);
 
-    public Schedule(LocalDate date, LocalTime start_time, LocalTime end_time, int lab_or_lecture) {
+    @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
+    private LocalDate date;//exam dates
+    private String dayOfWeek;//weekly schedule
+    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
+    private LocalTime start_time;
+    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
+    private LocalTime end_time;
+    private int lab_or_lecture;//lab = 1 , lecture = 0 , exam = 2
+    private String roomName;
+    private String course_id;//this will generated
+
+
+    public Schedule(LocalDate date,String dayOfWeek, LocalTime start_time, LocalTime end_time, int lab_or_lecture,String roomName) {
         this.date = date;
+        this.dayOfWeek = dayOfWeek;
         this.start_time = start_time;
         this.end_time = end_time;
         this.lab_or_lecture = lab_or_lecture;
+        this.roomName = roomName;
     }
 
     public LocalDate getDate() {
@@ -30,6 +34,13 @@ public class Schedule {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public LocalTime getStart_time() {
@@ -54,5 +65,21 @@ public class Schedule {
 
     public void setLab_or_lecture(int lab_or_lecture) {
         this.lab_or_lecture = lab_or_lecture;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
     }
 }
