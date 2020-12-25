@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,11 @@ import java.util.List;
 public class LectureRoom {
     @Id
     private String roomId;
+
+    @NotNull(message = "Room Name cannot Be Null")
+    @NotBlank(message = "Room Name cannot Be Blank")
     private String roomName;
+
     private int device;
 
     public String getRoomId() {
