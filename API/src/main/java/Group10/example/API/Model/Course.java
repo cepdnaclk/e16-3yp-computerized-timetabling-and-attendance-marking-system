@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -12,11 +13,19 @@ public class Course {
 
     @Id
     private String courseId;
+    @NotNull(message = "courseNumber cannot be Null")
+    @NotBlank(message = "courseNumber cannot be Empty")
     private String courseNumber;
+    @NotNull(message = "courseName cannot be Null")
+    @NotBlank(message = "courseName cannot be Empty")
     private String courseName;
+    @NotNull(message = "Semester cannot be Null")
+    @Min(value = 1,message = "Minimum value of semester must be 1")
+    @Max(value = 8,message = "Maximum value of semester must be 8")
     private int semester;
+    @NotNull(message = "days cannot be Null")
+    @Min(value = 1,message = "minimum value of days must be 1")
     private int days;
-
     private List<Schedule> timeTable;
     private List<Log> courseLog;
 
