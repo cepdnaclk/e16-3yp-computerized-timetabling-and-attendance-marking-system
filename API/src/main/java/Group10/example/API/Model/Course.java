@@ -1,9 +1,12 @@
 package Group10.example.API.Model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -12,12 +15,28 @@ public class Course {
 
     @Id
     private String courseId;
+
+    @NotNull(message = "Course Number cannot be Null")
+    @NotBlank(message = "Course Number cannot be Blank")
     private String courseNumber;
+
+    @NotNull(message = "Course Name cannot be Null")
+    @NotBlank(message = "Course Name cannot be Blank")
     private String courseName;
+
+    @NotNull(message = "Semester cannot be Null")
+    @Min(value = 1,message = "Minimum value of semester is 1")
+    @Max(value = 8,message = "Maximum value of Semester is 8")
     private int semester;
+
+    @NotNull(message = "days cannot be Null")
+    @Min(value = 1,message = "Minimum value of Days is 1")
     private int days;
 
+    @NotNull(message = "TimeTable cannot be null")
     private List<Schedule> timeTable;
+
+    @NotNull(message = "Course Log cannot be null")
     private List<Log> courseLog;
 
     //this stores  the lecture Room ID s belongs to this course
