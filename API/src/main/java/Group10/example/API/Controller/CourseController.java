@@ -46,9 +46,10 @@ public class CourseController {
         return courseService.updateCourseById(id,courseUpdatePayLoad);
     }
 
-    @GetMapping(value = "/findbysemester/{semester}")//checked
-    public Collection<Course> findBySemester(@PathVariable("semester") int semester){
-        return courseService.findBySemester(semester);
+    @GetMapping(value = "/findbysemesteranddepartment")//checked
+    public Collection<Course> findBySemesterAndDepartment(@RequestParam(name = "semester") int semester,
+                                             @RequestParam(name = "department") String department){
+        return courseService.findBySemesterAndDepartment(semester,department);
     }
 
     @PutMapping(value = "/addlogitem/{id}")//checked
@@ -87,4 +88,5 @@ public class CourseController {
     public Collection<Course> findByLectureRoomId(@PathVariable("id") String roomId) {
         return courseService.findByLectureRoomRefRoomId(roomId);
     }
+
 }

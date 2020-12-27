@@ -28,7 +28,7 @@ public class Course {
     @Min(value = 1,message = "Minimum value of semester is 1")
     @Max(value = 8,message = "Maximum value of Semester is 8")
     private int semester;
-
+    private String departmentName;
     @NotNull(message = "days cannot be Null")
     @Min(value = 1,message = "Minimum value of Days is 1")
     private int days;
@@ -41,6 +41,9 @@ public class Course {
 
     //this stores  the lecture Room ID s belongs to this course
     private Set<LectureRoomRef> lectureRoomIDs = new HashSet<>();
+
+    //this stores student ids belongs to this course
+    private Set<String> studentsIds = new HashSet<>();
 
     public String getCourseId() {
         return this.courseId;
@@ -68,6 +71,14 @@ public class Course {
 
     public void setSemester(int semester) {
         this.semester = semester;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public int getDays() {
@@ -138,4 +149,22 @@ public class Course {
 
 
     }
+
+    public Set<String> getStudentsIds() {
+        return studentsIds;
+    }
+
+    public void setStudentsIds(Set<String> studentsIds) {
+        this.studentsIds = studentsIds;
+    }
+
+    public void addStudent(Optional<Student> student){
+        student.ifPresent(s -> this.studentsIds.add(s.getStudentID()));
+    }
+
+    public void clearStudentSet(){
+        this.studentsIds.clear();
+    }
+
+
 }

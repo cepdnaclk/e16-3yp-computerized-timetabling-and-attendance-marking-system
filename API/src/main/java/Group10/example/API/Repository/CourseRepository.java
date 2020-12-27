@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CourseRepository extends MongoRepository<Course, String> {
-    Collection<Course> findBySemester(int semester);
+    Collection<Course> findBySemesterAndDepartmentName(int semester,String department);
 
     Optional<Course> findByCourseNumber(String courseNumber);
 
