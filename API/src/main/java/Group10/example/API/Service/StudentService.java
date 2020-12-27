@@ -2,6 +2,7 @@ package Group10.example.API.Service;
 
 import Group10.example.API.Model.Student;
 import Group10.example.API.Model.StudentPayload;
+import Group10.example.API.Repository.GroupRepository;
 import Group10.example.API.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class StudentService {
     @Autowired
     StudentRepository stuRepo;
 
+    @Autowired
+    GroupRepository groupRepo;
+
     public Student addStudent(Student student){
        return stuRepo.save(student);
     }
@@ -24,6 +28,7 @@ public class StudentService {
         HashMap<String,Object> map = new HashMap<>();
         stuRepo.deleteById(id);
         map.put("msg","successfully deleted");
+
 
         return map;
 
@@ -61,4 +66,6 @@ public class StudentService {
         map.put("msg","user name successfully updated");
         return map;
     }
+
+
 }

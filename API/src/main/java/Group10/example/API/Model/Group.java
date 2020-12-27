@@ -1,15 +1,13 @@
 package Group10.example.API.Model;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
-@Document(collation = "Groups")
+@Document(collection = "Groups")
 public class Group {
 
     @Id
@@ -19,6 +17,30 @@ public class Group {
     private String groupName;
 
     private String subject;
+
+    @NotNull(message = "semester is mandatory")
+    @Range(min=1,max=8)
+    private int semester;
+
+    @NotNull(message = "year is mandatory")
+    @Range(min=1,max=4)
+    private int year;
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
 
     public HashSet<String> studentList = new HashSet<>();
 
