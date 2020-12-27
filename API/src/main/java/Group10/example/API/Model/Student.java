@@ -1,6 +1,7 @@
 package Group10.example.API.Model;
 
 import Group10.example.API.Exception.ValidPassword;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -25,6 +26,30 @@ public class Student {
 
     @NotNull(message = "Registartion Number is mandatory")
     private String regNumber;
+
+    @NotNull(message = "semester is mandatory")
+    @Range(min=1,max=8)
+    private int semester;
+
+    @NotNull(message = "year is mandatory")
+    @Range(min=1,max=4)
+    private int year;
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     public String getRegNumber() {
         return regNumber;
