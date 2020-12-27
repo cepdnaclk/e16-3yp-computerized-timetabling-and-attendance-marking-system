@@ -8,11 +8,11 @@ public class Log {
     //EEEE = day of week
     //HH:mm:ss-HH:mm:ss = startTIme-endTime
     @NotNull(message = "Original Date Time Cannot Be Null")
-    @JsonFormat(pattern = "EEEE HH:mm:ss-HH:mm:ss",shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "EEEE yyyy-MM-dd-HH:mm:ss",shape = JsonFormat.Shape.STRING)
     private String original_datetime;
 
     @NotNull(message = "Temporary Date Time cannot be Null")
-    @JsonFormat(pattern = "EEEE HH:mm:ss-HH:mm:ss",shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "EEEE yyyy-MM-dd-HH:mm:ss",shape = JsonFormat.Shape.STRING)
     private String temp_datetime;
 
     @NotNull(message = "Expire Date cannot be null")

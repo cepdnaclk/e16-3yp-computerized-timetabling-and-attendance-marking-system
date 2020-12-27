@@ -65,8 +65,8 @@ public class CourseDAO {
         return course;
     }
 
-    public Collection<Course> findBySemester(int semester) {
-        return courseRepository.findBySemester(semester);
+    public Collection<Course> findBySemesterAndDepartment(int semester,String department) {
+        return courseRepository.findBySemesterAndDepartmentName(semester,department);
     }
 
     public Optional<Course> addLogItem(String course_id, Log log) {
