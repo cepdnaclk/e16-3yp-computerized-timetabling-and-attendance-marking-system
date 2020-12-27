@@ -3,6 +3,7 @@ package Group10.example.API.Service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import Group10.example.API.Repository.StudentRepository;
 import Group10.example.API.Model.Student;
 import Group10.example.API.Model.Lecturer;
 
+@Service
 public class AdminService {
 	
 	@Autowired
