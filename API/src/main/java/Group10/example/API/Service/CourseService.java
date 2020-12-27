@@ -51,8 +51,8 @@ public class CourseService {
         return courseDAO.updateCourseById(id,courseUpdatePayLoad);
     }
 
-    public Collection<Course> findBySemester(int semester) {
-        return courseDAO.findBySemester(semester);
+    public Collection<Course> findBySemesterAndDepartment(int semester,String department) {
+        return courseDAO.findBySemesterAndDepartment(semester,department);
     }
 
     public Optional<Course> addLogItem(String course_id, Log log) {
