@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
+
+
+
 
 @Service
 public class AdminDetailsService implements UserDetailsService {
@@ -22,5 +26,29 @@ public class AdminDetailsService implements UserDetailsService {
             return null;
         }
         return new AdminDetails(admin);
+    }
+    
+    public void deleteAdmin(String id){
+    	
+    	adminRepo.deleteById(id);;
+    	
+    }
+    
+    public Admin createAdmin(Admin admin){
+    	
+    	return adminRepo.insert(admin);
+    
+    }
+    
+    public Admin modifyAdminDetails(String id,Admin admin){
+	
+		
+	
+		Optional<Admin> tmpAdmin = adminRepo.findById(id);
+		
+		if(tmpAdmin != null) return adminRepo.save(admin);
+		
+		return null;
+   
     }
 }

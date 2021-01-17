@@ -921,3 +921,8 @@ section {
   }
 }
 
+/*introduction video section*/
+
+.center-video {
+  margin: 0 auto;
+}
