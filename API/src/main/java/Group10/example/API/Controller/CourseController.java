@@ -5,6 +5,7 @@ import Group10.example.API.Service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class CourseController {
     }
 
     @PostMapping("/add")//checked
-    public Course addCourse(@RequestBody Course course){
+    public Course addCourse(@Valid @RequestBody Course course){
         return courseService.addCourse(course);
     }
 
@@ -41,22 +42,23 @@ public class CourseController {
     }
 
     @PutMapping(value = "/update/{id}")//checked
-    public Optional<Course> updateCourseById(@PathVariable("id") String id,@RequestBody CourseUpdatePayLoad courseUpdatePayLoad){
+    public Optional<Course> updateCourseById(@PathVariable("id") String id,@Valid @RequestBody CourseUpdatePayLoad courseUpdatePayLoad){
         return courseService.updateCourseById(id,courseUpdatePayLoad);
     }
 
-    @GetMapping(value = "/findbysemester/{semester}")//checked
-    public Collection<Course> findBySemester(@PathVariable("semester") int semester){
-        return courseService.findBySemester(semester);
+    @GetMapping(value = "/findbysemesteranddepartment")//checked
+    public Collection<Course> findBySemesterAndDepartment(@RequestParam(name = "semester") int semester,
+                                             @RequestParam(name = "department") String department){
+        return courseService.findBySemesterAndDepartment(semester,department);
     }
 
     @PutMapping(value = "/addlogitem/{id}")//checked
-    public Optional<Course> addLogItem(@PathVariable("id") String course_id, @RequestBody Log log){
+    public Optional<Course> addLogItem(@PathVariable("id") String course_id,@Valid @RequestBody Log log){
         return courseService.addLogItem(course_id,log);
     }
 
     @PutMapping(value = "/addscheduleitem/{id}")//checked
-    public Optional<Course> addScheduleItem(@PathVariable("id") String course_id, @RequestBody Schedule schedule){
+    public Optional<Course> addScheduleItem(@PathVariable("id") String course_id,@Valid @RequestBody Schedule schedule){
         return courseService.addScheduleItem(course_id,schedule);
     }
 
@@ -86,4 +88,5 @@ public class CourseController {
     public Collection<Course> findByLectureRoomId(@PathVariable("id") String roomId) {
         return courseService.findByLectureRoomRefRoomId(roomId);
     }
+
 }

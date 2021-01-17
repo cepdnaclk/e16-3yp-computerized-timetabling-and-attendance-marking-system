@@ -3,6 +3,6 @@ spring.data.mongodb.database=Attendance_Marking_System
 
 spring.mvc.view.prefix=/WEB-INF/jsp/
 spring.mvc.view.suffix=.jsp
-jwt.secret=nanocode
 
+jwt.secret=nanocode
 

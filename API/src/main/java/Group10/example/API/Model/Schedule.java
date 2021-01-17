@@ -2,6 +2,7 @@ package Group10.example.API.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -10,12 +11,21 @@ public class Schedule {
     @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
     private LocalDate date;//exam dates
     private String dayOfWeek;//weekly schedule
+
+    @NotNull(message = "Start Time cannot be Null")
     @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
     private LocalTime start_time;
+
+    @NotNull(message = "End Time cannot be Null")
     @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
     private LocalTime end_time;
+
+    @NotNull(message = "Lab or Lecture cannot be Null")
     private int lab_or_lecture;//lab = 1 , lecture = 0 , exam = 2
+
+    @NotNull(message = "Lecture Room name cannot be Null")
     private String roomName;
+
     private String course_id;//this will generated
 
 
