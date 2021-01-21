@@ -38,6 +38,22 @@ public class Student {
     @Range(min=1,max=4)
     private int year;
 
+    private HashSet<String> courseSet = new HashSet<>();
+
+    private HashSet<String> groupSet = new HashSet<>();
+
+    public void setCourseSet(HashSet<String> courseSet) {
+        this.courseSet = courseSet;
+    }
+
+    public HashSet<String> getGroupSet() {
+        return groupSet;
+    }
+
+    public void setGroupSet(HashSet<String> groupSet) {
+        this.groupSet = groupSet;
+    }
+
     public int getSemester() {
         return semester;
     }
@@ -62,7 +78,6 @@ public class Student {
         this.regNumber = regNumber;
     }
 
-    private HashSet<String> courseSet = new HashSet<>();
 
     public String getStudentID() {
         return studentID;

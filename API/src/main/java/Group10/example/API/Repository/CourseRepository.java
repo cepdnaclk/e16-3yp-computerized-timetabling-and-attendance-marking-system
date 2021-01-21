@@ -19,8 +19,6 @@ public interface CourseRepository extends MongoRepository<Course, String> {
 
     List<Course> findByLectureRoomIDsContains(LectureRoomRef roomRef);
 
-    List<Course> findByLectureRoomIDsContains(LectureRoomRef roomRef);
-
     @Override
     <S extends Course> List<S> saveAll(Iterable<S> iterable);
 

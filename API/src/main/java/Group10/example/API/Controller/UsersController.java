@@ -3,9 +3,11 @@ package Group10.example.API.Controller;
 import Group10.example.API.Model.Admin;
 import Group10.example.API.Model.Lecturer;
 import Group10.example.API.Model.Student;
+import Group10.example.API.Model.StudentPayload;
 import Group10.example.API.Repository.AdminRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
+import Group10.example.API.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +28,9 @@ public class UsersController {
 
     @Autowired
     LecturerRepository lecRepo;
+
+    @Autowired
+    StudentService studentService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -110,4 +115,18 @@ public class UsersController {
         return map;
     }
 
+    @PostMapping(value="user/student/delete")
+    public HashMap<String, Object> deleteStudent(@PathVariable("student_id") String id){
+        HashMap<String,Object> map = new HashMap<>();
+        map = studentService.deleteStudent(id);
+        return map;
+
+    }
+
+   @PostMapping(value="user/student/update")
+   public HashMap<String, Object> updateStudent(@RequestBody StudentPayload stu){
+      HashMap<String,Object> map ;
+      map = studentService.updateStudent(stu);
+      return map;
+   }
 }
