@@ -4,11 +4,13 @@ import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import Group10.example.API.Util.JwtTokenUtil;
@@ -50,6 +52,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			}
 		} else {
 			logger.warn("JWT Token does not begin with Bearer String");
+			/*final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if(authentication!=null){
+				logger.warn("cc");
+			}*/
+			//call username password filter
+			chain.doFilter(request, response);
 		}
 
 		// Once we get the token validate it.
@@ -73,5 +81,18 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		}
 		chain.doFilter(request, response);
 	}
+
+	//add filter only for /students paths
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+		final String urlPath=request.getServletPath();
+		AntPathMatcher path=new AntPathMatcher();
+		if(path.match("/student/**", urlPath)) {
+			return false;
+		}
+
+		return true;
+	}
+
 
 }

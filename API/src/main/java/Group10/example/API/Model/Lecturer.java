@@ -1,5 +1,6 @@
 package Group10.example.API.Model;
 
+import Group10.example.API.Exception.ValidPassword;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,6 +17,7 @@ public class Lecturer {
     private String userName;
 
     @NotNull(message = "password is mandatory")
+    @ValidPassword
     private String password;
 
 
