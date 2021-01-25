@@ -7,6 +7,7 @@ import Group10.example.API.Model.StudentPayload;
 import Group10.example.API.Repository.AdminRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
+import Group10.example.API.Service.MailService;
 import Group10.example.API.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,6 +23,9 @@ public class UsersController {
 
     @Autowired
     StudentRepository stuRepo;
+
+    @Autowired
+    MailService mailService;
 
     @Autowired
     AdminRepository adminRepo;
@@ -51,22 +55,36 @@ public class UsersController {
         return "hello lecturer";
     }
 
+    //for check mail service
+    @RequestMapping("/mail")
+    public void check(){
+        mailService.sendMail("e16399@eng.pdn.ac.lk","check","test");
+
+    }
+
+
     @PostMapping(value="/user/registration/student",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public HashMap<String,Object> registerStudent(@Valid @RequestBody Student student)
     {
         HashMap<String,Object> map = new HashMap<>();
+        String RegNum = student.getRegNumber();
+        student.setUserName(RegNum);
         Student stud = stuRepo.findByuserName(student.getUserName());
-        Admin admin = adminRepo.findByuserName(student.getUserName());
-        Lecturer lec = lecRepo.findByuserName(student.getUserName());
+
         //check whether user is already exists
-        if(stud != null || admin!=null || lec!=null) {
-            map.put("msg","user Name is already exists");
+        if(stud != null) {
+            map.put("msg","user Name is already exists Try with different one");
             return map;
         }
+
         student.setRole("STUDENT");
-        student.setPassword(passwordEncoder.encode(student.getPassword()));
+        String pass = studentService.passGenerate();
+        student.setPassword(passwordEncoder.encode(pass));
+
         stuRepo.save(student);
+        studentService.sendMail(student.getEmail(),"Password: "+pass+"   User Name: " + student.getUserName(),"Account Creation");
+
         //successfully registered and return the registered user
         map.put("Student",stuRepo.findByuserName(student.getUserName()));
         return map;

@@ -4,12 +4,10 @@ import Group10.example.API.Exception.ValidPassword;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Optional;
 
 @Document(collection = "Student")
@@ -18,13 +16,22 @@ public class Student {
     @Id
     private String studentID;
 
-    @NotNull(message = "User Name is mandatory")
+    @NotNull(message = "First Name is mandatory")
+    private String firstName;
+
+    @NotNull(message = "Last Name is mandatory")
+    private String lastName;
+
+
     private String userName;
+
+    @NotNull(message = "Department is mandatory")
+    private String department;
 
     private String role;
 
-    @NotNull(message = "password is mandatory")
-    @ValidPassword
+   // @NotNull(message = "password is mandatory")
+   // @ValidPassword
     private String password;
 
     @NotNull(message = "Registartion Number is mandatory")
@@ -38,9 +45,52 @@ public class Student {
     @Range(min=1,max=4)
     private int year;
 
+    @Email(message = "Email should be valid")
+    private String email;
+
     private HashSet<String> courseSet = new HashSet<>();
 
     private HashSet<String> groupSet = new HashSet<>();
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public void setCourseSet(HashSet<String> courseSet) {
         this.courseSet = courseSet;
@@ -83,10 +133,6 @@ public class Student {
         return studentID;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
     public String getRole() {
         return role;
     }
@@ -97,10 +143,6 @@ public class Student {
 
     public void setStudentID(String studentID) {
         this.studentID = studentID;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public void setRole(String role) {
