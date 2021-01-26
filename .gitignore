@@ -3,3 +3,6 @@
 .github
 .github/*
 API/API.iml
+docs/.idea/*
+API/mvnw
+API/mvnw.cmd
