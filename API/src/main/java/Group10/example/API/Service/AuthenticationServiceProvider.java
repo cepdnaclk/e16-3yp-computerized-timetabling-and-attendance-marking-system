@@ -34,6 +34,7 @@ public class AuthenticationServiceProvider implements AuthenticationProvider {
         AdminDetails admin = (AdminDetails) adminDetailsService.loadUserByUsername(userName);
         LecDetails lec = (LecDetails) lecturerDetailsService.loadUserByUsername(userName);
 
+        System.out.println(userName);
 
         if(stud!=null){
 

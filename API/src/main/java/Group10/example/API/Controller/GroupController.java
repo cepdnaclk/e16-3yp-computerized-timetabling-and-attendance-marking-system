@@ -2,12 +2,14 @@ package Group10.example.API.Controller;
 
 import Group10.example.API.Model.*;
 import Group10.example.API.Repository.CourseRepository;
+import Group10.example.API.Repository.GroupRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
 import Group10.example.API.Service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -25,13 +27,20 @@ public class GroupController {
     LecturerRepository lecRepo;
 
     @Autowired
+    GroupRepository groupRepo;
+
+    @Autowired
     public GroupController(GroupService groupService){
         this.groupService = groupService;
     }
 
     @PostMapping("/create")
-    public HashMap<String,String> createGroup(@RequestBody Group group){
+    public HashMap<String,String> createGroup(@Valid @RequestBody Group group){
         HashMap<String, String> map = new HashMap<>();
+        if(groupRepo.findBygroupName(group.getGroupName())!=null){
+            map.put("msg","Group Name is already exists");
+            return map;
+        }
         groupService.saveGroup(group);
         map.put("msg","successfully created group");
         map.put("group_id",group.getGroupID());
