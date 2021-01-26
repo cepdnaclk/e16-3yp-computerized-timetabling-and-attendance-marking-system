@@ -28,7 +28,7 @@ class LectureRoomControllerTest {
     void addLectureRoom() {
         LectureRoom lectureRoom = new LectureRoom("test Room",67);
 
-        HttpEntity<LectureRoom> entity = new HttpEntity<LectureRoom>(lectureRoom, headers);
+        HttpEntity<LectureRoom> entity = new HttpEntity<>(lectureRoom, headers);
 
         ResponseEntity<LectureRoom> response = restTemplate.exchange(
                 createURLWithPort("/lecturerooms/add"),
