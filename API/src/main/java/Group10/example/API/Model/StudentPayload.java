@@ -1,9 +1,13 @@
 package Group10.example.API.Model;
 
+import javax.validation.constraints.NotNull;
+
 public class StudentPayload {
 
     String userName;
+
     String Password;
+    @NotNull(message = "User is mandatory")
     String id;
 
     public String getId() {

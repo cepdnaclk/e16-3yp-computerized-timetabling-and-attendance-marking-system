@@ -1,11 +1,13 @@
 package Group10.example.API.Model;
 
+import Group10.example.API.Exception.ValidPassword;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Document(collection = "Student")
@@ -14,23 +16,121 @@ public class Student {
     @Id
     private String studentID;
 
-    @NotNull(message = "User Name is mandatory")
+    @NotNull(message = "First Name is mandatory")
+    private String firstName;
+
+    @NotNull(message = "Last Name is mandatory")
+    private String lastName;
+
+
     private String userName;
+
+    @NotNull(message = "Department is mandatory")
+    private String department;
 
     private String role;
 
-
-    @NotNull(message = "password is mandatory")
+   // @NotNull(message = "password is mandatory")
+   // @ValidPassword
     private String password;
+
+    @NotNull(message = "Registartion Number is mandatory")
+    private String regNumber;
+
+    @NotNull(message = "semester is mandatory")
+    @Range(min=1,max=8)
+    private int semester;
+
+    @NotNull(message = "year is mandatory")
+    @Range(min=1,max=4)
+    private int year;
+
+    @Email(message = "Email should be valid")
+    private String email;
 
     private HashSet<String> courseSet = new HashSet<>();
 
-    public String getStudentID() {
-        return studentID;
-    }
+    private HashSet<String> groupSet = new HashSet<>();
 
     public String getUserName() {
         return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setCourseSet(HashSet<String> courseSet) {
+        this.courseSet = courseSet;
+    }
+
+    public HashSet<String> getGroupSet() {
+        return groupSet;
+    }
+
+    public void setGroupSet(HashSet<String> groupSet) {
+        this.groupSet = groupSet;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getRegNumber() {
+        return regNumber;
+    }
+
+    public void setRegNumber(String regNumber) {
+        this.regNumber = regNumber;
+    }
+
+
+    public String getStudentID() {
+        return studentID;
     }
 
     public String getRole() {
@@ -43,10 +143,6 @@ public class Student {
 
     public void setStudentID(String studentID) {
         this.studentID = studentID;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public void setRole(String role) {
