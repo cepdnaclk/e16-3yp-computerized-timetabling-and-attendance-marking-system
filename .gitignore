@@ -3,3 +3,5 @@
 .github
 .github/*
 API/API.iml
+docs/.idea/*
+API/src/main/resources/application.properties
