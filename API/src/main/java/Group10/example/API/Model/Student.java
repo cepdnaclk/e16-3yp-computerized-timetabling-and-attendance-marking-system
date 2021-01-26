@@ -4,6 +4,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Optional;
 
 @Document(collection = "Student")
 public class Student {
@@ -19,6 +22,8 @@ public class Student {
 
     @NotNull(message = "password is mandatory")
     private String password;
+
+    private HashSet<String> courseSet = new HashSet<>();
 
     public String getStudentID() {
         return studentID;
@@ -50,5 +55,25 @@ public class Student {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void addCourse(Course course){
+        this.courseSet.add(course.getCourseId());
+    }
+
+    public void addAllCourses(ArrayList<String> courses){
+        this.courseSet.addAll(courses);
+    }
+
+    public void removeCourse(Optional<Course> course){
+        course.ifPresent(c ->this.courseSet.remove(c.getCourseId()));
+    }
+
+    public void removeAllCourses(){
+        this.courseSet.clear();
+    }
+
+    public HashSet<String> getCourseSet() {
+        return courseSet;
     }
 }
