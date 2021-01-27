@@ -1,5 +1,6 @@
 package Group10.example.API.Controller;
 
+import Group10.example.API.ApiApplication;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = TestController.class
+        classes = ApiApplication.class
 )
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application.properties")
@@ -28,7 +29,7 @@ class TestControllerIntTest {
 
     @Test
     void index() throws Exception{
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("mobile/test/");
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/mobile/test/");
         MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
         assertEquals("Hi",mvcResult.getResponse().getContentAsString());
     }
