@@ -2,6 +2,7 @@ package Group10.example.API.Controller;
 
 import Group10.example.API.ApiApplication;
 import Group10.example.API.Model.LectureRoom;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,7 @@ class LectureRoomControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
+    @DisplayName("Adding a LectureRoom")
     void addLectureRoom() {
         LectureRoom lr = new LectureRoom("test Room",34);
         ResponseEntity<LectureRoom> responseEntity = this.restTemplate
