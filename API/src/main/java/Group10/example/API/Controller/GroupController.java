@@ -48,7 +48,7 @@ public class GroupController {
     }
 
     @PostMapping("add/lecturers")
-    public HashMap<String, Object> addLec(@RequestBody groupPayLoad lecturers){
+    public HashMap<String, Object> addLec(@RequestBody GroupPayLoad lecturers){
         HashMap<String, Object> map ;
         List<String> lecList = lecturers.getIdList();
         String groupID = lecturers.getGroupId();
@@ -79,7 +79,7 @@ public class GroupController {
 
 
     @PostMapping(value="/remove/lecturers")
-    public HashMap<String,Object> removeLec(@RequestBody groupPayLoad lecturers){
+    public HashMap<String,Object> removeLec(@RequestBody GroupPayLoad lecturers){
 
         HashMap<String, Object> map;
         String groupId = lecturers.getGroupId();
@@ -91,7 +91,7 @@ public class GroupController {
     }
 
     @PostMapping("add/students")
-    public HashMap<String, Object> addStudents(@RequestBody groupPayLoad students){
+    public HashMap<String, Object> addStudents(@RequestBody GroupPayLoad students){
         HashMap<String, Object> map ;
         List<String> studentList = students.getIdList();
         String groupID = students.getGroupId();
@@ -122,7 +122,7 @@ public class GroupController {
 
 
     @PostMapping(value="/remove/students")
-    public HashMap<String,Object> removeStudent(@RequestBody groupPayLoad students){
+    public HashMap<String,Object> removeStudent(@RequestBody GroupPayLoad students){
 
         HashMap<String, Object> map ;
         String groupId = students.getGroupId();
@@ -134,7 +134,7 @@ public class GroupController {
     }
 
     @PostMapping("add/courses")
-    public HashMap<String, Object> addCourse(@RequestBody groupPayLoad course){
+    public HashMap<String, Object> addCourse(@RequestBody GroupPayLoad course){
         HashMap<String, Object> map ;
         List<String> courseList = course.getIdList();
         String groupID = course.getGroupId();
@@ -165,7 +165,7 @@ public class GroupController {
 
 
     @PostMapping(value="/remove/courses")
-    public HashMap<String,Object> removeCourse(@RequestBody groupPayLoad course){
+    public HashMap<String,Object> removeCourse(@RequestBody GroupPayLoad course){
 
         HashMap<String, Object> map ;
         String groupId = course.getGroupId();

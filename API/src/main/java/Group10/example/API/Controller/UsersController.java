@@ -11,12 +11,15 @@ import Group10.example.API.Service.MailService;
 import Group10.example.API.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 @RestController
 public class UsersController {
@@ -42,17 +45,26 @@ public class UsersController {
     //testing aurthorization filters
     @RequestMapping("/admin")
     public String helloAdmin(){
-        return "hello admin";
+        //take logged user username
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        return "hello " + name;
     }
 
     @RequestMapping("/student")
     public String helloStu(){
-        return "hello student";
+        //take logged user username
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        return "hello " + name;
     }
 
     @RequestMapping("/lecturer")
     public String helloLec(){
-        return "hello lecturer";
+        //take logged user username
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name = authentication.getName();
+        return "hello " + name;
     }
 
     //for check mail service
@@ -95,12 +107,12 @@ public class UsersController {
     public HashMap<String,Object>  registerAdmin(@Valid @RequestBody Admin adminUser)
     {
         HashMap<String,Object> map = new HashMap<>();
-        Student stud = stuRepo.findByuserName(adminUser.getUserName());
+
         Admin admin = adminRepo.findByuserName(adminUser.getUserName());
         Lecturer lec = lecRepo.findByuserName(adminUser.getUserName());
 
         //check whether user is already exists
-        if(stud != null || admin!=null || lec!=null) {
+        if(admin!=null || lec!=null) {
             map.put("msg","user Name is already exists");
             return map;
         }
@@ -117,11 +129,10 @@ public class UsersController {
     public HashMap<String,Object> registerLecturer(@Valid @RequestBody Lecturer lecturer)
     {
         HashMap<String,Object> map = new HashMap<>();
-        Student stud = stuRepo.findByuserName(lecturer.getUserName());
         Admin admin = adminRepo.findByuserName(lecturer.getUserName());
         Lecturer lec = lecRepo.findByuserName(lecturer.getUserName());
         //check whether user is already exists
-        if(stud != null || admin!=null || lec!=null) {
+        if(admin!=null || lec!=null) {
             map.put("msg","user Name is already exists");
             return map;
         }
@@ -147,4 +158,12 @@ public class UsersController {
       map = studentService.updateStudent(stu);
       return map;
    }
+
+   @GetMapping(value = "user/all/students")
+    public List<Student> findAll(){
+        return stuRepo.findAll();
+   }
+
+
+
 }

@@ -2,7 +2,7 @@ package Group10.example.API.Model;
 
 import java.util.List;
 
-public class groupPayLoad {
+public class GroupPayLoad {
 
     public List<String> idList;
 
