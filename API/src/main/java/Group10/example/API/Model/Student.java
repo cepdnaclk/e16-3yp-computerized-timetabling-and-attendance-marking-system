@@ -12,6 +12,20 @@ import java.util.Optional;
 
 @Document(collection = "Student")
 public class Student {
+    public Student( @NotNull(message = "First Name is mandatory") String firstName, @NotNull(message = "Last Name is mandatory") String lastName, String userName, @NotNull(message = "Department is mandatory") String department, String role, String password, @NotNull(message = "Registartion Number is mandatory") String regNumber, @NotNull(message = "semester is mandatory") @Range(min = 1, max = 8) int semester, @NotNull(message = "year is mandatory") @Range(min = 1, max = 4) int year, @Email(message = "Email should be valid") String email, HashSet<String> courseSet, HashSet<String> groupSet) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.department = department;
+        this.role = role;
+        this.password = password;
+        this.regNumber = regNumber;
+        this.semester = semester;
+        this.year = year;
+        this.email = email;
+        this.courseSet = courseSet;
+        this.groupSet = groupSet;
+    }
 
     @Id
     private String studentID;

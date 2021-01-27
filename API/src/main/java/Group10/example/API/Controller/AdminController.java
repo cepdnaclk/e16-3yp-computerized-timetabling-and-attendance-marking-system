@@ -19,7 +19,7 @@ import Group10.example.API.Repository.StudentRepository;
 import Group10.example.API.Service.AdminService;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admn")
 public class AdminController {
 	
 	
@@ -63,7 +63,7 @@ public class AdminController {
     }
     
     @PostMapping("/create/lectureracc")
-    public HashMap<String,String> addNewStudent(@RequestBody Lecturer lecturer){
+    public HashMap<String,String> addNewLecturer(@RequestBody Lecturer lecturer){
     	
     	HashMap<String,String> message = new HashMap<String,String>();
     	Lecturer tmpLecturer = adminService.insertLecturer(lecturer);
