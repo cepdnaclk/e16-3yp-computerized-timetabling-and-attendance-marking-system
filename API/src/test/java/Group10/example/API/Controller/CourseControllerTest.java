@@ -4,6 +4,7 @@ import Group10.example.API.ApiApplication;
 import Group10.example.API.Model.Course;
 import Group10.example.API.Model.Log;
 import Group10.example.API.Model.Schedule;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,16 +28,16 @@ class CourseControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
+    @DisplayName("Get all Courses")
     void getCourses() {
-        //get
         ResponseEntity<Course[]> responseEntity = this.restTemplate
                 .getForEntity("http://localhost:" + port + "/courses/all",Course[].class);
         assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
     @Test
+    @DisplayName("Adding a Course")
     void addCourse() {
-        //post
         Course c = new Course();
         c.setCourseNumber("EM 208");
         c.setCourseName("Calculus I");
@@ -52,8 +53,8 @@ class CourseControllerTest {
     }
 
     @Test
+    @DisplayName("Adding Course Log Item")
     void addLogItem() {
-        //put
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -65,8 +66,8 @@ class CourseControllerTest {
     }
 
     @Test
+    @DisplayName("Adding Course TimeTable Item")
     void addScheduleItem() {
-        //put
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 

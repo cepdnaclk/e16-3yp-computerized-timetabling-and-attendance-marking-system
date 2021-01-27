@@ -3,6 +3,7 @@ package Group10.example.API.Controller;
 import Group10.example.API.ApiApplication;
 import Group10.example.API.Model.Department;
 import Group10.example.API.Model.LectureRoom;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,7 @@ class DepartmentControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
+    @DisplayName("Adding a Department")
     void addDepartment() {
         Department d = new Department();
         d.setDepartmentName("Production Engineering");
