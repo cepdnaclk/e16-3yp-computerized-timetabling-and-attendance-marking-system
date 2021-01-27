@@ -9,6 +9,25 @@ import java.util.HashSet;
 
 @Document(collection = "Groups")
 public class Group {
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupID='" + groupID + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", subject='" + subject + '\'' +
+                ", studentList=" + studentList +
+                ", lecList=" + lecList +
+                ", courseList=" + courseList +
+                '}';
+    }
+
+    public Group(@NotNull(message = "Group Name is mandatory") String groupName, String subject, HashSet<String> studentList, HashSet<String> lecList, HashSet<String> courseList) {
+        this.groupName = groupName;
+        this.subject = subject;
+        this.studentList = studentList;
+        this.lecList = lecList;
+        this.courseList = courseList;
+    }
 
     @Id
     private String groupID;

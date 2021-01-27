@@ -47,13 +47,12 @@ public class GroupController {
         return map;
     }
 
-    @PostMapping("add/lecturers")
-    public HashMap<String, Object> addLec(@RequestBody groupPayLoad lecturers){
-        HashMap<String, Object> map ;
+    @PostMapping("/add/lecturers")
+    public HashMap<String, String> addLec(@RequestBody groupPayLoad lecturers){
         List<String> lecList = lecturers.getIdList();
         String groupID = lecturers.getGroupId();
-        map  = groupService.addLectures(lecList,groupID);
-        return map;
+        return groupService.addLectures(lecList,groupID);
+
 
     }
 

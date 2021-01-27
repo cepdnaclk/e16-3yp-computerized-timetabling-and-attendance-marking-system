@@ -22,7 +22,7 @@ class LectureRoomControllerTest {
 
     @Test
     void addLectureRoom() {
-        LectureRoom lr = new LectureRoom("test Room",34);
+        LectureRoom lr = new LectureRoom("test Room",35);
         ResponseEntity<LectureRoom> responseEntity = this.restTemplate
                 .postForEntity("http://localhost:" + port + "/lecturerooms/add", lr, LectureRoom.class);
         assertEquals(200, responseEntity.getStatusCodeValue());

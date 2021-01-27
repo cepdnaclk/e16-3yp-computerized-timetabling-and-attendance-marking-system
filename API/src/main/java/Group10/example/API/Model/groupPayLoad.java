@@ -3,6 +3,10 @@ package Group10.example.API.Model;
 import java.util.List;
 
 public class groupPayLoad {
+    public groupPayLoad(List<String> idList, String groupId) {
+        this.idList = idList;
+        this.groupId = groupId;
+    }
 
     public List<String> idList;
 

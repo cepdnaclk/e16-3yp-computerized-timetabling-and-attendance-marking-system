@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 
 @Document(collection = "Lecturer")
 public class Lecturer {
-    public Lecturer(String lectID, @NotNull(message = "User Name is mandatory") String userName, @NotNull(message = "password is mandatory") String password, String role, @Email(message = "Email should be valid") String email, String phoneNumber, String department) {
-        this.lectID = lectID;
+    public Lecturer( @NotNull(message = "User Name is mandatory") String userName, @NotNull(message = "password is mandatory") String password, String role, @Email(message = "Email should be valid") String email, String phoneNumber, String department) {
+
         this.userName = userName;
         this.password = password;
         this.role = role;
