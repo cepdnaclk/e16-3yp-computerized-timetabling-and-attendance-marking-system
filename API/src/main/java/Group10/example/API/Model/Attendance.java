@@ -151,4 +151,20 @@ public class Attendance {
     public void setAttendanceItemList(List<AttendanceItem> attendanceItemList) {
         this.attendanceItemList = attendanceItemList;
     }
+
+    @Override
+    public String toString() {
+        return "Attendance{" +
+                "attendanceId='" + attendanceId + '\'' +
+                ", courseId='" + courseId + '\'' +
+                ", studentId='" + studentId + '\'' +
+                ", countLectureDays=" + countLectureDays +
+                ", countLabDays=" + countLabDays +
+                ", presentLabDays=" + presentLabDays +
+                ", presentLectureDays=" + presentLectureDays +
+                ", labPercentage=" + labPercentage +
+                ", lecturePercentage=" + lecturePercentage +
+                ", attendanceItemList=" + attendanceItemList +
+                '}';
+    }
 }

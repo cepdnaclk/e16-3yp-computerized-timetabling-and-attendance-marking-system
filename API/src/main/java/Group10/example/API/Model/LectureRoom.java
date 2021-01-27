@@ -37,4 +37,17 @@ public class LectureRoom {
         this.device = device;
     }
 
+    @Override
+    public String toString() {
+        return "LectureRoom{" +
+                "roomId='" + roomId + '\'' +
+                ", roomName='" + roomName + '\'' +
+                ", device=" + device +
+                '}';
+    }
+
+    public LectureRoom(@NotNull(message = "Room Name cannot Be Null") @NotBlank(message = "Room Name cannot Be Blank") String roomName, int device) {
+        this.roomName = roomName;
+        this.device = device;
+    }
 }
