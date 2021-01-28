@@ -1,6 +1,7 @@
 package Group10.example.API.Controller;
 
 import Group10.example.API.ApiApplication;
+import Group10.example.API.Model.Department;
 import Group10.example.API.Model.LectureRoom;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = ApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class LectureRoomControllerTest {
+class DepartmentControllerTest {
 
     @LocalServerPort
     private int port;
@@ -22,11 +23,12 @@ class LectureRoomControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    @DisplayName("Adding a LectureRoom")
-    void addLectureRoom() {
-        LectureRoom lr = new LectureRoom("test Room",35);
-        ResponseEntity<LectureRoom> responseEntity = this.restTemplate
-                .postForEntity("http://localhost:" + port + "/lecturerooms/add", lr, LectureRoom.class);
+    @DisplayName("Adding a Department")
+    void addDepartment() {
+        Department d = new Department();
+        d.setDepartmentName("Production Engineering");
+        ResponseEntity<Department> responseEntity = this.restTemplate
+                .postForEntity("http://localhost:" + port + "/department/add", d, Department.class);
         assertEquals(200, responseEntity.getStatusCodeValue());
     }
 }
