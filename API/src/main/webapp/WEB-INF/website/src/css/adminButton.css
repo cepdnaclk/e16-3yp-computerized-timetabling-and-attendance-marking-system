@@ -1,0 +1,39 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.adminButton {
+  width: 250px;
+  height: 250px;
+  color: white;
+  border: solid yellow 1px;
+  background-color: black;
+  border-radius: 5px;
+  text-decoration: none;
+  margin: 30px;
+  padding-top: 30px;
+}
+
+.adminButton:hover {
+  text-decoration: none;
+}
+
+.admint1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.buttonImage {
+  position: relative;
+  width: 30%;
+  height: 30%;
+  left: 35%;
+  margin-bottom: 30px;
+}
+
+.admint2 {
+  color: white;
+  text-align: center;
+}
