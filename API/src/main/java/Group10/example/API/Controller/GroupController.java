@@ -48,8 +48,8 @@ public class GroupController {
     }
 
     @PostMapping("add/lecturers")
-    public HashMap<String, Object> addLec(@RequestBody GroupPayLoad lecturers){
-        HashMap<String, Object> map ;
+    public HashMap<String, String> addLec(@RequestBody GroupPayLoad lecturers){
+        HashMap<String, String> map ;
         List<String> lecList = lecturers.getIdList();
         String groupID = lecturers.getGroupId();
         map  = groupService.addLectures(lecList,groupID);

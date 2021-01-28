@@ -7,16 +7,20 @@ import Group10.example.API.Model.StudentPayload;
 import Group10.example.API.Repository.AdminRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
+import Group10.example.API.Service.CourseService;
 import Group10.example.API.Service.MailService;
 import Group10.example.API.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -40,7 +44,20 @@ public class UsersController {
     StudentService studentService;
 
     @Autowired
+    CourseService courseService;
+
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    //get student details from session
+    private Student getStudentFromSession() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return stuRepo.findByuserName(currentUserName);
+        }
+        return null;
+    }
 
     //testing aurthorization filters
     @RequestMapping("/admin")
@@ -52,11 +69,10 @@ public class UsersController {
     }
 
     @RequestMapping("/student")
-    public String helloStu(){
-        //take logged user username
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = authentication.getName();
-        return "hello " + name;
+    public HashMap<String,Object> helloStu(){
+        Student stu = getStudentFromSession();
+        return studentService.getCourselist(stu);
+
     }
 
     @RequestMapping("/lecturer")
