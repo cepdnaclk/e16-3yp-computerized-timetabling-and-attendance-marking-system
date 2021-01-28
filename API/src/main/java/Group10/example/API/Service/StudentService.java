@@ -1,19 +1,13 @@
 package Group10.example.API.Service;
 
-import Group10.example.API.Model.Course;
-import Group10.example.API.Model.Group;
-import Group10.example.API.Model.Student;
-import Group10.example.API.Model.StudentPayload;
+import Group10.example.API.Model.*;
 import Group10.example.API.Repository.CourseRepository;
 import Group10.example.API.Repository.GroupRepository;
 import Group10.example.API.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class StudentService {
@@ -28,7 +22,7 @@ public class StudentService {
     GroupRepository groupRepo;
 
     @Autowired
-    CourseRepository courseRepo;
+    CourseService courseService;
 
     @Autowired
     AttendanceService attService;
@@ -75,12 +69,34 @@ public class StudentService {
         return map;
     }
 
+    //take student course list
+    public HashMap<String,Object> getCourselist(Student stu){
+        HashMap<String,Object> map = new HashMap<>();
+        //get student courses
+        HashSet<String> courses = stu.getCourseSet();
+        //for store course Details
+        List<CourseDetails> userCourses = new ArrayList<>();
+        for(String id:courses){
+            Optional<Course>  course = courseService.findById(id);
+            if(course.isPresent()){
+                CourseDetails courseDetails = new CourseDetails(course.get().getCourseName(),course.get().getCourseNumber());
+                userCourses.add(courseDetails);
+            }
+        }
+        UserDetails userDetails = new UserDetails(stu.getUserName(),stu.getRegNumber());
+        //return user details and course details
+        map.put("student",userDetails);
+        map.put("courses",userCourses);
+        return map;
+
+    }
+
     public HashMap<String,Object> updatePassword(Student student){
         HashMap<String,Object> map = new HashMap<>();
         Optional<Student> stu = stuRepo.findById(student.getStudentID());
         stu.ifPresent(s->stu.get().setUserName(student.getUserName()) );
         stu.ifPresent(s->stuRepo.save(s));
-        map.put("msg","user name successfully updated");
+        map.put("msg","password successfully updated");
         return map;
     }
 

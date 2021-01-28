@@ -132,4 +132,8 @@ public class CourseDAO {
     public Collection<Course> findByLectureRoomRefRoomId(String roomId) {
         return courseRepository.findByLectureRoomIDsContains(new LectureRoomRef(roomId));
     }
+
+    public Optional<Course> findById(String s){
+        return courseRepository.findById(s);
+    }
 }

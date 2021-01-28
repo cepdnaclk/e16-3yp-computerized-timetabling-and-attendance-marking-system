@@ -2,9 +2,7 @@ package Group10.example.API.Controller;
 
 import Group10.example.API.ApiApplication;
 import Group10.example.API.Model.Group;
-import Group10.example.API.Model.Lecturer;
-import Group10.example.API.Model.Student;
-import Group10.example.API.Model.groupPayLoad;
+import Group10.example.API.Model.GroupPayLoad;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,16 +51,18 @@ class GroupControllerIntTest {
 
     @Test
     void addLec() {
+        String uri = "/groups/add/lecturers";
 
-        List<String> lecIds = new ArrayList();
-        lecIds.add("5fc449e50630fe2309f5f064");
-        lecIds.add(("60111fde6191e5431666f93b"));
+        GroupPayLoad groupPayload = new GroupPayLoad();
+        List<String> idList = new ArrayList<>();
+        idList.add("60111fde6191e5431666f93b");
+        groupPayload.setIdList(idList);
+        groupPayload.setGroupId("5fe7213d6b2b4a20668582bf");
 
-        groupPayLoad groupPayLoad = new groupPayLoad(lecIds,"60113cc18f75a7652390b18f");
-        ResponseEntity<Map> responseEntity = this.restTemplate
-                .postForEntity("http://localhost:" + port + "/groups/add/lecturers", groupPayLoad, Map.class);
-        System.out.println(responseEntity.getBody().toString());
-        assertEquals(200, responseEntity.getStatusCodeValue());
+        //post req
+        ResponseEntity<String> responseEntity = this.restTemplate.postForEntity(uri, groupPayload, String.class, new Object[0]);
+        String responseInJson = (String)responseEntity.getBody();
+        System.out.println(responseInJson);
 
     }
 }
