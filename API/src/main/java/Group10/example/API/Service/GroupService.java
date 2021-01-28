@@ -75,6 +75,10 @@ public class GroupService {
             if (stu.isPresent()) {
                 stu.ifPresent(s -> studentList.add(stu.get().getStudentID()));
             }
+            else{
+                map.put("msg","Student is not found");
+                return map;
+            }
         }
 
 
@@ -129,6 +133,10 @@ public class GroupService {
                 count++;
                 lec.ifPresent(l->lecList.add(l.getLectID()));
             }
+            else{
+                map.put("msg","Lecturer is not found");
+                return map;
+            }
         }
 
         if(count==0){
@@ -182,6 +190,10 @@ public class GroupService {
             Optional<Course> course = courseRepo.findById(a);
             if (course.isPresent()) {
                 course.ifPresent(c -> courseList.add(course.get().getCourseId()));
+            }
+            else{
+                map.put("msg","Course is not found");
+                return map;
             }
         }
 

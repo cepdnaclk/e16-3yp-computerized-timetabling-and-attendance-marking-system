@@ -27,6 +27,8 @@ public class Student {
         this.groupSet = groupSet;
     }
 
+    public Student(){}
+
     @Id
     private String studentID;
 
@@ -153,10 +155,6 @@ public class Student {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
     }
 
     public void setRole(String role) {
