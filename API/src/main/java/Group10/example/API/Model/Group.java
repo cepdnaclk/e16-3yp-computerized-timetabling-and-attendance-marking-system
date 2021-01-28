@@ -1,16 +1,33 @@
 package Group10.example.API.Model;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
-@Document(collation = "Groups")
+@Document(collection = "Groups")
 public class Group {
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupID='" + groupID + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", subject='" + subject + '\'' +
+                ", studentList=" + studentList +
+                ", lecList=" + lecList +
+                ", courseList=" + courseList +
+                '}';
+    }
+
+    public Group(@NotNull(message = "Group Name is mandatory") String groupName, String subject, HashSet<String> studentList, HashSet<String> lecList, HashSet<String> courseList) {
+        this.groupName = groupName;
+        this.subject = subject;
+        this.studentList = studentList;
+        this.lecList = lecList;
+        this.courseList = courseList;
+    }
 
     @Id
     private String groupID;
@@ -19,6 +36,7 @@ public class Group {
     private String groupName;
 
     private String subject;
+
 
     public HashSet<String> studentList = new HashSet<>();
 

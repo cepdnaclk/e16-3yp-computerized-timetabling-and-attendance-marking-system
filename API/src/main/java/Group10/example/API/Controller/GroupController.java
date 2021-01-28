@@ -2,12 +2,14 @@ package Group10.example.API.Controller;
 
 import Group10.example.API.Model.*;
 import Group10.example.API.Repository.CourseRepository;
+import Group10.example.API.Repository.GroupRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
 import Group10.example.API.Service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -25,13 +27,20 @@ public class GroupController {
     LecturerRepository lecRepo;
 
     @Autowired
+    GroupRepository groupRepo;
+
+    @Autowired
     public GroupController(GroupService groupService){
         this.groupService = groupService;
     }
 
     @PostMapping("/create")
-    public HashMap<String,String> createGroup(@RequestBody Group group){
+    public HashMap<String,String> createGroup(@Valid @RequestBody Group group){
         HashMap<String, String> map = new HashMap<>();
+        if(groupRepo.findBygroupName(group.getGroupName())!=null){
+            map.put("msg","Group Name is already exists");
+            return map;
+        }
         groupService.saveGroup(group);
         map.put("msg","successfully created group");
         map.put("group_id",group.getGroupID());
@@ -39,8 +48,8 @@ public class GroupController {
     }
 
     @PostMapping("add/lecturers")
-    public HashMap<String, Object> addLec(@RequestBody groupPayLoad lecturers){
-        HashMap<String, Object> map ;
+    public HashMap<String, String> addLec(@RequestBody GroupPayLoad lecturers){
+        HashMap<String, String> map ;
         List<String> lecList = lecturers.getIdList();
         String groupID = lecturers.getGroupId();
         map  = groupService.addLectures(lecList,groupID);
@@ -70,7 +79,7 @@ public class GroupController {
 
 
     @PostMapping(value="/remove/lecturers")
-    public HashMap<String,Object> removeLec(@RequestBody groupPayLoad lecturers){
+    public HashMap<String,Object> removeLec(@RequestBody GroupPayLoad lecturers){
 
         HashMap<String, Object> map;
         String groupId = lecturers.getGroupId();
@@ -82,7 +91,7 @@ public class GroupController {
     }
 
     @PostMapping("add/students")
-    public HashMap<String, Object> addStudents(@RequestBody groupPayLoad students){
+    public HashMap<String, Object> addStudents(@RequestBody GroupPayLoad students){
         HashMap<String, Object> map ;
         List<String> studentList = students.getIdList();
         String groupID = students.getGroupId();
@@ -113,7 +122,7 @@ public class GroupController {
 
 
     @PostMapping(value="/remove/students")
-    public HashMap<String,Object> removeStudent(@RequestBody groupPayLoad students){
+    public HashMap<String,Object> removeStudent(@RequestBody GroupPayLoad students){
 
         HashMap<String, Object> map ;
         String groupId = students.getGroupId();
@@ -125,7 +134,7 @@ public class GroupController {
     }
 
     @PostMapping("add/courses")
-    public HashMap<String, Object> addCourse(@RequestBody groupPayLoad course){
+    public HashMap<String, Object> addCourse(@RequestBody GroupPayLoad course){
         HashMap<String, Object> map ;
         List<String> courseList = course.getIdList();
         String groupID = course.getGroupId();
@@ -156,7 +165,7 @@ public class GroupController {
 
 
     @PostMapping(value="/remove/courses")
-    public HashMap<String,Object> removeCourse(@RequestBody groupPayLoad course){
+    public HashMap<String,Object> removeCourse(@RequestBody GroupPayLoad course){
 
         HashMap<String, Object> map ;
         String groupId = course.getGroupId();
