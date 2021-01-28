@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import Group10.example.API.Repository.GroupRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ import Group10.example.API.Service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping("/lecturer")
+@RequestMapping("/lec")
 public class LecturerController {
 	
 	@Autowired
@@ -33,10 +34,18 @@ public class LecturerController {
 	
 	@Autowired
 	LecturerService lecturerService;
+
+    @Autowired
+    GroupRepository groupRepo;
 	
 	@PostMapping("/creategroup")
     public HashMap<String,String> createGroup(@RequestBody Group group){
+
         HashMap<String, String> map = new HashMap<>();
+        if(groupRepo.findBygroupName(group.getGroupName())!=null){
+            map.put("msg","Group Name is already exists");
+            return map;
+        }
         groupService.saveGroup(group);
         map.put("msg","successfully created group");
         map.put("group_id",group.getGroupID());
@@ -47,18 +56,23 @@ public class LecturerController {
     public List<Student> getStudents(@PathVariable("group_id") String groupId){
         Optional<Group> group =groupService.findGroupByID(groupId);
         List<Student> students = new ArrayList<Student>();
-        Set<String> stuID ;
+        Set<String> stuIDs ;
+
+        System.out.println("................................Hi>...................................................");
 
         if(group.isPresent()){
-            stuID = group.get().getStudentList();
-            for(String a:stuID){
+
+            stuIDs = group.get().getStudentList();
+            for(String a:stuIDs){
 
                 Optional<Student> student = studentRepo.findById(a);
                 student.ifPresent(c->students.add(c));
+                if(student.isPresent()){ System.out.println(student);}
 
             }
 
         }
+        System.out.println("................................Hi1...................................................");
 
         return students;
     }

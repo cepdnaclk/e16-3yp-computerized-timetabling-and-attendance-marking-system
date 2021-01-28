@@ -63,7 +63,7 @@ public class GroupService {
         map.put("msg","student successfully added");
         Optional<Group> group = groupRepository.findById(ID);
 
-        if(group==null){
+        if(!group.isPresent()){
             map.put("msg","Group is not found");
             return map;
         }
