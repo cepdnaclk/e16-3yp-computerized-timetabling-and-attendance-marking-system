@@ -82,4 +82,8 @@ public class CourseService {
     public Collection<Course> findByLectureRoomRefRoomId(String roomId) {
         return courseDAO.findByLectureRoomRefRoomId(roomId);
     }
+
+    public Optional<Course> findById(String s){
+        return courseDAO.findById(s);
+    }
 }
