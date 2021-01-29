@@ -3,34 +3,12 @@ import CourseCard from "./courseCard"
 import "../css/courseCard.css"
 
 class CourseList extends Component {
-    state = {  courses: []}
-
-    constructor(){
-
-        super();
-
-        var courses = [
-            {
-                code:"CO321",
-                name:"Embeded Systems"
-            },
-            {
-                code:"CO322",
-                name:"Data Structures and Algorythms"
-            },
-            {
-                code:"CO323",
-                name:"Computer and Network Security"
-            }
-        ]
-
-        this.state.courses = courses
-    }
+    state = { }
 
     render() { 
         return (  
             <div className="courseList">
-                {this.state.courses.map( course => <CourseCard key={course.code} code={course.code} name={course.name}></CourseCard>)}
+                {this.props.courses.map( course => <CourseCard key={course.courseNum} code={course.courseNum} name={course.courseName}></CourseCard>)}
             </div>
             );}
     

@@ -20,11 +20,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@CrossOrigin(origins = "https://localhost:3000")
-
 
 @RestController
+@CrossOrigin(origins = "https://localhost:3000")
 public class JwtAuthenticationController {
+	//
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -42,8 +42,12 @@ public class JwtAuthenticationController {
 		System.out.println("Hi Nuwan");
 
 
+		authenticate(authenticationRequest.getUserName(),authenticationRequest.getPassword());
+
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUserName());
+
+
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
