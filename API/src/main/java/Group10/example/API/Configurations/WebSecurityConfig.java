@@ -21,7 +21,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -50,12 +49,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+    }
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
+    /*
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // We don't need CSRF for this example
@@ -76,11 +80,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/");
 
 
-      /*httpSecurity.
+      httpSecurity.
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }*/
+
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/student").hasRole("STUDENT")
+                .antMatchers("/login").permitAll().anyRequest().authenticated()
+                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
+                and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+                and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

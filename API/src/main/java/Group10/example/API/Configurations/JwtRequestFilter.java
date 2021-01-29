@@ -52,12 +52,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			}
 		} else {
 			logger.warn("JWT Token does not begin with Bearer String");
-			/*final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			if(authentication!=null){
-				logger.warn("cc");
-			}*/
-			//call username password filter
-			chain.doFilter(request, response);
 		}
 
 		// Once we get the token validate it.
@@ -83,7 +77,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	}
 
 	//add filter only for /students paths
-	@Override
+	/*@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 		final String urlPath=request.getServletPath();
 		AntPathMatcher path=new AntPathMatcher();
@@ -92,7 +86,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		}
 
 		return true;
-	}
+	}*/
 
 
 }
