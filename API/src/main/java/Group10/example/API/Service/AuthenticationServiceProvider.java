@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Collection;
 
@@ -24,7 +25,7 @@ public class AuthenticationServiceProvider implements AuthenticationProvider {
     @Autowired
     LecturerDetailsService lecturerDetailsService;
 
-    @Override
+    @CrossOrigin(origins = "http://localhost:3000")
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UsernamePasswordAuthenticationToken authenticationToken = null;
         String userName = authentication.getName();

@@ -1,6 +1,11 @@
 package Group10.example.API.Service;
 
+import Group10.example.API.Model.Admin;
+import Group10.example.API.Model.Student;
+import Group10.example.API.Repository.AdminRepository;
+import Group10.example.API.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +16,8 @@ import org.springframework.stereotype.Service;
 import Group10.example.API.Model.MobileUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service("sev1")
 public class CustomUserDetailsService implements UserDetailsService {
@@ -19,21 +26,37 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    StudentRepository studRepo;
+
+    @Autowired
+    AdminRepository adminRepo;
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
-        MobileUser[]  users = new MobileUser[3];
-        users[0] = new MobileUser("Saubhagya",bCryptPasswordEncoder.encode("abc123"));
-        users[1] = new MobileUser("Nuwan",bCryptPasswordEncoder.encode("def123"));
-        users[2] = new MobileUser("Erandana",bCryptPasswordEncoder.encode("ghi123"));
 
+        Student student = studRepo.findByuserName(s);
+        Admin admin = adminRepo.findByuserName(s);
 
-        for(MobileUser user : users) {
+        List<SimpleGrantedAuthority> roles;
 
-            if (s.equals(user.getUserName()))
-                return new User(user.getUserName(), user.getPassword(), new ArrayList<>());
+        if(student != null){
+
+            //System.out.println("...............................................hi...............................");
+
+            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+            return new User(student.getUserName(),student.getPassword(), roles);
         }
+        else if(admin != null){
+
+            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            return new User(admin.getUserName(),admin.getPassword(), roles);
+
+        }
+
+
 
         throw new UsernameNotFoundException("User not found with username: " + s);
 

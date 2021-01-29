@@ -14,12 +14,8 @@ import java.util.Optional;
 @RequestMapping("/lecturerooms")
 public class LectureRoomController {
 
-    private final LectureRoomService lectureRoomService;
-
     @Autowired
-    public LectureRoomController(LectureRoomService lectureRoomService) {
-        this.lectureRoomService = lectureRoomService;
-    }
+    private LectureRoomService lectureRoomService;
 
     @GetMapping("/all")
     public Collection<LectureRoom> getLectureRooms(){

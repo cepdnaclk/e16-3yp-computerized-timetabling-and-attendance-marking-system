@@ -2,4 +2,9 @@ API.iml
 mvnw
 mvnw.cmd
 target/*
-
+HELP.md
+.idea/*
+.settings/*
+API/target/*
+.classpath
+.project
