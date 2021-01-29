@@ -46,7 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
             //System.out.println("...............................................hi...............................");
 
-            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_STUDENT"));
             return new User(student.getUserName(),student.getPassword(), roles);
         }
         else if(admin != null){

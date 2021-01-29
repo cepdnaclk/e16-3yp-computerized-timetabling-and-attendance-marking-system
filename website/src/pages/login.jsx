@@ -4,8 +4,10 @@ import "../css/login.css"
 import LoginCard from "../components/loginCard"
 import PeraLogo from "../images/pera.jpg"
 import axios from 'axios'
+//import localStorage from 'local-storage'
 
 const LOGIN_REST_API_URL = 'http://localhost:8080/login';
+const STUDENT_HOME_PAGE_URI =  'http://localhost:8080/student';
 
 class Login extends Component {
     state = {  }
@@ -29,11 +31,24 @@ class Login extends Component {
     sendReq = () =>{
         //sent http request to login using state object
         const data = this.state;
-        console.log(data);
-
         axios.post(LOGIN_REST_API_URL, data)
           .then(function (response) {
-            console.log(response);
+              if(response.data.token==null || response.data.role==null){
+                console.log("error")
+              }
+              localStorage.setItem('token', JSON.stringify( response.data.token));
+              if(response.data.role=="ROLE_USER"){
+                 const auth = "Bearer "+ response.data.token
+                 axios.get(STUDENT_HOME_PAGE_URI, {
+                   headers: {
+                     'Authorization': auth
+                   }
+                 }).then(function (response){
+
+                    console.log(auth)
+                 })
+
+              }
           })
     }
 

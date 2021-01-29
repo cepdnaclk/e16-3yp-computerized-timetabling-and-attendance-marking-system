@@ -15,6 +15,9 @@ import Group10.example.API.Model.JwtRequest;
 import Group10.example.API.Model.JwtResponse;
 import Group10.example.API.Util.JwtTokenUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @CrossOrigin(origins = "https://localhost:3000")
 @RestController
 public class JwtAuthenticationController {
@@ -31,7 +34,7 @@ public class JwtAuthenticationController {
 
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public ResponseEntity<Map> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		System.out.println("Hi Nuwan");
 		authenticate(authenticationRequest.getUserName(),authenticationRequest.getPassword());
 		
@@ -41,8 +44,15 @@ public class JwtAuthenticationController {
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new JwtResponse(token));
+		Object[] roles = userDetails.getAuthorities().toArray();
+
+		Map<String,String> res = new HashMap<>();
+		res.put("token",token);
+		res.put("role",roles[0].toString());
+
+		return ResponseEntity.ok(res);
 	}
+
 
 	private void authenticate(String username, String password) throws Exception {
 		try {
