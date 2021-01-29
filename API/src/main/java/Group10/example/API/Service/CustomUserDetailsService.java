@@ -1,8 +1,10 @@
 package Group10.example.API.Service;
 
 import Group10.example.API.Model.Admin;
+import Group10.example.API.Model.Lecturer;
 import Group10.example.API.Model.Student;
 import Group10.example.API.Repository.AdminRepository;
+import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,6 +34,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     AdminRepository adminRepo;
 
+    @Autowired
+    LecturerRepository lecRepo;
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -39,6 +44,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         Student student = studRepo.findByuserName(s);
         Admin admin = adminRepo.findByuserName(s);
+        Lecturer lecturer = lecRepo.findByuserName(s);
 
         List<SimpleGrantedAuthority> roles;
 
@@ -46,13 +52,19 @@ public class CustomUserDetailsService implements UserDetailsService {
 
             //System.out.println("...............................................hi...............................");
 
-            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_STUDENT"));
             return new User(student.getUserName(),student.getPassword(), roles);
         }
         else if(admin != null){
 
             roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
             return new User(admin.getUserName(),admin.getPassword(), roles);
+
+        }
+        else if(lecturer != null){
+
+            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_LECTURER"));
+            return new User(lecturer.getUserName(),lecturer.getPassword(), roles);
 
         }
 
