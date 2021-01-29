@@ -3,6 +3,9 @@ import efacImg from "../images/efac.jpg"
 import "../css/login.css"
 import LoginCard from "../components/loginCard"
 import PeraLogo from "../images/pera.jpg"
+import axios from 'axios'
+
+const LOGIN_REST_API_URL = 'http://localhost:8080/login';
 
 class Login extends Component {
     state = {  }
@@ -25,7 +28,21 @@ class Login extends Component {
 
     sendReq = () =>{
         //sent http request to login using state object
-        console.log(this.state)
+        const data = new FormData();
+        data.append('username',this.state.userName);
+        data.append('password',this.state.password);
+        console.log(data);
+
+        axios.post(LOGIN_REST_API_URL,data)
+            .then(response => {
+                if(response != null){
+                    console.log(response);
+                    alert("success");
+                }
+                else {
+                    console.log("failed")
+                }
+            })
     }
 
     render() { 

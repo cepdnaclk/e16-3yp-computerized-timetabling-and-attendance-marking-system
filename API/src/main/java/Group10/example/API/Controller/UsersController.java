@@ -70,6 +70,7 @@ public class UsersController {
 
     @RequestMapping("/student")
     public HashMap<String,Object> helloStu(){
+        System.out.println( "Student called");
         Student stu = getStudentFromSession();
         return studentService.getCourselist(stu);
 
