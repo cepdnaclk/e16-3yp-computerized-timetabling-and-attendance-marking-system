@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1fd382e1-cb4d-49bb-84ec-d9772f5bdda9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../API/src/main/java/Group10/example/API/ApiApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../API/src/main/java/Group10/example/API/ApiApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../website/src/pages/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../website/src/pages/login.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +50,7 @@
       <workItem from="1605162015360" duration="10355000" />
       <workItem from="1605181652648" duration="719000" />
       <workItem from="1609082614822" duration="6690000" />
-      <workItem from="1611910832304" duration="5617000" />
+      <workItem from="1611910832304" duration="5951000" />
     </task>
     <servers />
   </component>
