@@ -28,21 +28,13 @@ class Login extends Component {
 
     sendReq = () =>{
         //sent http request to login using state object
-        const data = new FormData();
-        data.append('username',this.state.userName);
-        data.append('password',this.state.password);
+        const data = this.state;
         console.log(data);
 
-        axios.post(LOGIN_REST_API_URL,data)
-            .then(response => {
-                if(response != null){
-                    console.log(response);
-                    alert("success");
-                }
-                else {
-                    console.log("failed")
-                }
-            })
+        axios.post(LOGIN_REST_API_URL, data)
+          .then(function (response) {
+            console.log(response);
+          })
     }
 
     render() { 
