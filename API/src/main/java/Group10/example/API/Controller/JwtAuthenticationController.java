@@ -16,13 +16,14 @@ import Group10.example.API.Model.JwtRequest;
 import Group10.example.API.Model.JwtResponse;
 import Group10.example.API.Util.JwtTokenUtil;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+
+@CrossOrigin(origins = "https://localhost:3000")
+
+
 @RestController
-@CrossOrigin
 public class JwtAuthenticationController {
 
 	@Autowired
@@ -38,8 +39,8 @@ public class JwtAuthenticationController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Map> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-		authenticate(authenticationRequest.getUserName(),authenticationRequest.getPassword());
-		
+		System.out.println("Hi Nuwan");
+
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUserName());
