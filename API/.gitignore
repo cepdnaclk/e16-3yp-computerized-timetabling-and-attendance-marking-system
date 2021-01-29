@@ -5,3 +5,6 @@ target/*
 HELP.md
 .idea/*
 .settings/*
+API/target/*
+.classpath
+.project
