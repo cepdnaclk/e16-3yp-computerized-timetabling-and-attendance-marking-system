@@ -3,6 +3,7 @@ package Group10.example.API.Service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,9 @@ import Group10.example.API.Model.Lecturer;
 
 @Service
 public class AdminService {
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	StudentRepository studentRepository;
@@ -23,6 +27,8 @@ public class AdminService {
 	LecturerRepository lecturerRepository;
 	
 	public Student insertStudent(Student student) {
+
+		student.setPassword(passwordEncoder.encode(student.getPassword()));
 		
 		return studentRepository.insert(student);
 		
@@ -50,7 +56,9 @@ public class AdminService {
 	}
 	
 	public Lecturer insertLecturer(Lecturer lecturer) {
-		
+
+		lecturer.setPassword(passwordEncoder.encode(lecturer.getPassword()));
+
 		return lecturerRepository.insert(lecturer);
 		
 	}
