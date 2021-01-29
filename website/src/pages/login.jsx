@@ -33,7 +33,7 @@ class Login extends Component {
 
         axios.post(LOGIN_REST_API_URL, data)
           .then(function (response) {
-            console.log(response);
+            console.log(response.data.token);
           })
     }
 
