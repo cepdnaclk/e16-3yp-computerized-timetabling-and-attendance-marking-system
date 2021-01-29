@@ -83,7 +83,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	}
 
 	//add filter only for /students paths
-	@Override
+	/*@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 		final String urlPath=request.getServletPath();
 		AntPathMatcher path=new AntPathMatcher();
@@ -92,7 +92,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		}
 
 		return true;
-	}
+	}*/
 
 
 }

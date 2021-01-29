@@ -29,14 +29,14 @@ public class JwtAuthenticationController {
 	@Qualifier("sev1")
 	private UserDetailsService userDetailsService;
 
-	@RequestMapping(value = "/mobile/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-		authenticate(authenticationRequest.getUsername(),authenticationRequest.getPassword());
+		authenticate(authenticationRequest.getUserName(),authenticationRequest.getPassword());
 		
 
 		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
+				.loadUserByUsername(authenticationRequest.getUserName());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
