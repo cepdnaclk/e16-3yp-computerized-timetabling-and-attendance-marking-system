@@ -16,8 +16,8 @@ public class Admin {
         @NotNull(message = "User Name is mandatory")
         private String userName;
 
-        @NotNull(message = "password is mandatory")
-        @ValidPassword
+        //@NotNull(message = "password is mandatory")
+        //@ValidPassword
         private String password;
 
         @Email(message = "Email should be valid")

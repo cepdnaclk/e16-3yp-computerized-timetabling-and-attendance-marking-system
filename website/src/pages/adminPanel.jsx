@@ -12,15 +12,12 @@ import b6 from '../images/ttbt.svg'
 class AdminPanel extends Component {
     state = {  }
 
-    handleClickCreateStu(){
-        alert("create stu");
-    }
     render() { 
         return ( 
             <React.Fragment>
                 <NavBar pageName="" />
                 <div className="buttonPanel">
-                    <AdminButton onClick={this.handleClickCreateStu} t1="CREATE" t2="STUDENT ACCOUNTS" img={b1}></AdminButton>
+                    <AdminButton t1="CREATE" t2="STUDENT ACCOUNTS" img={b1} url= "/stdreg"></AdminButton>
                     <AdminButton t1="CREATE" t2="LECTURER ACCOUNTS" img={b2}></AdminButton>
                     <AdminButton t1="CREATE" t2="ADMIN ACCOUNTS" img={b3}></AdminButton>
                     <AdminButton t1="DELETE" t2="ACCOUNTS" img={b4}></AdminButton>

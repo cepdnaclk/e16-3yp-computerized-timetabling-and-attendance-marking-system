@@ -23,23 +23,23 @@ class Home extends Component {
 
                                 this.setState({courses:response.data.courses})
                                 this.setState({details:[
-                                    {
+                                    {   
                                         id:1,
                                         nameTag:"Name:",
                                         value: response.data.student.userName
-
+                        
                                     },
-                                    {
+                                    {   
                                         id:2,
                                         nameTag:"E Number:",
                                         value:response.data.student.eNo
-
+                        
                                     },
-                                    {
+                                    {   
                                         id:3,
                                         nameTag:"Password:",
                                         value:"samplePassword"
-
+                        
                                     }
                                 ]}
 
@@ -47,7 +47,7 @@ class Home extends Component {
                                 console.log(response);
 
                               }
-
+                            
                           })
     }
 
