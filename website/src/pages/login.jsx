@@ -4,17 +4,22 @@ import "../css/login.css"
 import LoginCard from "../components/loginCard"
 import PeraLogo from "../images/pera.jpg"
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
+import { Redirect } from 'react-router';
 
 const LOGIN_REST_API_URL = 'http://localhost:8080/login';
+
 
 class Login extends Component {
     state = {  }
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             userName: '',
-            password: ''
+            password: '',
+            isLoggedAdmin: false,
+            isLoggedStu : false
         }
     }
 
@@ -29,15 +34,32 @@ class Login extends Component {
     sendReq = () =>{
         //sent http request to login using state object
         const data = this.state;
-        console.log(data);
-
         axios.post(LOGIN_REST_API_URL, data)
-          .then(function (response) {
-            console.log(response.data.token);
+          .then( response => {
+
+                if(response.data.token==null && response.data.role==null){
+                    console.log("error");
+
+                }
+                localStorage.setItem('token', response.data.token);
+                if(response.data.role=="ROLE_STUDENT"){
+                    this.setState({isLoggedStu:true});
+
+                }
+                else if(response.data.role=="ROLE_ADMIN"){
+                                    this.setState({isLoggedAdmin:true});
+
+                }
           })
     }
 
-    render() { 
+    render() {
+        if(this.state.isLoggedStu){
+            return <Redirect to = {{pathname:"home"}}/>
+        }
+        if(this.state.isLoggedAdmin){
+                    return <Redirect to = {{pathname:"adminpanel"}}/>
+        }
         return ( 
             <div className="login">
                 <img src={efacImg} className="loginImg"></img>
