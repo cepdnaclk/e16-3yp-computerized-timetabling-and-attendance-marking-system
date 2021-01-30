@@ -5,37 +5,8 @@ import InputField from "./inputField";
 
 class UserCard extends Component {
 
-    state = {
-        details:[]
-    }
+    state = { }
 
-    constructor(){
-        super();
-
-        var details = [
-            {   
-                id:1,
-                nameTag:"Name:",
-                value:"sample name"
-
-            },
-            {   
-                id:2,
-                nameTag:"E Number:",
-                value:"E/xx/xxx"
-
-            },
-            {   
-                id:3,
-                nameTag:"Password:",
-                value:"samplePassword"
-
-            }
-        ]
-
-        this.state.details = details;
-
-    }
 
 
     render(){
@@ -44,7 +15,7 @@ class UserCard extends Component {
             <div className="userCard">
                 <img src={userIcon} alt="userIcon" className="userIcon"/>
                 <div className="cardSet">
-                    {this.state.details.map( detail=> <InputField key={detail.id} nameTag={detail.nameTag} value={detail.value}></InputField>)}
+                    {this.props.data.map( detail=> <InputField  nameTag={detail.nameTag} value={detail.value}></InputField>)}
                 </div>
                 <a className="logoutButton">Log out</a>
             </div>

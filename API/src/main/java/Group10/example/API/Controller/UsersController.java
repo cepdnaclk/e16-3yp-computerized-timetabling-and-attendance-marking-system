@@ -10,7 +10,6 @@ import Group10.example.API.Repository.StudentRepository;
 import Group10.example.API.Service.CourseService;
 import Group10.example.API.Service.MailService;
 import Group10.example.API.Service.StudentService;
-import Group10.example.API.Util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -25,7 +24,7 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 public class UsersController {
@@ -49,20 +48,16 @@ public class UsersController {
     CourseService courseService;
 
     @Autowired
-    JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     //get student details from session
-    private Student getStudentFromToken(@RequestHeader("Authorization") String auth) {
-        String token = null;
-        if(auth.startsWith("Bearer ")){
-            token=auth.substring(7);
+    private Student getStudentFromSession() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return stuRepo.findByuserName(currentUserName);
         }
-        final String user = jwtTokenUtil.getUsernameFromToken(token);
-        Student student = stuRepo.findByuserName(user);
-        return student;
+        return null;
     }
 
     //testing aurthorization filters
@@ -75,14 +70,8 @@ public class UsersController {
     }
 
     @RequestMapping("/student")
-    public HashMap<String,Object> helloStu(@RequestHeader("Authorization") String auth){
-        System.out.println( "Student called");
-        Student stu = getStudentFromToken(auth);
-        if(stu==null){
-            HashMap<String,Object> map = new HashMap<>();
-            map.put("msg","user is not found");
-            return map;
-        }
+    public HashMap<String,Object> helloStu(){
+        Student stu = getStudentFromSession();
         return studentService.getCourselist(stu);
 
     }
@@ -96,14 +85,14 @@ public class UsersController {
     }
 
     //for check mail service
-    @RequestMapping("/mail")
+    @RequestMapping("admin/mail")
     public void check(){
         mailService.sendMail("e16399@eng.pdn.ac.lk","check","test");
 
     }
 
 
-    @PostMapping(value="/user/registration/student",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/admin/registration/student",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public HashMap<String,Object> registerStudent(@Valid @RequestBody Student student)
     {
@@ -123,14 +112,19 @@ public class UsersController {
         student.setPassword(passwordEncoder.encode(pass));
 
         stuRepo.save(student);
-        studentService.sendMail(student.getEmail(),"Password: "+pass+"   User Name: " + student.getUserName(),"Account Creation");
+        String mail = student.getEmail();
+        String password ="Password: " + pass;
+        String name = "User Name: " + student.getUserName();
+        String body = name+ "      " + password;
+        //sendmail
+        mailService.sendMail(mail,body  ,"Account Creation");
 
         //successfully registered and return the registered user
         map.put("Student",stuRepo.findByuserName(student.getUserName()));
         return map;
     }
 
-    @PostMapping(value="/user/registration/admin",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/admin/registration/admin",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public HashMap<String,Object>  registerAdmin(@Valid @RequestBody Admin adminUser)
     {
@@ -145,14 +139,24 @@ public class UsersController {
             return map;
         }
         adminUser.setRole("ADMIN");
-        adminUser.setPassword(passwordEncoder.encode(adminUser.getPassword()));
+        String pass = studentService.passGenerate();
+        adminUser.setPassword(passwordEncoder.encode(pass));
         adminRepo.save(adminUser);
+
+        String mail = adminUser.getEmail();
+        String password ="Password: " + pass;
+        String name = "User Name: " + adminUser.getUserName();
+        String body = name+ "      " + password;
+        //sendmail
+        mailService.sendMail(mail,body  ,"Account Creation");
+
+
         //successfully registered and return the registered user
         map.put("Admin",adminRepo.findByuserName(adminUser.getUserName()));
         return map;
     }
 
-    @PostMapping(value="/user/registration/lecturer",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/admin/registration/lecturer",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public HashMap<String,Object> registerLecturer(@Valid @RequestBody Lecturer lecturer)
     {
@@ -165,14 +169,25 @@ public class UsersController {
             return map;
         }
         lecturer.setRole("LECTURER");
+        String pass = studentService.passGenerate();
+        lecturer.setPassword(passwordEncoder.encode(pass));
+
         lecturer.setPassword(passwordEncoder.encode(lecturer.getPassword()));
         lecRepo.save(lecturer);
+
+        String mail = lecturer.getEmail();
+        String password ="Password: " + pass;
+        String name = "User Name: " + lecturer.getUserName();
+        String body = name+ "      " + password;
+        //sendmail
+        mailService.sendMail(mail,body  ,"Account Creation");
+
         //successfully registered and return the registered user
         map.put("Lecturer",lecRepo.findByuserName(lecturer.getUserName()));
         return map;
     }
 
-    @PostMapping(value="user/student/delete")
+    @PostMapping(value="admin/student/delete")
     public HashMap<String, Object> deleteStudent(@PathVariable("student_id") String id){
         HashMap<String,Object> map = new HashMap<>();
         map = studentService.deleteStudent(id);
@@ -180,14 +195,14 @@ public class UsersController {
 
     }
 
-   @PostMapping(value="user/student/update")
+   @PostMapping(value="admin/student/update")
    public HashMap<String, Object> updateStudent(@RequestBody StudentPayload stu){
       HashMap<String,Object> map ;
       map = studentService.updateStudent(stu);
       return map;
    }
 
-   @GetMapping(value = "user/all/students")
+   @GetMapping(value = "admin/all/students")
     public List<Student> findAll(){
         return stuRepo.findAll();
    }

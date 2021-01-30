@@ -10,14 +10,14 @@ import javax.validation.constraints.NotNull;
 @Document(collection = "Lecturer")
 public class Lecturer {
 
-    public Lecturer(@NotNull(message = "User Name is mandatory") String userName, @NotNull(message = "password is mandatory") String password, @NotNull(message = "First Name is mandatory") String firstName, @NotNull(message = "Last Name is mandatory") String lastName, @Email(message = "Email should be valid") String email, @NotNull(message = "Department is mandatory") String department) {
+    public Lecturer(@NotNull(message = "User Name is mandatory") String userName, @NotNull(message = "First Name is mandatory") String firstName, @NotNull(message = "Last Name is mandatory") String lastName, @Email(message = "Email should be valid") String email, @NotNull(message = "Department is mandatory") String department) {
         this.userName = userName;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.department = department;
     }
+    public Lecturer(){}
 
     @Id
     private String lectID;
@@ -25,8 +25,8 @@ public class Lecturer {
     @NotNull(message = "User Name is mandatory")
     private String userName;
 
-    @NotNull(message = "password is mandatory")
-    @ValidPassword
+    //@NotNull(message = "password is mandatory")
+    //@ValidPassword
     private String password;
 
     @NotNull(message = "First Name is mandatory")
