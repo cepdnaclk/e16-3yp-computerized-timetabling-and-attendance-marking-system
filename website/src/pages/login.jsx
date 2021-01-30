@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import efacImg from "../images/efac.jpg"
 import "../css/login.css"
 import LoginCard from "../components/loginCard"
-import PeraLogo from "../images/pera.jpg"
+import PeraLogo from "../images/pera3.png"
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import { Redirect } from 'react-router';
