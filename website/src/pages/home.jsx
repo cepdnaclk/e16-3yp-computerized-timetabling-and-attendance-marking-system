@@ -7,7 +7,9 @@ import axios from 'axios'
 const STUDENT_HOME_PAGE_URI =  'http://localhost:8080/student';
 
 class Home extends Component {
-    state = {  }
+    state = { courses: [] ,
+              details: []
+    }
 
     constructor(props){
         super(props);
@@ -16,9 +18,36 @@ class Home extends Component {
                             headers: {
                               'Authorization': auth
                             }
-                          }).then(function (response){
+                          }).then( response =>{
+                              if(response.status === 200){
 
-                             console.log(response)
+                                this.setState({courses:response.data.courses})
+                                this.setState({details:[
+                                    {
+                                        id:1,
+                                        nameTag:"Name:",
+                                        value: response.data.student.userName
+
+                                    },
+                                    {
+                                        id:2,
+                                        nameTag:"E Number:",
+                                        value:response.data.student.eNo
+
+                                    },
+                                    {
+                                        id:3,
+                                        nameTag:"Password:",
+                                        value:"samplePassword"
+
+                                    }
+                                ]}
+
+                                )
+                                console.log(response);
+
+                              }
+
                           })
     }
 
@@ -27,8 +56,8 @@ class Home extends Component {
             <React.Fragment>
                 <NavBar pageName="Home" />
                 <h3 className="title">My Attendance records</h3>
-                <CourseList/>
-                <UserCard/>
+                <CourseList courses={this.state.courses} />
+                <UserCard data={this.state.details} />
             </React.Fragment>
 
         );
