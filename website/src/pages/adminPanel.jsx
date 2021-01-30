@@ -17,7 +17,7 @@ class AdminPanel extends Component {
             <React.Fragment>
                 <NavBar pageName="" />
                 <div className="buttonPanel">
-                    <AdminButton t1="CREATE" t2="STUDENT ACCOUNTS" img={b1} url= "/stdreg"></AdminButton>
+                    <AdminButton t1="CREATE" t2="STUDENT ACCOUNTS" img={b1} val="1" url= "/stdreg"></AdminButton>
                     <AdminButton t1="CREATE" t2="LECTURER ACCOUNTS" img={b2}></AdminButton>
                     <AdminButton t1="CREATE" t2="ADMIN ACCOUNTS" img={b3}></AdminButton>
                     <AdminButton t1="DELETE" t2="ACCOUNTS" img={b4}></AdminButton>
