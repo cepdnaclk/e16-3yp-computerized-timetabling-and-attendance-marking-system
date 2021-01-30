@@ -55,15 +55,15 @@ class StdReg extends Component {
             <React.Fragment>
                 <NavBar pageName="Student Registration" />
                     <div className="dataFields">
-
                         <TextInput tagname="regNumber" name="Registration Number :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="firstName" name="FirstName :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="lastName" name="LastName :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="year" name="Year :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="semester" name="Semester :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="department" name="Department :" oc={this.changeHandler}></TextInput>
-
+                        <TextInput tagname="email" name="Email :" oc={this.changeHandler}></TextInput>
                     </div>
+
                     <button onClick={this.sendReq} className="submitButton">Submit</button>
             </React.Fragment>
         );
