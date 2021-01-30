@@ -16,9 +16,7 @@ class LoginCard extends Component {
                     <div className="buttonCover">
                         <button className="button" onClick={this.props.sr}>submit</button>
                     </div>
-                    
                 </div>
-                
             </div>
         );
     }
