@@ -4,19 +4,22 @@ import "../css/login.css"
 import LoginCard from "../components/loginCard"
 import PeraLogo from "../images/pera.jpg"
 import axios from 'axios'
-//import localStorage from 'local-storage'
+import {withRouter} from 'react-router-dom'
+import { Redirect } from 'react-router';
 
 const LOGIN_REST_API_URL = 'http://localhost:8080/login';
-const STUDENT_HOME_PAGE_URI =  'http://localhost:8080/student';
+
 
 class Login extends Component {
     state = {  }
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             userName: '',
-            password: ''
+            password: '',
+            isLoggedAdmin: false,
+            isLoggedStu : false
         }
     }
 
@@ -32,27 +35,31 @@ class Login extends Component {
         //sent http request to login using state object
         const data = this.state;
         axios.post(LOGIN_REST_API_URL, data)
-          .then(function (response) {
-              if(response.data.token==null || response.data.role==null){
-                console.log("error")
-              }
-              localStorage.setItem('token', JSON.stringify( response.data.token));
-              if(response.data.role=="ROLE_USER"){
-                 const auth = "Bearer "+ response.data.token
-                 axios.get(STUDENT_HOME_PAGE_URI, {
-                   headers: {
-                     'Authorization': auth
-                   }
-                 }).then(function (response){
+          .then( response => {
 
-                    console.log(auth)
-                 })
+                if(response.data.token==null && response.data.role==null){
+                    console.log("error");
 
-              }
+                }
+                localStorage.setItem('token', response.data.token);
+                if(response.data.role=="ROLE_STUDENT"){
+                    this.setState({isLoggedStu:true});
+
+                }
+                else if(response.data.role=="ROLE_ADMIN"){
+                                    this.setState({isLoggedAdmin:true});
+
+                }
           })
     }
 
-    render() { 
+    render() {
+        if(this.state.isLoggedStu){
+            return <Redirect to = {{pathname:"home"}}/>
+        }
+        if(this.state.isLoggedAdmin){
+                    return <Redirect to = {{pathname:"adminpanel"}}/>
+        }
         return ( 
             <div className="login">
                 <img src={efacImg} className="loginImg"></img>

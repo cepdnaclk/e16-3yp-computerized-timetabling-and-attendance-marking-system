@@ -20,9 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@CrossOrigin(origins = "https://localhost:3000")
-
-
 @RestController
 public class JwtAuthenticationController {
 
@@ -39,8 +36,7 @@ public class JwtAuthenticationController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Map> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-		System.out.println("Hi Nuwan");
-
+		authenticate(authenticationRequest.getUserName(),authenticationRequest.getPassword());
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUserName());

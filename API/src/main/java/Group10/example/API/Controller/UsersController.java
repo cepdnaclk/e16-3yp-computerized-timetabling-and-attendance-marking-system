@@ -10,7 +10,6 @@ import Group10.example.API.Repository.StudentRepository;
 import Group10.example.API.Service.CourseService;
 import Group10.example.API.Service.MailService;
 import Group10.example.API.Service.StudentService;
-import Group10.example.API.Util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -25,7 +24,7 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 public class UsersController {
@@ -49,20 +48,16 @@ public class UsersController {
     CourseService courseService;
 
     @Autowired
-    JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     //get student details from session
-    private Student getStudentFromToken(@RequestHeader("Authorization") String auth) {
-        String token = null;
-        if(auth.startsWith("Bearer ")){
-            token=auth.substring(7);
+    private Student getStudentFromSession() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return stuRepo.findByuserName(currentUserName);
         }
-        final String user = jwtTokenUtil.getUsernameFromToken(token);
-        Student student = stuRepo.findByuserName(user);
-        return student;
+        return null;
     }
 
     //testing aurthorization filters
@@ -75,14 +70,8 @@ public class UsersController {
     }
 
     @RequestMapping("/student")
-    public HashMap<String,Object> helloStu(@RequestHeader("Authorization") String auth){
-        System.out.println( "Student called");
-        Student stu = getStudentFromToken(auth);
-        if(stu==null){
-            HashMap<String,Object> map = new HashMap<>();
-            map.put("msg","user is not found");
-            return map;
-        }
+    public HashMap<String,Object> helloStu(){
+        Student stu = getStudentFromSession();
         return studentService.getCourselist(stu);
 
     }
