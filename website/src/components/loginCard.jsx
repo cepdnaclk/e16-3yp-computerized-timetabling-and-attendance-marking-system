@@ -6,14 +6,17 @@ class LoginCard extends Component {
     render() { 
         return (  
             <div className="loginCard">
-                <h5 className="text1">LOGIN</h5>
+                <h5 className="text1">Sign In</h5>
                 <div className="body">
-                    <h6 className="t1">User Name :</h6>
-                    <input name="userName" className="textInput" onChange={this.props.oc}></input>
+                    <h6 className="t1">Username :</h6>
+                    <input name="userName" type="text" className="textInput" onChange={this.props.oc}  placeholder="Your username"></input>
                     <h6 className="t2">Password :</h6>
-                    <input name="password" className="textInput" onChange={this.props.oc}></input>
+                    <input type="password" name="password" className="textInput" onChange={this.props.oc}   placeholder="Your password"></input>
                     <br></br>
-                    <button className="button" onClick={this.props.sr}>Login</button>
+                    <div className="buttonCover">
+                        <button className="button" onClick={this.props.sr}>submit</button>
+                    </div>
+                    
                 </div>
                 
             </div>
