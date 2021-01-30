@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import NavBar from '../components/navbar'
 import TextInput from '../components/textInput'
 import '../css/stdReg.css'
+import axios from 'axios'
+
+const REGISTRATION_REST_API_URL = 'http://localhost:8080/user/registration/student';
 
 
 class StdReg extends Component {
@@ -10,12 +13,13 @@ class StdReg extends Component {
     constructor(){
         super();
         this.state = {
-            f1 : '',
-            f2 : '',
-            f3 : '',
-            f4 : '',
-            f5 : '',
-            f6 : ''
+            "regNumber" : '',
+            "firstName" : '',
+            "lastName" : '',
+            "year" : '',
+            "semester" : '',
+            "email" : '',
+            "department" : ''
         }
     }
     
@@ -28,21 +32,35 @@ class StdReg extends Component {
     }
 
     sendReq = () =>{
-        //sent http request using state object
-        console.log(this.state)
-    }
+        console.log(this.state);
+        let data = this.state;
+        const auth = "Bearer "+ localStorage.getItem('token');
+        axios.post(REGISTRATION_REST_API_URL, data,{
+            headers: {
+              'Authorization': auth
+            }
+          })
+          .then( response => {
+                if(response.data == null){
+                    console.log("error");
+                }
+                console.log('response',response.data);
+          })
+        }
+    
 
     render() { 
         return (  
             <React.Fragment>
                 <NavBar pageName="Student Registration" />
                     <div className="dataFields">
-                        <TextInput tagname="f1" name="Registration Number :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f2" name="FirstName :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f3" name="LastName :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f4" name="Year :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f5" name="Semester :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f6" name="Department :" oc={this.changeHandler}></TextInput>
+                    <TextInput tagname="regNumber" name="Registration Number :" oc={this.changeHandler}></TextInput>
+                    <TextInput tagname="firstName" name="FirstName :" oc={this.changeHandler}></TextInput>
+                    <TextInput tagname="lastName" name="LastName :" oc={this.changeHandler}></TextInput>
+                    <TextInput tagname="year" name="Year :" oc={this.changeHandler}></TextInput>
+                    <TextInput tagname="semester" name="Semester :" oc={this.changeHandler}></TextInput>
+                    <TextInput tagname="department" name="Department :" oc={this.changeHandler}></TextInput>
+                    <TextInput tagname="email" name="Email :" oc={this.changeHandler}></TextInput>
                     </div>
                     <button onClick={this.sendReq} className="submitButton">Submit</button>
                
