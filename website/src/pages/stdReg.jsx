@@ -4,6 +4,7 @@ import TextInput from '../components/textInput'
 import '../css/stdReg.css'
 import axios from 'axios'
 
+
 const REGISTRATION_REST_API_URL = 'http://localhost:8080/user/registration/student';
 
 class StdReg extends Component {
@@ -31,7 +32,7 @@ class StdReg extends Component {
     }
 
     sendReq = () =>{
-        //sent http request using state object
+
         console.log(this.state);
         let data = this.state;
         const auth = "Bearer "+ localStorage.getItem('token');
@@ -47,7 +48,6 @@ class StdReg extends Component {
                 console.log('response',response.data);
           })
         }
-        
     
 
     render() { 
@@ -55,13 +55,14 @@ class StdReg extends Component {
             <React.Fragment>
                 <NavBar pageName="Student Registration" />
                     <div className="dataFields">
+
                         <TextInput tagname="regNumber" name="Registration Number :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="firstName" name="FirstName :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="lastName" name="LastName :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="year" name="Year :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="semester" name="Semester :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="department" name="Department :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="email" name="Email :" oc={this.changeHandler}></TextInput>
+
                     </div>
                     <button onClick={this.sendReq} className="submitButton">Submit</button>
             </React.Fragment>
