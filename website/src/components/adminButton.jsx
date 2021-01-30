@@ -21,6 +21,7 @@ class AdminButton extends Component {
                 <img className="buttonImage" src={this.props.img}></img>
                 <h5 className="admint2">{this.props.t2}</h5>
             </a>
+            </a>
          );
     }
 }
