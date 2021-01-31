@@ -19,38 +19,88 @@ class Login extends Component {
             userName: '',
             password: '',
             isLoggedAdmin: false,
-            isLoggedStu : false
+            isLoggedStu : false,
+            nameError : "",
+            passError : "",
+            loginError:""
         }
+
+        this.passChangeHandler= this.passChangeHandler.bind(this);
+        this.nameChangeHandler=this.nameChangeHandler.bind(this);
+        this.sendReq = this.sendReq.bind(this);
+
     }
 
-    changeHandler = (event) => {
+    passChangeHandler = (event) => {
 
-        let name = event.target.name;
-        let value = event.target.value;
-        this.setState({[name]:value});
+         this.setState({ password : event.target.value });
+         if(this.state.password.length == 0){
+                    this.setState({passError:"Password Can not be Empty"})
+         }
+         else{
+            this.setState({passError:""})
+         }
+
+    }
+
+    nameChangeHandler(event){
+        this.setState({ userName : event.target.value });
+        if(this.state.userName.length == 0){
+              this.setState({nameError:"Username Can not be Empty"})
+        }else{
+              this.setState({nameError:""})
+        }
 
     }
 
     sendReq = () =>{
         //sent http request to login using state object
-        const data = this.state;
-        axios.post(LOGIN_REST_API_URL, data)
-          .then( response => {
+        const data = {
+            "userName":this.state.userName,
+            "password":this.state.password
+        }
 
-                if(response.data.token==null && response.data.role==null){
-                    console.log("error");
+         if(this.state.password.length == 0){
+            this.setState({passError:"Password Can not be Empty"})
+         }
+         else{
+            this.setState({passError:""})
+         }
+         if(this.state.userName.length == 0){
+           this.setState({nameError:"Username Can not be Empty"})
+         }else{
+           this.setState({nameError:""})
+         }
 
-                }
-                localStorage.setItem('token', response.data.token);
-                if(response.data.role=="ROLE_STUDENT"){
-                    this.setState({isLoggedStu:true});
+        if(data.password&&data.userName){
+            axios.post(LOGIN_REST_API_URL, data)
+              .then( response => {
 
-                }
-                else if(response.data.role=="ROLE_ADMIN"){
-                                    this.setState({isLoggedAdmin:true});
+                    console.log(response.status)
 
-                }
-          })
+                    if(response.data.token&&response.data.role){
+
+                        localStorage.setItem('token', response.data.token);
+                        if(response.data.role=="ROLE_STUDENT"){
+                            this.setState({isLoggedStu:true});
+
+                        }
+
+                        else if(response.data.role=="ROLE_ADMIN"){
+                            this.setState({isLoggedAdmin:true});
+
+                        }
+                    }
+
+              }).catch( error => {
+                 if (error.response.status===401){
+                       alert("Username or Password is Incorrect");
+                 }
+
+              });
+
+        }
+
     }
 
     render() {
@@ -66,7 +116,8 @@ class Login extends Component {
                 <img src={PeraLogo} className="logo"></img>
                 <h3 className="title1">UNIVERSITY OF PERADENIYA</h3>
                 <h3 className="title2">ATTENDANCE MARKING SYSTEM</h3>
-                <LoginCard oc={this.changeHandler} sr={this.sendReq}></LoginCard>
+
+                <LoginCard loginError = {this.state.loginError} ocn={this.nameChangeHandler} ocp={this.passChangeHandler} sr={this.sendReq} nameError ={this.state.nameError} passError= {this.state.passError}></LoginCard>
             </div>
          );
     }

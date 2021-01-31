@@ -20,11 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 @RestController
-@CrossOrigin(origins = "https://localhost:3000")
 public class JwtAuthenticationController {
-	//
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -39,15 +36,10 @@ public class JwtAuthenticationController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Map> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-		System.out.println("Hi Nuwan");
-
-
 		authenticate(authenticationRequest.getUserName(),authenticationRequest.getPassword());
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUserName());
-
-
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
@@ -63,7 +55,7 @@ public class JwtAuthenticationController {
 
 	private void authenticate(String username, String password) throws Exception {
 		try {
-			System.out.println(username+" "+password);
+			//System.out.println(username+" "+password);
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
 			throw new Exception("USER_DISABLED", e);
