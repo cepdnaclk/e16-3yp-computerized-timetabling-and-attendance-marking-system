@@ -28,6 +28,7 @@ class Login extends Component {
         this.passChangeHandler= this.passChangeHandler.bind(this);
         this.nameChangeHandler=this.nameChangeHandler.bind(this);
         this.sendReq = this.sendReq.bind(this);
+
     }
 
     passChangeHandler = (event) => {
@@ -54,18 +55,21 @@ class Login extends Component {
 
     sendReq = () =>{
         //sent http request to login using state object
-        const data = this.state;
+        const data = {
+            "userName":this.state.userName,
+            "password":this.state.password
+        }
 
          if(this.state.password.length == 0){
-                            this.setState({passError:"Password Can not be Empty"})
-                 }
+            this.setState({passError:"Password Can not be Empty"})
+         }
          else{
             this.setState({passError:""})
          }
          if(this.state.userName.length == 0){
-                       this.setState({nameError:"Username Can not be Empty"})
+           this.setState({nameError:"Username Can not be Empty"})
          }else{
-               this.setState({nameError:""})
+           this.setState({nameError:""})
          }
 
         if(data.password&&data.userName){
