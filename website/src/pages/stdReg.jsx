@@ -5,7 +5,7 @@ import '../css/stdReg.css'
 import axios from 'axios'
 
 
-const REGISTRATION_REST_API_URL = 'http://localhost:8080/user/registration/student';
+const REGISTRATION_REST_API_URL = 'http://localhost:8080/admin/registration/student';
 
 class StdReg extends Component {
     state = {  }
