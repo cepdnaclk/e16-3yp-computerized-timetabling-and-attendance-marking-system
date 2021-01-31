@@ -24,9 +24,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-
-    @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired

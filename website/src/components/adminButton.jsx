@@ -13,6 +13,12 @@ class AdminButton extends Component {
         else if(this.props.val === '4'){
             url += 'deleteaccounts';
         }
+        else if(this.props.val === '2'){
+            url += 'lecreg';
+        }
+        else if(this.props.val === '3'){
+            url += 'adminreg';
+        }
         return ( 
 
             <a href={url} className="adminButton">

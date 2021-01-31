@@ -46,7 +46,7 @@ class AdminControllerIntTest {
     @Test
     void addNewLecturer() {
 
-        Lecturer lecturer = new Lecturer("Ajantha","abc123","lecturer","ajantha@gmail.com","0762212214","maths");
+        Lecturer lecturer = new Lecturer("Saubhagya222","Saubhagya","Munasinghe","e16399@eng.pdn.ac.lk","com");
         ResponseEntity<Map> responseEntity = this.restTemplate
                 .postForEntity("http://localhost:" + port + "/admn/create/lectureracc", lecturer ,Map.class);
         System.out.println(responseEntity.getBody().toString());
