@@ -49,7 +49,7 @@ class AdminReg extends Component {
                     <div className="lrdataFields">
                         <TextInput tagname="userName" name="UserName :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="email" name="Email :" oc={this.changeHandler}></TextInput>
-                         </div>
+                    </div>
                     <button onClick={this.sendReq} className="lrsubmitButton">Submit</button>
                
             </React.Fragment>
