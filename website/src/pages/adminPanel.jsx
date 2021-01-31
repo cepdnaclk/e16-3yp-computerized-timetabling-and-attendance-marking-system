@@ -17,12 +17,14 @@ class AdminPanel extends Component {
             <React.Fragment>
                 <NavBar pageName="" />
                 <div className="buttonPanel">
-                    <AdminButton t1="CREATE" t2="STUDENT ACCOUNTS" img={b1} url= "/stdreg"></AdminButton>
-                    <AdminButton t1="CREATE" t2="LECTURER ACCOUNTS" img={b2}></AdminButton>
-                    <AdminButton t1="CREATE" t2="ADMIN ACCOUNTS" img={b3}></AdminButton>
-                    <AdminButton t1="DELETE" t2="ACCOUNTS" img={b4}></AdminButton>
-                    <AdminButton t1="UPDATE" t2="STUDENT ACCOUNTS" img={b5}></AdminButton>
-                    <AdminButton t1="MODIFY" t2="TIMETABELS" img={b6}></AdminButton>
+
+                    <AdminButton t1="CREATE" t2="STUDENT ACCOUNTS" val="1" img={b1}></AdminButton>
+                    <AdminButton t1="CREATE" t2="LECTURER ACCOUNTS" val="2" img={b2}></AdminButton>
+                    <AdminButton t1="CREATE" t2="ADMIN ACCOUNTS" val="3" img={b3}></AdminButton>
+                    <AdminButton t1="DELETE" t2="ACCOUNTS" val="4" img={b4}></AdminButton>
+                    <AdminButton t1="UPDATE" t2="STUDENT ACCOUNTS" val="5" img={b5}></AdminButton>
+                    <AdminButton t1="MODIFY" t2="TIMETABELS" val="6" img={b6}></AdminButton>
+
                 </div>
             
             </React.Fragment>
