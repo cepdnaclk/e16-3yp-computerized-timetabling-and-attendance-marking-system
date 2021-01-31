@@ -10,9 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class ViewController {
 
     @GetMapping("/")
-   public ModelAndView home() {
-        ModelAndView mv = new ModelAndView("adminLogin");
-        return mv;
+   public String home() {
+       return "hi";
     }
 
 }

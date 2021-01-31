@@ -35,7 +35,7 @@ class LecReg extends Component {
                 <NavBar pageName="Lecturer Registration" />
                     <div className="lrdataFields">
                         <TextInput tagname="f1" name="UserName :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f2" name="Name with Initilas :" oc={this.changeHandler}></TextInput>
+                        <TextInput tagname="f2" name="Name with Initials :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="f3" name="Email :" oc={this.changeHandler}></TextInput>
                         <TextInput tagname="f4" name="Password :" oc={this.changeHandler}></TextInput>
                          </div>
