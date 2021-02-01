@@ -11,7 +11,7 @@ class DeleteCard extends Component {
                 <h5 className="dbTitle">{this.props.cardName}</h5>
                 <div className="dbtextInput">
                     <TextInput tagname={this.props.f} name={this.props.name} oc={this.props.oc}></TextInput>
-                    <div>
+                    <div className="dcwrapper">
                         <button className="deleteButton" onClick={this.props.sr}>Delete</button>
                     </div>
                     

@@ -3,17 +3,16 @@
   margin: 0;
 }
 
-.dataFields {
-  position: absolute;
-  top: 150px;
+.lrdataFields {
+  position: relative;
+  width: 60%;
+  top: 50px;
+  left: 20%;
   display: grid;
-  grid-template-columns: 50% 50%;
-  padding-left: 280px;
-  grid-gap: 5px 20px;
-  width: 75%;
+  grid-template-columns: 100%;
 }
 
-.submitButton {
+.lrsubmitButton {
   position: relative;
   color: white;
   background-color: black;
@@ -21,6 +20,6 @@
   padding-right: 20px;
   border-radius: 5px;
   border: none;
-  top: 350px;
+  top: 80px;
   left: 45%;
 }
