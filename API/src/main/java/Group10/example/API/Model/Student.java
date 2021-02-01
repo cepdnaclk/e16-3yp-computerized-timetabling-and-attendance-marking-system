@@ -58,7 +58,7 @@ public class Student {
     private int semester;
 
     @NotNull(message = "year is mandatory")
-    @Range(min=1,max=4)
+//    @Range(min=1,max=4)
     private int year;
 
     @Email(message = "Email should be valid")
