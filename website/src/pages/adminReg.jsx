@@ -3,7 +3,7 @@ import NavBar from '../components/navbar'
 import TextInput from '../components/textInput'
 import '../css/lecReg.css'
 import axios from 'axios'
-const REGISTRATION_REST_API_URL = 'http://localhost:8080/admin/registration/admin';
+const REGISTRATION_REST_API_URL = '/admin/registration/admin';
 class AdminReg extends Component {
     state = {  }
 
