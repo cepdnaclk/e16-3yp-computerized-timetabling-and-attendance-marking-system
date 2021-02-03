@@ -93,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/student/**").hasRole("STUDENT")
                 //.antMatchers("/student").hasRole("STUDENT")
                 .antMatchers("/lecturer/**").hasRole("LECTURER")
-                .antMatchers("/").permitAll().anyRequest().authenticated()
+                .antMatchers("/login").permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
                 and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

@@ -208,7 +208,7 @@ class StdReg extends Component {
         );
     }*/
 
-    const REGISTRATION_REST_API_URL = 'http://localhost:8080/admin/registration/student';
+    const REGISTRATION_REST_API_URL = '/admin/registration/student';
 
     class StdReg extends Component {
         state = {  }
