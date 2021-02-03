@@ -4,7 +4,7 @@ import CourseList from "../components/courseList"
 import UserCard from "../components/userCard"
 import axios from 'axios'
 
-const STUDENT_HOME_PAGE_URI =  'http://localhost:8080/student';
+const STUDENT_HOME_PAGE_URI =  '/student';
 
 class Home extends Component {
     state = { courses: [] ,
