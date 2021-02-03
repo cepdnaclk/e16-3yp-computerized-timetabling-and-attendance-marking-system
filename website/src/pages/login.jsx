@@ -7,7 +7,7 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import { Redirect } from 'react-router';
 
-const LOGIN_REST_API_URL = 'http://localhost:8080/login';
+const LOGIN_REST_API_URL = '/login';
 
 
 class Login extends Component {
