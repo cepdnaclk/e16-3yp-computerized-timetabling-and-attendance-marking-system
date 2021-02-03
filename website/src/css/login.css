@@ -1,0 +1,111 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.loginImg {
+  /* width: 100%;
+  height: 75vh;
+  z-index: 2; */
+
+
+  width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    z-index: -1;
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+    
+}
+
+.loginCard {
+  width: 31%;
+  position: relative;
+  left: 34%;
+  top: 400px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px 0 rgba(153, 23, 23, 0.2);
+}
+
+.text1 {
+  position: relative;
+  /* top: 3px; */
+  background-color: gray;
+  color: white;
+  height: 50px;
+  /* padding-left: 5px; */
+  text-align: center;
+  margin-bottom: 0;
+  justify-content: center;
+}
+
+.body {
+  height: 220px;
+  padding-left: 5px;
+  background-color: white;
+  padding-top: 5px;
+
+  /* border-radius: 5px; */
+}
+
+.t1,
+.t2 {
+  color: black;
+}
+
+.button {
+  color: white;
+  width: 25%;
+  height: 30px;
+  background-color: rgb(110, 104, 104);
+  border-radius: 5px;
+  border: none;
+  margin-top: 8px;
+}
+.buttonCover {
+  text-align: center;
+}
+
+.textInput {
+  width: 90%;
+  height: 30px;
+
+
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 90px;
+  left: 45%;
+  display: inline;
+  z-index: 1;
+  margin:auto;
+}
+
+.title1 {
+  position: absolute;
+  top: 235px;
+  left: 37%;
+  z-index: 1;
+  font-weight: bold;
+  color: black;
+}
+
+.title2 {
+  position: absolute;
+  top: 265px;
+  left: 35%;
+  font-weight: bold;
+  color: black;
+}

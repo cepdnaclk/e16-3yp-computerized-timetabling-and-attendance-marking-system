@@ -1,0 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.contner {
+  margin: 7px;
+  width: 100%;
+}
+
+.textInput {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.t1 {
+  color: black;
+}

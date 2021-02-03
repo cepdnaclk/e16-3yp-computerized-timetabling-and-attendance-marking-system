@@ -63,7 +63,7 @@ public class GroupService {
         map.put("msg","student successfully added");
         Optional<Group> group = groupRepository.findById(ID);
 
-        if(group==null){
+        if(!group.isPresent()){
             map.put("msg","Group is not found");
             return map;
         }
@@ -74,6 +74,10 @@ public class GroupService {
             Optional<Student> stu = studentRepo.findById(a);
             if (stu.isPresent()) {
                 stu.ifPresent(s -> studentList.add(stu.get().getStudentID()));
+            }
+            else{
+                map.put("msg","Student is not found");
+                return map;
             }
         }
 
@@ -86,13 +90,15 @@ public class GroupService {
     public HashMap<String,Object> removeStudentFromGroup(List<String> students, String ID){
         Optional<Group> group = groupRepository.findById(ID);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("msg","student successfully deleted");
 
-        if(group==null){
+        if(!group.isPresent()){
             map.put("msg","Group is not found");
             return map;
 
         }
+
+        map.put("msg","student successfully deleted");
+
         HashSet<String> studentList = group.get().getStudentList();
 
         if(group.isPresent()) {
@@ -107,27 +113,40 @@ public class GroupService {
         return map;
     }
 
-    public HashMap<String, Object> addLectures(List<String> lecturer, String ID){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("msg","lecturer successfully added");
+    public HashMap<String, String> addLectures(List<String> lecturer, String ID){
+        HashMap<String, String> map = new HashMap<>();
         Optional<Group> group = groupRepository.findById(ID);
 
-        if(group==null){
+
+        if(!group.isPresent()){
             map.put("msg","Group is not found");
             return map;
         }
 
-        HashSet<String> lecList = group.get().getLecList();
+        HashSet<String> lecList = group.get().lecList;
 
+        int count = 0;
         for(String a:lecturer) {
             Optional<Lecturer> lec = lecRepo.findById(a);
             if (lec.isPresent()) {
-                lec.ifPresent(l -> lecList.add(lec.get().getLectID()));
+
+                count++;
+                lec.ifPresent(l->lecList.add(l.getLectID()));
+            }
+            else{
+                map.put("msg","Lecturer is not found");
+                return map;
             }
         }
 
+        if(count==0){
+            map.put("msg","No Valid Lecturers Found");
+            return map;
+        }
 
+        group.ifPresent(g->g.setLecList(lecList));
         group.ifPresent(g->groupRepository.save(g));
+        map.put("msg","lecturers successfully added");
         return map;
 
     }
@@ -171,6 +190,10 @@ public class GroupService {
             Optional<Course> course = courseRepo.findById(a);
             if (course.isPresent()) {
                 course.ifPresent(c -> courseList.add(course.get().getCourseId()));
+            }
+            else{
+                map.put("msg","Course is not found");
+                return map;
             }
         }
 
