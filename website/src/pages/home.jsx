@@ -3,6 +3,7 @@ import NavBar from '../components/navbar'
 import CourseList from "../components/courseList"
 import UserCard from "../components/userCard"
 import axios from 'axios'
+import "../css/home.css"
 
 const STUDENT_HOME_PAGE_URI =  '/student';
 
