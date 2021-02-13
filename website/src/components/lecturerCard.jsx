@@ -1,38 +1,40 @@
 import React, { Component } from 'react';
-import '../css/userCard.css'
+import '../css/lecturerCard.css'
 import Button from '@material-ui/core/Button';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import TextField from '@material-ui/core/TextField';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 
-class UserCard extends Component {
+class LecturerCard extends Component {
   state = {  }
 
   render() { 
     
-    console.log((this.props.data)[0]);
     return ( 
       <div className="userCard-outer">
       <div class="background"></div>
         <div class="profile-card">
           <div class="cover"></div>
           <div class="profile">
-            <div class="hm-pic">
+            <div class="pic">
             </div>
             <div class="above-fold">
               <div class="name">
-                {(this.props.data)[0]}
+                {this.props.data}
               </div>
               <div class="role">
-              {(this.props.data)[1]}
+                <TextField id="outlined-search" label="Course Code" type="search" variant="outlined" color="secondary"
+                onChange={ e => this.props.oc(e)}/>
               </div>
               
               <div class="row">
                 <Button variant="outlined" color="secondary"
-                startIcon={<EditOutlinedIcon></EditOutlinedIcon>}>
-                  User Name
+                startIcon={<PeopleOutlineIcon></PeopleOutlineIcon>}>
+                  Student Groups
                 </Button>
                 <Button variant="outlined" color="secondary"
-                startIcon={<EditOutlinedIcon></EditOutlinedIcon>}>
-                  Password
+                startIcon={<DateRangeOutlinedIcon></DateRangeOutlinedIcon>}>
+                  My Timetables
                 </Button>
               </div>
               
@@ -45,4 +47,4 @@ class UserCard extends Component {
   }
 }
  
-export default UserCard;
+export default LecturerCard;
