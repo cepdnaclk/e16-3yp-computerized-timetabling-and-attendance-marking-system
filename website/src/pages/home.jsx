@@ -12,7 +12,7 @@ class Home extends Component {
               details: []
     }
 
-    constructor(props){
+   /* constructor(props){
         super(props);
         const auth = "Bearer "+ localStorage.getItem('token');
         axios.get(STUDENT_HOME_PAGE_URI, {
@@ -50,7 +50,7 @@ class Home extends Component {
                               }
                             
                           })
-    }
+    }*/
 
     render() { 
         return (  

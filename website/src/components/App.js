@@ -7,13 +7,15 @@ import AdminPanel from '../pages/adminPanel'
 import DeleteAccounts from '../pages/deleteAccounts' 
 import LecReg from '../pages/lecReg'
 import AdminReg from '../pages/adminReg'
+import cssBaseline from '@material-ui/core'
 
 class App extends Component {
 
     state = {}
   
     render() { 
-        return ( 
+        return (
+            <>
             <Router>
                 <Switch>
                     <Route path="/home" component={Home}></Route>
@@ -26,6 +28,8 @@ class App extends Component {
                     
                 </Switch>
             </Router>
+            <cssBaseline/>
+            </>
          );
     }
 
