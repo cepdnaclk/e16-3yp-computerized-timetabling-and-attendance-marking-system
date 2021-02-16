@@ -116,8 +116,8 @@ export default function LoginCard(props) {
             autoComplete="current-password"
             onChange={props.ocp}
           />
-          {<h6 style={{color : "red"}}>{props.passError}</h6>}
-          {<h6 style={{color : "red"}}>{props.loginError}</h6>}
+          {<p style={{color : "red"}}>{props.passError}</p>}
+          {<p style={{color : "red"}}>{props.loginError}</p>}
           
           <Button
             onClick={props.sr}

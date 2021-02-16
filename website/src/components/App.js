@@ -7,6 +7,8 @@ import AdminPanel from '../pages/adminPanel'
 import DeleteAccounts from '../pages/deleteAccounts' 
 import LecReg from '../pages/lecReg'
 import AdminReg from '../pages/adminReg'
+import LecturerDashboard from '../pages/lecturerDashboard'
+import '../index.css'
 import cssBaseline from '@material-ui/core'
 
 class App extends Component {
@@ -24,6 +26,7 @@ class App extends Component {
                     <Route path="/deleteaccounts" component={DeleteAccounts}></Route>
                     <Route path="/lecreg" component={LecReg}></Route>
                     <Route path="/adminreg" component={AdminReg}></Route>
+                    <Route path="/Lecturerdashboard" component={LecturerDashboard}></Route>
                     <Route path="/" component={Login}></Route>
                     
                 </Switch>
