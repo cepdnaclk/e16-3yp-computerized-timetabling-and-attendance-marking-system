@@ -7,7 +7,7 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import { Redirect } from 'react-router';
 
-const LOGIN_REST_API_URL = 'http://localhost:8080/login';
+const LOGIN_REST_API_URL = '/login';
 
 
 class Login extends Component {
@@ -34,7 +34,7 @@ class Login extends Component {
     passChangeHandler = (event) => {
 
          this.setState({ password : event.target.value });
-         if(this.state.password.length == 0){
+         if(this.state.password == 0){
                     this.setState({passError:"Password Can not be Empty"})
          }
          else{
@@ -60,17 +60,26 @@ class Login extends Component {
             "password":this.state.password
         }
 
-         if(this.state.password.length == 0){
+         if(this.state.password.length === 0 && this.state.userName.length !== 0){
             this.setState({passError:"Password Can not be Empty"})
+            this.setState({nameError:""})
+            this.setState({loginError:""})
          }
-         else{
-            this.setState({passError:""})
-         }
-         if(this.state.userName.length == 0){
+         else if(this.state.userName.length === 0 && this.state.password.length !== 0){
            this.setState({nameError:"Username Can not be Empty"})
-         }else{
-           this.setState({nameError:""})
+           this.setState({passError:""})
+           this.setState({loginError:""})
          }
+         else if(this.state.userName.length === 0 && this.state.password.length === 0){
+            this.setState({nameError:"Username Can not be Empty"})
+            this.setState({passError:"Password Can not be Empty"})
+            this.setState({loginError:""})
+          }
+        else{
+            this.setState({nameError:""})
+            this.setState({passError:""})
+
+          }
 
         if(data.password&&data.userName){
             axios.post(LOGIN_REST_API_URL, data)
@@ -94,7 +103,10 @@ class Login extends Component {
 
               }).catch( error => {
                  if (error.response.status===401){
-                       alert("Username or Password is Incorrect");
+                       //alert("Username or Password is Incorrect");
+                       this.setState({loginError:"Username or Password is Incorrect"});
+                       this.setState({nameError:""})
+                       this.setState({passError:""})
                  }
 
               });
@@ -102,6 +114,9 @@ class Login extends Component {
         }
 
     }
+
+    
+    
 
     render() {
         if(this.state.isLoggedStu){
@@ -116,9 +131,10 @@ class Login extends Component {
                 <img src={PeraLogo} className="logo"></img>
                 <h3 className="title1">UNIVERSITY OF PERADENIYA</h3>
                 <h3 className="title2">ATTENDANCE MARKING SYSTEM</h3>
-
-                <LoginCard loginError = {this.state.loginError} ocn={this.nameChangeHandler} ocp={this.passChangeHandler} sr={this.sendReq} nameError ={this.state.nameError} passError= {this.state.passError}></LoginCard>
-            </div>
+                <div className="lgnloginCard">
+                    <LoginCard loginError = {this.state.loginError} ocn={this.nameChangeHandler} ocp={this.passChangeHandler} sr={this.sendReq} nameError ={this.state.nameError} passError= {this.state.passError}></LoginCard>
+                </div>
+                </div>
          );
     }
 }
