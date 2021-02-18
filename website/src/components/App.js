@@ -8,6 +8,7 @@ import DeleteAccounts from '../pages/deleteAccounts'
 import LecReg from '../pages/lecReg'
 import AdminReg from '../pages/adminReg'
 import LecturerDashboard from '../pages/lecturerDashboard'
+import StudentGroups from '../pages/studentGroups'
 import '../index.css'
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
                     <Route path="/lecreg" component={LecReg}></Route>
                     <Route path="/adminreg" component={AdminReg}></Route>
                     <Route path="/Lecturerdashboard" component={LecturerDashboard}></Route>
+                    <Route path="/studentgroups" component={StudentGroups}></Route>
                     <Route path="/" component={Login}></Route>
                     
                 </Switch>

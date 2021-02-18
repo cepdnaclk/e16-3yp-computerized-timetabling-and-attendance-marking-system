@@ -35,7 +35,7 @@ class Login extends Component {
 
          this.setState({ password : event.target.value });
          if(this.state.password == 0){
-                    this.setState({passError:"Password Can not be Empty"})
+                    this.setState({passError:"*Password Can not be Empty"})
          }
          else{
             this.setState({passError:""})
@@ -46,7 +46,7 @@ class Login extends Component {
     nameChangeHandler(event){
         this.setState({ userName : event.target.value });
         if(this.state.userName.length == 0){
-              this.setState({nameError:"Username Can not be Empty"})
+              this.setState({nameError:"*Username Can not be Empty"})
         }else{
               this.setState({nameError:""})
         }
@@ -61,18 +61,18 @@ class Login extends Component {
         }
 
          if(this.state.password.length === 0 && this.state.userName.length !== 0){
-            this.setState({passError:"Password Can not be Empty"})
+            this.setState({passError:"*Password Can not be Empty"})
             this.setState({nameError:""})
             this.setState({loginError:""})
          }
          else if(this.state.userName.length === 0 && this.state.password.length !== 0){
-           this.setState({nameError:"Username Can not be Empty"})
+           this.setState({nameError:"*Username Can not be Empty"})
            this.setState({passError:""})
            this.setState({loginError:""})
          }
          else if(this.state.userName.length === 0 && this.state.password.length === 0){
-            this.setState({nameError:"Username Can not be Empty"})
-            this.setState({passError:"Password Can not be Empty"})
+            this.setState({nameError:"*Username Can not be Empty"})
+            this.setState({passError:"*Password Can not be Empty"})
             this.setState({loginError:""})
           }
         else{
@@ -104,7 +104,7 @@ class Login extends Component {
               }).catch( error => {
                  if (error.response.status===401){
                        //alert("Username or Password is Incorrect");
-                       this.setState({loginError:"Username or Password is Incorrect"});
+                       this.setState({loginError:"*Username or Password is Incorrect"});
                        this.setState({nameError:""})
                        this.setState({passError:""})
                  }
