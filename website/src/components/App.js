@@ -9,6 +9,7 @@ import LecReg from '../pages/lecReg'
 import AdminReg from '../pages/adminReg'
 import LecturerDashboard from '../pages/lecturerDashboard'
 import StudentGroups from '../pages/studentGroups'
+import EditGroups from '../pages/editGroups'
 import '../index.css'
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
                     <Route path="/adminreg" component={AdminReg}></Route>
                     <Route path="/Lecturerdashboard" component={LecturerDashboard}></Route>
                     <Route path="/studentgroups" component={StudentGroups}></Route>
+                    <Route path="/editgroups/:id" component={EditGroups}></Route>
                     <Route path="/" component={Login}></Route>
                     
                 </Switch>
