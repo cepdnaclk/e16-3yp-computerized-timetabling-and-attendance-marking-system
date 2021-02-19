@@ -101,7 +101,7 @@ export default function LoginCard(props) {
             autoFocus
             onChange={props.ocn}
           />
-          {<h6 style={{color : "red"}}>{props.nameError}</h6>}
+          {<p style={{color : "red"}}>{props.nameError}</p>}
           
           <TextField className={classes.inputField}
             color="secondary"
@@ -119,6 +119,10 @@ export default function LoginCard(props) {
           {<p style={{color : "red"}}>{props.passError}</p>}
           {<p style={{color : "red"}}>{props.loginError}</p>}
           
+          <FormControlLabel
+            control={<Checkbox value="remember" color="secondary" />}
+            label="Remember me"
+          />
           <Button
             onClick={props.sr}
             fullWidth
