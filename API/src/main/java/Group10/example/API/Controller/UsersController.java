@@ -1,9 +1,6 @@
 package Group10.example.API.Controller;
 
-import Group10.example.API.Model.Admin;
-import Group10.example.API.Model.Lecturer;
-import Group10.example.API.Model.Student;
-import Group10.example.API.Model.StudentPayload;
+import Group10.example.API.Model.*;
 import Group10.example.API.Repository.AdminRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
@@ -207,6 +204,15 @@ public class UsersController {
         return stuRepo.findAll();
    }
 
+   @GetMapping(value = "student/getidfromsession")
+    public Result getIdFromSession(){
+        Student s = getStudentFromSession();
+        return (s == null)?null:new Result(s.getStudentID());
+    }
 
+    public String getUserName(){
+        Student s = getStudentFromSession();
+        return (s == null)?null:s.getUserName();
+    }
 
 }
