@@ -8,9 +8,12 @@ import DeleteAccounts from '../pages/deleteAccounts';
 import LecReg from '../pages/lecReg';
 import AdminReg from '../pages/adminReg';
 import LecturerDashboard from '../pages/lecturerDashboard';
-import '../index.css';
 import CourseReg from "../pages/courseReg";
 import RegisteredCourses from '../pages/registeredCourses';
+import StudentGroups from '../pages/studentGroups'
+import EditGroups from '../pages/editGroups'
+import '../index.css';
+
 class App extends Component {
 
     state = {}
@@ -28,6 +31,8 @@ class App extends Component {
                     <Route path="/Lecturerdashboard" component={LecturerDashboard}></Route>
                     <Route path="/coursereg" component={CourseReg}></Route>
                     <Route path="/registeredcourses" component={RegisteredCourses}></Route>
+                    <Route path="/studentgroups" component={StudentGroups}></Route>
+                    <Route path="/editgroups/:id" component={EditGroups}></Route>
                     <Route path="/" component={Login}></Route>
                 </Switch>
             </Router>
