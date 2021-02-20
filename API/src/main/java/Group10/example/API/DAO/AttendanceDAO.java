@@ -92,6 +92,23 @@ public class AttendanceDAO {
         return "success";
     }
 
+    public String addCompleteAttendanceRecord(AttendanceLogList list) {
+        ArrayList<String> allStudents = new ArrayList<>(findStudentIdListByCourseId(list.getCourseId()));
+        HashSet<String> presentStudents = new HashSet<>(list.getStudentIdList());
+        AttendanceItem presentAttendanceItem = new AttendanceItem(list.getDate(),list.getTime(),list.getLab_or_lecture(),true);
+        AttendanceItem absentAttendanceItem = new AttendanceItem(list.getDate(),list.getTime(),list.getLab_or_lecture(),false);
+        for (String s: allStudents) {
+            Attendance a = attendanceRepository.findByCourseIdAndStudentId(list.getCourseId(),s).iterator().next();
+            if(presentStudents.contains(s)){
+                a.addAttendanceItem(presentAttendanceItem);
+            }
+            else{
+                a.addAttendanceItem(absentAttendanceItem);
+            }
+        }
+        return "success";
+    }
+
     public ArrayList<String> findCourseIdListByStudentId(String studentId) {
         Optional<Student> student = studentRepository.findById(studentId);
         ArrayList<String> courseIdList = new ArrayList<>();
@@ -99,7 +116,7 @@ public class AttendanceDAO {
         return courseIdList;
     }
 
-    public Collection<String> findStudentIdListByCourseId(String courseId) {
+    public ArrayList<String> findStudentIdListByCourseId(String courseId) {
         Optional<Course> course = courseRepository.findById(courseId);
         ArrayList<String> studentIdList = new ArrayList<>();
         course.ifPresent(c -> studentIdList.addAll(c.getStudentsIds()));
@@ -113,4 +130,6 @@ public class AttendanceDAO {
     public void deleteByCourseId(String courseId) {
         attendanceRepository.removeAllByCourseId(courseId);
     }
+
+
 }
