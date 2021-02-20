@@ -12,7 +12,9 @@ import CourseReg from "../pages/courseReg";
 import RegisteredCourses from '../pages/registeredCourses';
 import StudentGroups from '../pages/studentGroups'
 import EditGroups from '../pages/editGroups'
-import '../index.css';
+import Attendance from '../pages/attendance'
+import DailyAttendance from '../pages/dailyAttendance'
+import '../index.css'
 
 class App extends Component {
 
@@ -33,6 +35,8 @@ class App extends Component {
                     <Route path="/registeredcourses" component={RegisteredCourses}></Route>
                     <Route path="/studentgroups" component={StudentGroups}></Route>
                     <Route path="/editgroups/:id" component={EditGroups}></Route>
+                    <Route path="/attendance" component={Attendance}></Route>
+                    <Route path="/dailyattendance" component={DailyAttendance}></Route>
                     <Route path="/" component={Login}></Route>
                 </Switch>
             </Router>
