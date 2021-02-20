@@ -1,5 +1,7 @@
 package Group10.example.API.Controller;
 
+import Group10.example.API.Model.Result;
+import Group10.example.API.Model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,9 @@ public class JwtAuthenticationController {
 	@Qualifier("sev1")
 	private UserDetailsService userDetailsService;
 
+	@Autowired
+	private UsersController usersController;
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Map> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
@@ -61,6 +66,17 @@ public class JwtAuthenticationController {
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
+		}
+	}
+
+	@GetMapping(value = "/check/password/{password}")
+	public Result confirmPassword(@PathVariable("password")String password){
+		try{
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usersController.getUserName(),password));
+			return new Result("True");
+		}
+		catch (Exception e){
+			return new Result("False");
 		}
 	}
 }
