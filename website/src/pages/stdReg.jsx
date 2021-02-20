@@ -245,7 +245,7 @@ class StdReg extends Component {
                 }
               })
               .then( response => {
-                              if(response.data == null){
+                              if(response.data === null){
                                   console.log("error");
                               }
                   console.log(response.status);

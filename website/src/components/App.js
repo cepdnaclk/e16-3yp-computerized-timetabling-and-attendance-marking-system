@@ -11,6 +11,7 @@ import LecturerDashboard from '../pages/lecturerDashboard'
 import StudentGroups from '../pages/studentGroups'
 import EditGroups from '../pages/editGroups'
 import Attendance from '../pages/attendance'
+import DailyAttendance from '../pages/dailyAttendance'
 import '../index.css'
 
 class App extends Component {
@@ -31,6 +32,7 @@ class App extends Component {
                     <Route path="/studentgroups" component={StudentGroups}></Route>
                     <Route path="/editgroups/:id" component={EditGroups}></Route>
                     <Route path="/attendance" component={Attendance}></Route>
+                    <Route path="/dailyattendance" component={DailyAttendance}></Route>
                     <Route path="/" component={Login}></Route>
                     
                 </Switch>
