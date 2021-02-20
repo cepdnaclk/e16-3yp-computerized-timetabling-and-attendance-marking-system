@@ -50,7 +50,7 @@ class CourseReg extends Component {
       .then((response) => {
         // console.log(response.data);
         // console.log(response.data.result);
-        if (response.data.result === "True") {
+        if (response.data.result1 === "True") {
           this.setState({ submit: true });
         }
         else {

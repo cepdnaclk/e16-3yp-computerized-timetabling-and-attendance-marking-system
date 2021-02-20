@@ -101,7 +101,7 @@ class CourseRegistrationForm extends Component {
 
     if(this.state.redirect){
       this.setState({redirect:false});
-      return <Redirect to={{ pathname: "registeredcourses" }} />;
+      return <Redirect to={{ pathname: "home" }} />;
     }
 
     return this.generateCourseCards();

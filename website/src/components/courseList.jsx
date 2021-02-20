@@ -10,9 +10,9 @@ class CourseList extends Component {
       <div className="home-courseList">
         {this.props.courses.map((course) => (
           <CourseCard
-            key={course.courseNum}
-            code={course.courseNum}
-            name={course.courseName}
+            key={course.courseNumber}
+            code={course.courseNumber}
+            name={course.courseName.toUpperCase()}
             sw={this.props.sw}
           ></CourseCard>
         ))}

@@ -15,11 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -204,10 +201,10 @@ public class UsersController {
         return stuRepo.findAll();
    }
 
-   @GetMapping(value = "student/getidfromsession")
-    public Result getIdFromSession(){
+   @GetMapping(value = "student/getdetailsfromsession")
+    public Result getDetailsFromSession(){
         Student s = getStudentFromSession();
-        return (s == null)?null:new Result(s.getStudentID());
+        return (s == null)?null:new Result(s.getStudentID(),s.getFirstName(),s.getRegNumber());
     }
 
     public String getUserName(){

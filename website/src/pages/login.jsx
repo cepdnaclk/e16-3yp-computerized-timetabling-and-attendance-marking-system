@@ -8,7 +8,7 @@ import {withRouter} from 'react-router-dom'
 import { Redirect } from 'react-router';
 
 const LOGIN_REST_API_URL = '/login';
-const ID_FROM_SESSION_URL = "/student/getidfromsession";
+const ID_FROM_SESSION_URL = "/student/getdetailsfromsession";
 
 class Login extends Component {
     state = {  }
@@ -129,7 +129,9 @@ class Login extends Component {
                   }
                 })
               .then((response) => {
-                localStorage.setItem("sid", response.data.result);
+                localStorage.setItem("sid", response.data.result1);
+                localStorage.setItem("sfn", response.data.result2);
+                localStorage.setItem("sen", response.data.result3);
               })
               .catch((error) => {
                 console.log("error =", error);

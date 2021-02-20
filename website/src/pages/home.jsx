@@ -7,7 +7,7 @@ import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import { Redirect } from "react-router";
 const STUDENT_HOME_PAGE_URI = "/student";
-
+let GET_COURSES_BY_SID_URL = "/courses/findcoursesbystudentid/";
 class Home extends Component {
   state = {
     courses: [],
@@ -16,74 +16,45 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    this.setState({
-      courses: [
-        { courseNum: "CO321", courseName: "EMBEDED SYSTEMS" },
-        { courseNum: "CO322", courseName: "DATA STRUCTURES AND ALGORYTHMS" },
-        { courseNum: "CO323", courseName: "COMPUTER COMINUCATION NETWORKS II" },
-      ],
-    });
-    this.setState({
-      details: [
-        {
-          id: 1,
-          nameTag: "Name:",
-          value: "Saubhagya",
+    const auth = "Bearer " + localStorage.getItem("token");
+    GET_COURSES_BY_SID_URL += localStorage.getItem("sid");
+    axios
+      .get(GET_COURSES_BY_SID_URL, {
+        headers: {
+          Authorization: auth,
         },
-        {
-          id: 2,
-          nameTag: "E Number:",
-          value: "E/16/242",
-        },
-        {
-          id: 3,
-          nameTag: "Password:",
-          value: "samplePassword",
-        },
-      ],
-    });
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ courses: response.data });
+      })
+      .catch((error) => {
+        console.log("error =", error);
+      });
+    // this.setState({
+    //   details: [
+    //     {
+    //       id: 1,
+    //       nameTag: "Name:",
+    //       value: localStorage.getItem("sfn"),
+    //     },
+    //     {
+    //       id: 2,
+    //       nameTag: "E Number:",
+    //       value: localStorage.getItem("sen"),
+    //     },
+    //     {
+    //       id: 3,
+    //       nameTag: "Password:",
+    //       value: "samplePassword",
+    //     },
+    //   ],
+    // });
     this.setState({ searchWord: "" });
   }
 
   constructor(props) {
     super(props);
-
-    /*const auth = "Bearer "+ localStorage.getItem('token');
-        axios.get(STUDENT_HOME_PAGE_URI, {
-                            headers: {
-                              'Authorization': auth
-                            }
-                          }).then( response =>{
-                              if(response.status === 200){
-
-                                this.setState({courses:response.data.courses})
-                                this.setState({details:[
-                                    {   
-                                        id:1,
-                                        nameTag:"Name:",
-                                        value: response.data.student.userName
-                        
-                                    },
-                                    {   
-                                        id:2,
-                                        nameTag:"E Number:",
-                                        value:response.data.student.eNo
-                        
-                                    },
-                                    {   
-                                        id:3,
-                                        nameTag:"Password:",
-                                        value:"samplePassword"
-                        
-                                    }
-                                ]}
-
-                                )
-                                console.log(response);
-
-                              }
-                            
-                          })*/
   }
 
 
@@ -94,9 +65,9 @@ class Home extends Component {
         <img src={bgImage} className="homeloginImg"></img>
         <h2 className="hm-title">My Attendance records</h2>
         <CourseList courses={this.state.courses} sw={this.state.searchWord} />
-        <UserCard data={["Saubhagya", "E/16/242"]} />
+        <UserCard data={[localStorage.getItem("sfn"), localStorage.getItem("sen")]} />
         <a href="coursereg" className="btn btn-secondary">Course Registration</a><br/>  
-        <a href="registeredcourses" className="btn btn-success">Registered Courses</a>
+        {/* <a href="registeredcourses" className="btn btn-success">Registered Courses</a> */}
       </div>
     );
   }
