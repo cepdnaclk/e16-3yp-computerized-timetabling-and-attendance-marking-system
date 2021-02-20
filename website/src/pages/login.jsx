@@ -20,6 +20,7 @@ class Login extends Component {
             password: '',
             isLoggedAdmin: false,
             isLoggedStu : false,
+            isLoggedLecturer : false,
             nameError : "",
             passError : "",
             loginError:""
@@ -59,7 +60,7 @@ class Login extends Component {
             "userName":this.state.userName,
             "password":this.state.password
         }
-
+        console.log(data);
          if(this.state.password.length === 0 && this.state.userName.length !== 0){
             this.setState({passError:"*Password Can not be Empty"})
             this.setState({nameError:""})
@@ -92,16 +93,19 @@ class Login extends Component {
                         localStorage.setItem('token', response.data.token);
                         if(response.data.role==="ROLE_STUDENT"){
                             this.setState({isLoggedStu:true});
-
                         }
 
                         else if(response.data.role==="ROLE_ADMIN"){
                             this.setState({isLoggedAdmin:true});
-
+                        }
+                        else if(response.data.role=="ROLE_LECTURER"){
+                            console.log('lecturer ');
+                          this.setState({isLoggedLecturer:true});
                         }
                     }
 
               }).catch( error => {
+                console.log("error =", error);
                  if (error.response.status===401){
                        //alert("Username or Password is Incorrect");
                        this.setState({loginError:"*Username or Password is Incorrect"});
@@ -141,6 +145,9 @@ class Login extends Component {
           }
         if(this.state.isLoggedAdmin){
                     return <Redirect to = {{pathname:"adminpanel"}}/>
+        }
+        if(this.state.isLoggedLecturer){
+          return <Redirect to = {{pathname:"lecturerdashboard"}}/>
         }
         return ( 
             <div className="login">

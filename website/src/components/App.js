@@ -30,7 +30,7 @@ class App extends Component {
                     <Route path="/deleteaccounts" component={DeleteAccounts}></Route>
                     <Route path="/lecreg" component={LecReg}></Route>
                     <Route path="/adminreg" component={AdminReg}></Route>
-                    <Route path="/Lecturerdashboard" component={LecturerDashboard}></Route>
+                    <Route path="/lecturerdashboard" component={LecturerDashboard}></Route>
                     <Route path="/coursereg" component={CourseReg}></Route>
                     <Route path="/registeredcourses" component={RegisteredCourses}></Route>
                     <Route path="/studentgroups" component={StudentGroups}></Route>
