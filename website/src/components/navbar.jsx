@@ -10,7 +10,7 @@ class NavBar extends Component {
             <nav className ="navbar">
                 <span className="pageName">{this.props.pageName}</span>
                <a href="/home" className="home"><img src={homeIcon} alt="homeIcon" className="homeIcon"></img></a>
-               <a href="#" className="logout"><img src={logoutIcon} alt="logoutIcon" className="logoutIcon"></img></a>
+               <a href="/login" className="logout"><img src={logoutIcon} alt="logoutIcon" className="logoutIcon"></img></a>
             </nav>
         );
     }

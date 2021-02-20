@@ -57,4 +57,8 @@ public class AttendanceService {
     public void deleteByCourseId(String courseId) {
         attendanceDAO.deleteByCourseId(courseId);
     }
+
+    public String addCompleteAttendanceRecord(AttendanceLogList attendanceLogList) {
+        return attendanceDAO.addCompleteAttendanceRecord(attendanceLogList);
+    }
 }

@@ -53,5 +53,10 @@ public class AttendanceItem {
         this.lab_or_lecture = lab_or_lecture;
     }
 
-
+    public AttendanceItem(@NotNull(message = "Attendance Log date cannot be null") LocalDate date, @NotNull(message = "Attendance Log time cannot be null") LocalTime time, @NotNull(message = "Lab or Lecture field cannot be null") int lab_or_lecture, @NotNull(message = "present field cannot be null") boolean present) {
+        this.date = date;
+        this.time = time;
+        this.lab_or_lecture = lab_or_lecture;
+        this.present = present;
+    }
 }
