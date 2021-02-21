@@ -4,6 +4,7 @@ public class Result {
     private String result1;
     private String result2;
     private String result3;
+    private String result4;
 
     public Result(String result1) {
         this.result1 = result1;
@@ -20,6 +21,13 @@ public class Result {
         this.result3 = result3;
     }
 
+    public Result(String result1, String result2, String result3, String result4) {
+        this.result1 = result1;
+        this.result2 = result2;
+        this.result3 = result3;
+        this.result4 = result4;
+    }
+
     public String getResult1() {
         return result1;
     }
@@ -30,5 +38,9 @@ public class Result {
 
     public String getResult3() {
         return result3;
+    }
+
+    public String getResult4() {
+        return result4;
     }
 }
