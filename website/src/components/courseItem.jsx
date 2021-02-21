@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Checkbox } from "@material-ui/core";
 import ListGroup from 'react-bootstrap/ListGroup'
 import "../css/courseRegCard.css"
 

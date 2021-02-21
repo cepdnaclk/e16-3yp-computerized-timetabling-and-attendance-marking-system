@@ -5,6 +5,10 @@ import "../css/courseCard.css";
 class CourseList extends Component {
   state = {};
 
+  
+
+  
+
   render() {
     return (
       <div className="home-courseList">
@@ -13,6 +17,7 @@ class CourseList extends Component {
             key={course.courseNumber}
             code={course.courseNumber}
             name={course.courseName.toUpperCase()}
+            course={course}
             sw={this.props.sw}
           ></CourseCard>
         ))}

@@ -35,7 +35,7 @@ class StudentGroups extends Component {
         return ( 
             <React.Fragment>
                  <NavBar pageName="Student Groups" />
-                 <img src={bgImage} className="homeloginImg"></img>
+                 <img src={bgImage} className="homeloginImg" alt="background image"></img>
                  <div className="stdgps-search">
                     <div className="stdgps-search-outer">
                         <TextField id="outlined-search" label="Group Name" type="search" variant="outlined" color="secondary"

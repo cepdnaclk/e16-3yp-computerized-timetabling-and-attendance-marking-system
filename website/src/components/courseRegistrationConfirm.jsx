@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import FormControl from "@material-ui/core/FormControl";
 import { InputLabel } from "@material-ui/core";
 import { Input } from "@material-ui/core";
-import { FormHelperText } from "@material-ui/core";
 import { Container } from "@material-ui/core";
-import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
 
 class CourseRegistrationConfirm extends Component {
