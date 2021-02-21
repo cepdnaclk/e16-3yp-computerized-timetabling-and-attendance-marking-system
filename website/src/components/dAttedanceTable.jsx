@@ -23,6 +23,19 @@ const useStyles = makeStyles({
 export default function DAttendanceTable(props) {
   const classes = useStyles();
 
+  const generateAttendance = (data,index) => {
+    // console.log(res);
+    // console.log(props.data[0]);
+    let lab_or_lecture = props.data[index].lab_or_lecture;
+    let present = props.data[index].present;
+    
+    if((lab_or_lecture === 0 && data === 'lab')|| (lab_or_lecture === 1 && data === 'lecture')){
+      return '-';
+    }
+    return (present)?1:0;
+
+  }
+
   return (
     <TableContainer component={Paper} className={classes.root}>
       <Table className={classes.table} aria-label="simple table">
@@ -41,14 +54,14 @@ export default function DAttendanceTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.data.map((row) => (
-            <TableRow key={row.name} >
+          {props.data.map((attendanceItem,index) => (
+            <TableRow key={attendanceItem.name} >
               <TableCell component="th" scope="row" align="center">
-                {row[0]}
+                {attendanceItem.date}
               </TableCell>
-              <TableCell align="center">{row[1]}</TableCell>
-              <TableCell align="center">{row[2]}</TableCell>
-              <TableCell align="center">{row[3]}</TableCell>
+              <TableCell align="center">{attendanceItem.time}</TableCell>
+              <TableCell align="center">{generateAttendance('lecture',index)}</TableCell>
+              <TableCell align="center">{generateAttendance('lab',index)}</TableCell>
               
               
             </TableRow>

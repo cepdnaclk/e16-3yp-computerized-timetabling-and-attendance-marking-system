@@ -31,25 +31,6 @@ class Home extends Component {
       .catch((error) => {
         console.log("error =", error);
       });
-    // this.setState({
-    //   details: [
-    //     {
-    //       id: 1,
-    //       nameTag: "Name:",
-    //       value: localStorage.getItem("sfn"),
-    //     },
-    //     {
-    //       id: 2,
-    //       nameTag: "E Number:",
-    //       value: localStorage.getItem("sen"),
-    //     },
-    //     {
-    //       id: 3,
-    //       nameTag: "Password:",
-    //       value: "samplePassword",
-    //     },
-    //   ],
-    // });
     this.setState({ searchWord: "" });
   }
 
