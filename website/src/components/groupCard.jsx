@@ -15,7 +15,7 @@ class GroupCard extends Component {
                 <a className="gc-outer gc-card">
                     
                         <div class="gc-avatar">
-                            <img class="gc-image" src={groupIcon} />
+                            <img class="gc-image" alt="" src={groupIcon} />
                         </div>
                     
                         

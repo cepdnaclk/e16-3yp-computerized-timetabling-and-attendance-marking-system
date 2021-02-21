@@ -40,7 +40,7 @@ public class JwtAuthenticationController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<Map> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
+        System.out.println("this is admin");
 		authenticate(authenticationRequest.getUserName(),authenticationRequest.getPassword());
 
 		final UserDetails userDetails = userDetailsService

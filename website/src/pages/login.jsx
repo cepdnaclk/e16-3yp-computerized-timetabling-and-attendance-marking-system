@@ -136,6 +136,7 @@ class Login extends Component {
                 localStorage.setItem("sid", response.data.result1);
                 localStorage.setItem("sfn", response.data.result2);
                 localStorage.setItem("sen", response.data.result3);
+                localStorage.setItem("sln", response.data.result4);
               })
               .catch((error) => {
                 console.log("error =", error);

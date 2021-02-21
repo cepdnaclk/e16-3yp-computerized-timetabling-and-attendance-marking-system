@@ -23,7 +23,7 @@ class AdminButton extends Component {
 
             <a href={url} className="adminButton">
                 <h5 className="admint1">{this.props.t1}</h5>
-                <img className="buttonImage" src={this.props.img}></img>
+                <img className="buttonImage" src={this.props.img} alt=""></img>
                 <h5 className="admint2">{this.props.t2}</h5>
             </a>
          );
