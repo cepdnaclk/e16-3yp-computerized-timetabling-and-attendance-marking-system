@@ -15,13 +15,15 @@ import EditGroups from '../pages/editGroups'
 import Attendance from '../pages/attendance'
 import DailyAttendance from '../pages/dailyAttendance'
 import '../index.css'
+import cssBaseline from '@material-ui/core'
 
 class App extends Component {
 
     state = {}
   
     render() { 
-        return ( 
+        return (
+            <>
             <Router>
                 <Switch>
                     <Route path="/home" component={Home}></Route>
@@ -40,6 +42,8 @@ class App extends Component {
                     <Route path="/" component={Login}></Route>
                 </Switch>
             </Router>
+            <cssBaseline/>
+            </>
          );
     }
 

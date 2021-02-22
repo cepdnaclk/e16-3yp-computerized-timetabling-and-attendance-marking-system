@@ -48,6 +48,8 @@ public class Lecturer {
 
     private Set<String>  courseIds = new HashSet<>();
 
+    private HashSet<String> groupSet = new HashSet<>();
+
     public String getLectID() {
         return lectID;
     }
