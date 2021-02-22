@@ -1,9 +1,6 @@
 package Group10.example.API.Controller;
 
-import Group10.example.API.Model.Admin;
-import Group10.example.API.Model.Lecturer;
-import Group10.example.API.Model.Student;
-import Group10.example.API.Model.StudentPayload;
+import Group10.example.API.Model.*;
 import Group10.example.API.Repository.AdminRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
@@ -18,11 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -66,6 +60,7 @@ public class UsersController {
         //take logged user username
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
+
         return "hello " + name;
     }
 
@@ -103,7 +98,7 @@ public class UsersController {
 
         //check whether user is already exists
         if(stud != null) {
-            map.put("msg","user Name is already exists Try with different one");
+            map.put("msg","user Name is already exists");
             return map;
         }
 
@@ -171,8 +166,6 @@ public class UsersController {
         lecturer.setRole("LECTURER");
         String pass = studentService.passGenerate();
         lecturer.setPassword(passwordEncoder.encode(pass));
-
-        lecturer.setPassword(passwordEncoder.encode(lecturer.getPassword()));
         lecRepo.save(lecturer);
 
         String mail = lecturer.getEmail();
@@ -207,6 +200,15 @@ public class UsersController {
         return stuRepo.findAll();
    }
 
+   @GetMapping(value = "student/getdetailsfromsession")
+    public Result getDetailsFromSession(){
+        Student s = getStudentFromSession();
+        return (s == null)?null:new Result(s.getStudentID(),s.getFirstName(),s.getRegNumber(),s.getLastName());
+    }
 
+    public String getUserName(){
+        Student s = getStudentFromSession();
+        return (s == null)?null:s.getUserName();
+    }
 
 }

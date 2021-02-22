@@ -64,12 +64,20 @@ public class AttendanceController {
         return attendanceService.findAttendanceByStudentAndCourse(courseId,studentId);
     }
 
+    //adding attendance log (done by device itself)
+    //adding single log item
     @PostMapping(value = "attendance/addlog")//checked
     public String addAttendanceLog(@RequestParam(name = "course")String courseId,
                                    @RequestParam(name = "student")String studentId,
                                    @Valid @RequestBody AttendanceItem attendanceItem){
         return attendanceService.addAttendanceLog(courseId,studentId,attendanceItem);
     }
+    //adding complete attendance records of the class
+    @PostMapping(value = "attendance/addcompleterecord")//checked
+    public String addCompleteAttendanceRecord(@Valid @RequestBody AttendanceLogList attendanceLogList){
+        return attendanceService.addCompleteAttendanceRecord(attendanceLogList);
+    }
+
 
     @DeleteMapping(value = "attendance/deletebystudentid/{id}")
     public void deleteAllByStudentId(@PathVariable("id")String studentId){

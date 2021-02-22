@@ -5,6 +5,7 @@ import PageHeader from "../components/PageHeader";
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
 import { Paper,makeStyles } from '@material-ui/core';
 import SideMenu from "../components/SideMenu"
+import { CircularProgress } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -20,8 +21,6 @@ export default function Employees() {
 
     return (
         <>
-
-            <SideMenu/>
             
             <PageHeader
                 title="Admin Registration"

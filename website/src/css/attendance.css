@@ -1,0 +1,31 @@
+.atdtble-tableouter {
+  position: relative;
+  top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.atdtble-coursedetails-outer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 20px;
+}
+
+.atdtble-tableinner {
+  width: 70%;
+}
+
+.atdtble-coursedetails {
+  text-align: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2rem 4rem -3rem rgba(0, 45, 64, 0.5),
+    0 0rem 8rem 0 rgba(0, 45, 64, 0.1);
+  border-radius: 5px;
+  padding: 10px 30px 5px 30px;
+}
+
+.atdtble-paras {
+  display: inline-block;
+}
