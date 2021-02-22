@@ -3,15 +3,16 @@ import NavBar from '../components/navbar'
 import CourseList from "../components/courseList"
 import UserCard from "../components/userCard"
 import axios from 'axios'
+import "../css/home.css"
 
-const STUDENT_HOME_PAGE_URI =  'http://localhost:8080/student';
+const STUDENT_HOME_PAGE_URI =  '/student';
 
 class Home extends Component {
     state = { courses: [] ,
               details: []
     }
 
-    constructor(props){
+   /* constructor(props){
         super(props);
         const auth = "Bearer "+ localStorage.getItem('token');
         axios.get(STUDENT_HOME_PAGE_URI, {
@@ -49,7 +50,7 @@ class Home extends Component {
                               }
                             
                           })
-    }
+    }*/
 
     render() { 
         return (  

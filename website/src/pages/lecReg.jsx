@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import NavBar from '../components/navbar'
 import TextInput from '../components/textInput'
 import '../css/lecReg.css'
 import axios from 'axios'
-const REGISTRATION_REST_API_URL = 'http://localhost:8080/admin/registration/lecturer';
+const REGISTRATION_REST_API_URL = '/admin/registration/lecturer';
 
 class LecReg extends Component {
     state = {  }
@@ -63,4 +63,39 @@ class LecReg extends Component {
     }
 }
  
-export default LecReg;
+export default LecReg;*/
+
+
+
+import React from 'react'
+import LecForm from "./lecForm";
+import PageHeader from "../components/PageHeader";
+import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
+import { Paper,makeStyles } from '@material-ui/core';
+import SideMenu from "../components/SideMenu"
+
+const useStyles = makeStyles(theme => ({
+    pageContent: {
+        margin: theme.spacing(5),
+        padding: theme.spacing(3),
+        marginLeft:"10%"
+    }
+}))
+
+export default function Employees() {
+
+    const classes = useStyles();
+
+    return (
+        <>
+        
+            <PageHeader
+                title="Lecturer Registration"
+                icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
+            />
+            <Paper className={classes.pageContent}>
+                <LecForm />
+            </Paper>
+        </>
+    )
+}
