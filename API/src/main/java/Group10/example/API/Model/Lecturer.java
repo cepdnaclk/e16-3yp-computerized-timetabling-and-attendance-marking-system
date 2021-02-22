@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 
 @Document(collection = "Lecturer")
 public class Lecturer {
@@ -42,6 +43,10 @@ public class Lecturer {
 
     @NotNull(message = "Department is mandatory")
     private String department;
+
+    private HashSet<String> courseSet = new HashSet<>();
+
+    private HashSet<String> groupSet = new HashSet<>();
 
 
     public String getLectID() {
