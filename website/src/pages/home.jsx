@@ -1,83 +1,57 @@
-import React, { Component } from 'react';
-import NavBar from '../components/navbar'
-import CourseList from "../components/courseList"
-import UserCard from "../components/userCard"
-import axios from 'axios'
-import "../css/home.css"
-import { Grid, } from '@material-ui/core';
-
-const STUDENT_HOME_PAGE_URI =  '/student';
-
+import React, { Component } from "react";
+import NavBar from "../components/navbar";
+import CourseList from "../components/courseList";
+import UserCard from "../components/userCard";
+import axios from "axios";
+import "../css/home.css";
+import bgImage from "../images/bg4.jpg";
+import { Redirect } from "react-router";
+const STUDENT_HOME_PAGE_URI = "/student";
+let GET_COURSES_BY_SID_URL = "/courses/findcoursesbystudentid/";
 class Home extends Component {
-    state = { courses: [] ,
-              details: []
-    }
+  state = {
+    courses: [],
+    details: [],
+    searchWord: null,
+  };
 
-   /* constructor(props){
-        super(props);
-        const auth = "Bearer "+ localStorage.getItem('token');
-        axios.get(STUDENT_HOME_PAGE_URI, {
-                            headers: {
-                              'Authorization': auth
-                            }
-                          }).then( response =>{
-                              if(response.status === 200){
+  componentDidMount() {
+    const auth = "Bearer " + localStorage.getItem("token");
+    GET_COURSES_BY_SID_URL += localStorage.getItem("sid");
+    axios
+      .get(GET_COURSES_BY_SID_URL, {
+        headers: {
+          Authorization: auth,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ courses: response.data });
+      })
+      .catch((error) => {
+        console.log("error =", error);
+      });
+    this.setState({ searchWord: "" });
+  }
 
-                                this.setState({courses:response.data.courses})
-                                this.setState({details:[
-                                    {   
-                                        id:1,
-                                        nameTag:"Name:",
-                                        value: response.data.student.userName
-                        
-                                    },
-                                    {   
-                                        id:2,
-                                        nameTag:"E Number:",
-                                        value:response.data.student.eNo
-                        
-                                    },
-                                    {   
-                                        id:3,
-                                        nameTag:"Password:",
-                                        value:"samplePassword"
-                        
-                                    }
-                                ]}
+  constructor(props) {
+    super(props);
+  }
 
-                                )
-                                console.log(response);
 
-                              }
-                            
-                          })
-    }*/
-
-    render() { 
-        return (  
-            <>
-                <NavBar pageName="Home" />
-                <h3 className="title">My Attendance records</h3>
-                <Grid contaier>
-                    <Grid item xs={6}>
-
-                        <CourseList courses={this.state.courses} />
-                        
-
-                    </Grid>
-
-                    <Grid item xs={6}>
-
-                
-                        <UserCard data={this.state.details} />
-
-                    </Grid>
-                </Grid>
-              
-            </>
-
-        );
-    }
+  render() {
+    return (
+      <div className="home-outer">
+        <NavBar pageName="Home" />
+        <img src={bgImage} className="homeloginImg"></img>
+        <h2 className="hm-title">My Attendance records</h2>
+        <CourseList courses={this.state.courses} sw={this.state.searchWord} />
+        <UserCard data={[localStorage.getItem("sfn"), localStorage.getItem("sen")]} />
+        <a href="coursereg" className="btn btn-secondary">Course Registration</a><br/>  
+        {/* <a href="registeredcourses" className="btn btn-success">Registered Courses</a> */}
+      </div>
+    );
+  }
 }
- 
+
 export default Home;

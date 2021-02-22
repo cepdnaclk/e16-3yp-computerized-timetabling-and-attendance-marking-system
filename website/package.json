@@ -8,6 +8,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/pickers": "^3.2.10",
+    "@material-ui/styles": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -17,6 +18,7 @@
     "mdbreact": "^5.0.1",
     "react": "^17.0.1",
     "react-block-ui": "^1.3.3",
+    "react-bootstrap": "^1.5.0",
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.14.2",
     "react-router-dom": "^5.2.0",
@@ -47,5 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "https://efac-attendance.herokuapp.com"
 }
