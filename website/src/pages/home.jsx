@@ -4,6 +4,7 @@ import CourseList from "../components/courseList"
 import UserCard from "../components/userCard"
 import axios from 'axios'
 import "../css/home.css"
+import { Grid, } from '@material-ui/core';
 
 const STUDENT_HOME_PAGE_URI =  '/student';
 
@@ -54,12 +55,26 @@ class Home extends Component {
 
     render() { 
         return (  
-            <React.Fragment>
+            <>
                 <NavBar pageName="Home" />
                 <h3 className="title">My Attendance records</h3>
-                <CourseList courses={this.state.courses} />
-                <UserCard data={this.state.details} />
-            </React.Fragment>
+                <Grid contaier>
+                    <Grid item xs={6}>
+
+                        <CourseList courses={this.state.courses} />
+                        
+
+                    </Grid>
+
+                    <Grid item xs={6}>
+
+                
+                        <UserCard data={this.state.details} />
+
+                    </Grid>
+                </Grid>
+              
+            </>
 
         );
     }

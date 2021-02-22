@@ -8,6 +8,7 @@ export default function DatePicker(props) {
 
 
     const convertToDefEventPara = (name, value) => ({
+        
         target: {
             name, value
         }
@@ -15,9 +16,11 @@ export default function DatePicker(props) {
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker disableToolbar variant="inline" inputVariant="outlined"
+            <KeyboardDatePicker variant="inline" inputVariant="outlined"
                 label={label}
-                format="MMM/dd/yyyy"
+                views={["year"]}
+                variant="dialog" 
+                autoOk={true}
                 name={name}
                 value={value}
                 onChange={date =>onChange(convertToDefEventPara(name,date))}

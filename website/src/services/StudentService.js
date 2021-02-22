@@ -1,32 +1,10 @@
-const KEYS ={
-    employees:'employees',
-    employeeId:'employeeId'
-}
+
 //add Items to drop down 
 export const getDepartmentCollection = ()=>([
-    { id: '1', title: 'Development' },
-    { id: '2', title: 'Marketing' },
-    { id: '3', title: 'Accounting' },
-    { id: '4', title: 'HR' },
+    { id: '1', title: 'Computer Engineering' },
+    { id: '2', title: 'Civil Engineering' },
+    { id: '3', title: 'Production Engineering' },
+    { id: '4', title: 'Mechanical Engineering' },
+    {id:'5',title:'Chemical Engineering'},
+    {id:'6',title:'Electrical and Electronic Engineering'}
 ])
-
-export function insertEmployee(data) {
-    let employees=getAllEmployees();
-    data['id'] = generateEmployeeId()
-    employees.push(data)
-    localStorage.setItem(KEYS.employees,JSON.stringify(employees))
-}
-
-export function generateEmployeeId() {
-    if (localStorage.getItem(KEYS.employeeId) == null)
-        localStorage.setItem(KEYS.employeeId, '0')
-    var id = parseInt(localStorage.getItem(KEYS.employeeId))
-    localStorage.setItem(KEYS.employeeId, (++id).toString())
-    return id;
-}
-
-export function getAllEmployees() {
-    if (localStorage.getItem(KEYS.employees) == null)
-        localStorage.setItem(KEYS.employees, JSON.stringify([]))
-    return JSON.parse(localStorage.getItem(KEYS.employees));
-}

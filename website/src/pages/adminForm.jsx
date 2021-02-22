@@ -1,128 +1,28 @@
-/*import React, { Component } from 'react';
-import NavBar from '../components/navbar'
-import TextInput from '../components/textInput'
-import '../css/lecReg.css'
-import axios from 'axios'
-const REGISTRATION_REST_API_URL = '/admin/registration/admin';
-class AdminReg extends Component {
-    
-    sendReq = () =>{
-        //sent http request using state object
-        console.log(this.state);
-
-        let data = this.state;
-        const auth = "Bearer "+ localStorage.getItem('token');
-        axios.post(REGISTRATION_REST_API_URL, data,{
-            headers: {
-              'Authorization': auth
-            }
-          })
-          .then( response => {
-                if(response.data == null){
-                    console.log("error");
-                }
-                console.log('response',response.data);
-          })
-    }
-}
- 
-export default AdminReg;*/
-
-/*import React, { Component } from 'react';
-import NavBar from '../components/navbar'
-import TextInput from '../components/textInput'
-import '../css/stdReg.css'
-import axios from 'axios'
-
-
-    const REGISTRATION_REST_API_URL = '/admin/registration/student';
-
-    class StdReg extends Component {
-        state = {  }
-
-        constructor(){
-            super();
-            this.state = {
-                "regNumber" : '',
-                "firstName" : '',
-                "lastName" : '',
-                "year" : '',
-                "semester" : '',
-                "email" : '',
-                "department" : ''
-            }
-        }
-
-        changeHandler = (event) => {
-
-            let name = event.target.name;
-            let value = event.target.value;
-            this.setState({[name]:value});
-
-        }
-
-        sendReq = () =>{
-
-            console.log(this.state);
-            let data = this.state;
-            const auth = "Bearer "+ localStorage.getItem('token');
-            axios.post(REGISTRATION_REST_API_URL, data,{
-                headers: {
-                  'Authorization': auth
-                }
-              })
-              .then( response => {
-                              if(response.data == null){
-                                  console.log("error");
-                              }
-                  console.log(response.status);
-                  alert("Successfully Registered");
-                }).catch( error => {
-                    if (error.response.status!=200){
-                          alert("Something Went Wrong");
-                          console.log(error.response)
-                    }
-                });
-        }
-
-
-        render() {
-            return (
-                <React.Fragment>
-                    <NavBar pageName="Student Registration" />
-                        <div className="dataFields">
-                            <TextInput tagname="regNumber" name="Registration Number :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="firstName" name="FirstName :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="lastName" name="LastName :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="year" name="Year :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="semester" name="Semester :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="department" name="Department :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="email" name="Email :" oc={this.changeHandler}></TextInput>
-                        </div>
-
-                        <button style={{ marginTop:150,align:"center"}} onClick={this.sendReq} className="submitButton">Submit</button>
-                </React.Fragment>
-            );
-        }
-    }
-
-    export default StdReg;*/
-
     import React, { useState, useEffect } from 'react'
     import { Grid, } from '@material-ui/core';
     import Controls from "../components/controls/Controls";
     import { useForm, AdminForm } from '../components/useForm';
-    import PageHeader from "../components/PageHeader";
-    import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
+    import { CircularProgress } from '@material-ui/core';
+    import axios from 'axios'
     
-    
+    const REGISTRATION_REST_API_URL = '/admin/registration/admin'
+
     const initialFValues = {
         userName: '',
         email: '',
+       
         
+    }
+
+    const loading = {
+        isLoading : false,
+        errorMsg:null,
+        successMsg:null
     }
     
     export default function EmployeeForm() {
+
+        const [errorObj,setLoading] = useState(loading);
     
         //check validations
         const validate = (fieldValues = values) => {
@@ -150,19 +50,113 @@ import axios from 'axios'
             resetForm
         } = useForm(initialFValues, true, validate);
     
-        const handleSubmit = e => {
-            e.preventDefault()
-            if (validate()){
-                //call reqs
-                resetForm()
+        function callBack (data){
+
+            if(data == null){
+                console.log("error");
+                setLoading( {
+                    errorMsg:"Something Went Wrong Try again Later!",
+                    isLoading:false
+    
+                });
             }
+    
+            else if(data.msg === "user Name is already exists"){
+                
+               
+                setLoading( {
+                    errorMsg:"User name is already exists Try with different one!",
+                    isLoading:false
+    
+                });
+                
+            }
+            else if(data.Admin){
+    
+                setLoading( {
+                    successMsg:"User Registered successfully!",
+                    isLoading:false
+                });
+    
+                resetForm();
+                
+    
+            }
+                
+            
+    
+        }
+    
+        const handleSubmit = (e) => {
+            
+            e.preventDefault()
+    
+            if (validate()){
+                
+                setLoading({
+                    isLoading:true
+                })
+    
+                const data = {
+                    'userName':values.userName,
+                    'email':values.email
+                    
+                }
+    
+            
+                const auth = "Bearer "+ localStorage.getItem('token');
+    
+                axios.post(REGISTRATION_REST_API_URL, data,{
+                    headers: {
+                        'Authorization': auth
+                    }
+                    }).then
+                    (
+                        function (response){
+                            //callback function
+                            console.log(response.data);
+                            callBack(response.data);
+                        }
+                    ).catch(e =>{
+    
+                        if(e.response.status===500){
+                            setLoading({
+    
+                                errorMsg:"Something Went Wrong in the Server Try again Later!",
+                                isLoading:false
+                            })
+                        }
+                        else if(e.response.status===401){
+                            setLoading({
+    
+                                errorMsg:"Session is expired!",
+                                isLoading:false
+                            })
+                        }
+                    })
+            }
+            
         }
     
         return (
             <>
+            
+            <Controls.MsgTab
+                        severity={(errorObj.successMsg === null) ? '':"success" }
+                        text =  {errorObj.successMsg}
+    
+                    
+                    />
+
+            <Controls.MsgTab
+                severity={(errorObj.errorMsg === null) ? '':"error"}
+                text = {errorObj.errorMsg}
+            />
+                
+
                 <AdminForm onSubmit={handleSubmit}>
                     <Grid container>
-                        <Grid item align="center">
+                        <Grid item>
                             <Controls.Input
                                 name="userName"
                                 label="User Name"
@@ -179,11 +173,17 @@ import axios from 'axios'
                                 error={errors.email}
                             />
                         
-                            <div align = "center">
+                            <div>
                                 <Controls.Button
                                     type="submit"
-                                    text="Submit"
-                                    style={{backgroundColor: "#253053"}} />
+                                    text = {
+                                        errorObj.isLoading ? 
+                                        <CircularProgress size={24}  />:"Submit"                        
+                                    }
+                                    disabled = {errorObj.isLoading}
+                                   // text="submit"
+                                    style={{backgroundColor: "#253053"}}
+                                />
                                 <Controls.Button
                                     text="Reset"
                                     color="default"

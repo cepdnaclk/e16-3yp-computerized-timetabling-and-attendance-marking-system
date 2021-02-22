@@ -103,7 +103,7 @@ public class UsersController {
 
         //check whether user is already exists
         if(stud != null) {
-            map.put("msg","user Name is already exists Try with different one");
+            map.put("msg","user Name is already exists");
             return map;
         }
 
@@ -171,8 +171,6 @@ public class UsersController {
         lecturer.setRole("LECTURER");
         String pass = studentService.passGenerate();
         lecturer.setPassword(passwordEncoder.encode(pass));
-
-        lecturer.setPassword(passwordEncoder.encode(lecturer.getPassword()));
         lecRepo.save(lecturer);
 
         String mail = lecturer.getEmail();

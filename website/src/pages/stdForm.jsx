@@ -1,88 +1,13 @@
-/*import React, { Component } from 'react';
-import NavBar from '../components/navbar'
-import TextInput from '../components/textInput'
-import '../css/stdReg.css'
-import axios from 'axios'
-
-
-    const REGISTRATION_REST_API_URL = '/admin/registration/student';
-
-    class StdReg extends Component {
-        state = {  }
-
-        constructor(){
-            super();
-            this.state = {
-                "regNumber" : '',
-                "firstName" : '',
-                "lastName" : '',
-                "year" : '',
-                "semester" : '',
-                "email" : '',
-                "department" : ''
-            }
-        }
-
-        changeHandler = (event) => {
-
-            let name = event.target.name;
-            let value = event.target.value;
-            this.setState({[name]:value});
-
-        }
-
-        sendReq = () =>{
-
-            console.log(this.state);
-            let data = this.state;
-            const auth = "Bearer "+ localStorage.getItem('token');
-            axios.post(REGISTRATION_REST_API_URL, data,{
-                headers: {
-                  'Authorization': auth
-                }
-              })
-              .then( response => {
-                              if(response.data == null){
-                                  console.log("error");
-                              }
-                  console.log(response.status);
-                  alert("Successfully Registered");
-                }).catch( error => {
-                    if (error.response.status!=200){
-                          alert("Something Went Wrong");
-                          console.log(error.response)
-                    }
-                });
-        }
-
-
-        render() {
-            return (
-                <React.Fragment>
-                    <NavBar pageName="Student Registration" />
-                        <div className="dataFields">
-                            <TextInput tagname="regNumber" name="Registration Number :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="firstName" name="FirstName :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="lastName" name="LastName :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="year" name="Year :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="semester" name="Semester :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="department" name="Department :" oc={this.changeHandler}></TextInput>
-                            <TextInput tagname="email" name="Email :" oc={this.changeHandler}></TextInput>
-                        </div>
-
-                        <button style={{ marginTop:150,align:"center"}} onClick={this.sendReq} className="submitButton">Submit</button>
-                </React.Fragment>
-            );
-        }
-    }
-
-    export default StdReg;*/
-
 import React, { useState, useEffect } from 'react'
 import { Grid, } from '@material-ui/core';
 import Controls from "../components/controls/Controls";
 import { useForm, Form } from '../components/useForm';
 import * as StudentService from "../services/StudentService";
+import { CircularProgress } from '@material-ui/core';
+import axios from 'axios';
+
+
+const REGISTRATION_REST_API_URL = '/admin/registration/student'
 
 
 const initialFValues = {
@@ -92,11 +17,20 @@ const initialFValues = {
     email: '',
     departmentId: '',
     regNumber:'',
-    admissionDate: new Date(),
+    year: new Date(),
+    
     
 }
 
+const loading = {
+    isLoading : false,
+    errorMsg:null,
+    successMsg:null
+}
+
 export default function EmployeeForm() {
+
+    const [errorObj,setLoading] = useState(loading);
 
     //check validations
     const validate = (fieldValues = values) => {
@@ -113,8 +47,8 @@ export default function EmployeeForm() {
         if ('sem' in fieldValues)
             temp.sem = (fieldValues.sem > 8 || fieldValues.sem < 1) ? "Invalid semester" : ""
             
-        if ('regNumber' in fieldValues)
-            temp.regNumber =("\\bE\\\\d{2}\\\\d{3}\\b").test(fieldValues.regNumber) ? "" : "Registration number is not valid."
+        //if ('regNumber' in fieldValues)
+            //temp.regNumber =("\\bE\\\\d{2}\\\\d{3}\\b").test(fieldValues.regNumber) ? "" : "Registration number is not valid."
 
         if ('departmentId' in fieldValues)
             temp.departmentId = fieldValues.departmentId.length != 0 ? "" : "This field is required."
@@ -136,90 +70,196 @@ export default function EmployeeForm() {
         resetForm
     } = useForm(initialFValues, true, validate);
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        if (validate()){
-            //call reqs
-            resetForm()
+    function callBack (data){
+
+        if(data == null){
+            console.log("error");
+            setLoading( {
+                errorMsg:"Something Went Wrong Try again Later!",
+                isLoading:false
+
+            });
         }
+
+        else if(data.msg === "user Name is already exists"){
+        
+            setLoading( {
+                errorMsg:"User name is already exists Try with different one!",
+                isLoading:false
+
+            });
+            
+        }
+        else if(data.Student){
+
+            setLoading( {
+                successMsg:"User Registered successfully!",
+                isLoading:false
+            });
+
+            resetForm();
+            
+
+        }
+
+    }
+
+    const handleSubmit = (e) => {
+        
+        e.preventDefault()
+
+        if (validate()){
+            
+            setLoading({
+                isLoading:true
+            })
+
+            const data = {
+                'firstName' : values.firstName,
+                'lastName' : values.lastName,
+                'email':values.email,
+                'department':values.departmentId,
+                'semester' : values.sem,
+                'regNumber':values.regNumber,
+                'year' : values.year.getFullYear()
+
+            }
+
+            
+           const auth = "Bearer "+ localStorage.getItem('token');
+
+            axios.post(REGISTRATION_REST_API_URL, data,{
+                headers: {
+                    'Authorization': auth
+                }
+                }).then
+                (
+                    function (response){
+                        //callback function
+                        console.log(response.data);
+                        console.log(response.data.Student)
+                        console.log(response.data.msg)
+
+                       callBack(response.data);
+                    }
+                ).catch(e =>{
+
+                    if(e.response.status===500){
+                        setLoading({
+
+                            errorMsg:"Something Went Wrong Try again Later!",
+                            isLoading:false
+                        })
+                    }
+                    else if(e.response.status===401){
+                        setLoading({
+
+                            errorMsg:"Session is expired!",
+                            isLoading:false
+                        })
+                    }
+                })
+        }
+        
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Grid container>
-                <Grid item xs={6}>
-                    <Controls.Input
-                        name="firstName"
-                        label="First Name"
-                        value={values.firstName}
-                        onChange={handleInputChange}
-                        error={errors.firstName}
-                    />
-                    <Controls.Input
-                        name="lastName"
-                        label="Last Name"
-                        value={values.lastName}
-                        onChange={handleInputChange}
-                        error={errors.lastName}
-                    />
-                    <Controls.Input
-                        label="Email"
-                        name="email"
-                        value={values.email}
-                        onChange={handleInputChange}
-                        error={errors.email}
-                    />
-                
-                    <Controls.Input
-                        label="Semester"
-                        name="sem"
-                        type="number"
-                        value={values.sem}
-                        onChange={handleInputChange}
-                        error = {errors.sem}
-                    />
 
+        <div>
+
+            <Controls.MsgTab
+                severity={(errorObj.successMsg === null) ? '':"success" }
+                text =  {errorObj.successMsg}
+            />
+
+            <Controls.MsgTab
+                severity={(errorObj.errorMsg === null) ? '':"error"}
+                text = {errorObj.errorMsg}
+            />
+    
+            <Form onSubmit={handleSubmit}>
+                <Grid container>
+                    <Grid item xs={6}>
+                        <Controls.Input
+                            name="firstName"
+                            label="First Name"
+                            value={values.firstName}
+                            onChange={handleInputChange}
+                            error={errors.firstName}
+                        />
+                        <Controls.Input
+                            name="lastName"
+                            label="Last Name"
+                            value={values.lastName}
+                            onChange={handleInputChange}
+                            error={errors.lastName}
+                        />
+                        <Controls.Input
+                            label="Email"
+                            name="email"
+                            value={values.email}
+                            onChange={handleInputChange}
+                            error={errors.email}
+                        />
+                    
+                        <Controls.Input
+                            label="Semester"
+                            name="sem"
+                            type="number"
+                            value={values.sem}
+                            onChange={handleInputChange}
+                            error = {errors.sem}
+                        />
+
+                    </Grid>
+                    <Grid item xs={6}>
+
+                        <Controls.Input
+                            label="Registration Number"
+                            name="regNumber"
+                            value={values.regNumber}
+                            onChange={handleInputChange}
+                            error = {errors.regNumber}
+                        />
+
+                        <Controls.Select
+                            name="departmentId"
+                            label="Department"
+                            value={values.departmentId}
+                            onChange={handleInputChange}
+                            options={StudentService.getDepartmentCollection()}
+                            error={errors.departmentId}
+                        />
+
+                        <Controls.DatePicker
+                            name="year"
+                            label="Year Of Admission"
+                            value={values.year}
+                            onChange={handleInputChange}
+                            error={errors.year}
+                        />
+
+
+
+                        <div>
+                            <Controls.Button
+                                type="submit"
+                                text = {
+                                    errorObj.isLoading ? 
+                                    <CircularProgress size={24}  />:"Submit"                        
+                                }
+                                disabled = {errorObj.isLoading}
+                                style={{backgroundColor: "#253053"}}/>
+
+                            <Controls.Button
+                                text="Reset"
+                                color="default"
+                                onClick={resetForm} />
+                        </div>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6}>
-
-                    <Controls.Input
-                        label="Registration Number"
-                        name="regNumber"
-                        value={values.regNumber}
-                        onChange={handleInputChange}
-                        error = {errors.regNumber}
-                    />
-
-                    <Controls.Select
-                        name="departmentId"
-                        label="Department"
-                        value={values.departmentId}
-                        onChange={handleInputChange}
-                        options={StudentService.getDepartmentCollection()}
-                        error={errors.departmentId}
-                    />
-                    <Controls.DatePicker
-                        name="admissionDate"
-                        label="Date Of Admission"
-                        value={values.hireDate}
-                        onChange={handleInputChange}
-                    />
-
-
-
-                    <div>
-                        <Controls.Button
-                            type="submit"
-                            text="Submit"
-                            style={{backgroundColor: "#253053"}} />
-                        <Controls.Button
-                            text="Reset"
-                            color="default"
-                            onClick={resetForm} />
-                    </div>
-                </Grid>
-            </Grid>
-        </Form>
+            </Form>
+        </div>
     )
 }
 
