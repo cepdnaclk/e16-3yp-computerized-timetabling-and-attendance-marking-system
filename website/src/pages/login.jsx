@@ -35,7 +35,7 @@ class Login extends Component {
     passChangeHandler = (event) => {
 
          this.setState({ password : event.target.value });
-         if(this.state.password == 0){
+         if(this.state.password === 0){
                     this.setState({passError:"*Password Can not be Empty"})
          }
          else{
@@ -46,7 +46,7 @@ class Login extends Component {
 
     nameChangeHandler(event){
         this.setState({ userName : event.target.value });
-        if(this.state.userName.length == 0){
+        if(this.state.userName.length === 0){
               this.setState({nameError:"*Username Can not be Empty"})
         }else{
               this.setState({nameError:""})
@@ -91,11 +91,11 @@ class Login extends Component {
                     if(response.data.token&&response.data.role){
 
                         localStorage.setItem('token', response.data.token);
-                        if(response.data.role=="ROLE_STUDENT"){
+                        if(response.data.role==="ROLE_STUDENT"){
                             this.setState({isLoggedStu:true});
                         }
 
-                        else if(response.data.role=="ROLE_ADMIN"){
+                        else if(response.data.role==="ROLE_ADMIN"){
                             this.setState({isLoggedAdmin:true});
                         }
                         else if(response.data.role=="ROLE_LECTURER"){
@@ -136,6 +136,7 @@ class Login extends Component {
                 localStorage.setItem("sid", response.data.result1);
                 localStorage.setItem("sfn", response.data.result2);
                 localStorage.setItem("sen", response.data.result3);
+                localStorage.setItem("sln", response.data.result4);
               })
               .catch((error) => {
                 console.log("error =", error);

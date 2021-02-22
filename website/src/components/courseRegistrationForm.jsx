@@ -4,7 +4,6 @@ import { Checkbox } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import axios from "axios";
 import { Redirect } from "react-router";
-import createHistory from 'history/createBrowserHistory'
 
 const COURSE_REGISTRATION_URL = "/courses/registration/add";
 
