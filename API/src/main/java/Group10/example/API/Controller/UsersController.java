@@ -167,7 +167,6 @@ public class UsersController {
         String pass = studentService.passGenerate();
         lecturer.setPassword(passwordEncoder.encode(pass));
 
-        lecturer.setPassword(passwordEncoder.encode(lecturer.getPassword()));
         lecRepo.save(lecturer);
 
         String mail = lecturer.getEmail();

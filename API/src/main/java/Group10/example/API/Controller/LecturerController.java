@@ -6,13 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import Group10.example.API.Model.Lecturer;
 import Group10.example.API.Repository.GroupRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import Group10.example.API.Model.Group;
 import Group10.example.API.Model.Student;
@@ -86,6 +82,16 @@ public class LecturerController {
 		return map;
 		
 	}
-	
+
+
+	@PostMapping(value = "/addcourse")
+    public Optional<Lecturer> addCourseToLecturer(@RequestParam("lecturer")String lecturerId,@RequestParam("course")String courseId){
+	    return lecturerService.addCourseToLecturer(lecturerId,courseId);
+    }
+
+    @DeleteMapping(value = "/deletecourse")
+    public Optional<Lecturer> removeCourseToLecturer(@RequestParam("lecturer")String lecturerId,@RequestParam("course")String courseId){
+	    return lecturerService.removeCourseToLecturer(lecturerId,courseId);
+    }
 
 }
