@@ -54,6 +54,16 @@ public class UsersController {
         return null;
     }
 
+    //get lecturer details from session
+    Lecturer getLecturerFromSession() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return lecRepo.findByuserName(currentUserName);
+        }
+        return null;
+    }
+
     //testing aurthorization filters
     @RequestMapping("/admin")
     public String helloAdmin(){
@@ -98,7 +108,7 @@ public class UsersController {
 
         //check whether user is already exists
         if(stud != null) {
-            map.put("msg","user Name is already exists Try with different one");
+            map.put("msg","user Name is already exists");
             return map;
         }
 
@@ -166,8 +176,6 @@ public class UsersController {
         lecturer.setRole("LECTURER");
         String pass = studentService.passGenerate();
         lecturer.setPassword(passwordEncoder.encode(pass));
-
-        lecturer.setPassword(passwordEncoder.encode(lecturer.getPassword()));
         lecRepo.save(lecturer);
 
         String mail = lecturer.getEmail();
@@ -203,7 +211,7 @@ public class UsersController {
    }
 
    @GetMapping(value = "student/getdetailsfromsession")
-    public Result getDetailsFromSession(){
+    public Result getStuDetailsFromSession(){
         Student s = getStudentFromSession();
         return (s == null)?null:new Result(s.getStudentID(),s.getFirstName(),s.getRegNumber(),s.getLastName());
     }
@@ -211,6 +219,12 @@ public class UsersController {
     public String getUserName(){
         Student s = getStudentFromSession();
         return (s == null)?null:s.getUserName();
+    }
+
+    @GetMapping(value = "lecturer/getdetailsfromsession")
+    public Result getLecDetailsFromSession(){
+        Lecturer l = getLecturerFromSession();
+        return (l == null)?null:new Result(l.getLectID(),l.getFirstName(),l.getLastName());
     }
 
 }

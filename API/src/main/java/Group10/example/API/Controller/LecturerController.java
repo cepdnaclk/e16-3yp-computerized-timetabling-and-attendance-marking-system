@@ -1,18 +1,12 @@
 package Group10.example.API.Controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
+import Group10.example.API.Model.Course;
+import Group10.example.API.Model.Lecturer;
+import Group10.example.API.Repository.CourseRepository;
 import Group10.example.API.Repository.GroupRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import Group10.example.API.Model.Group;
 import Group10.example.API.Model.Student;
@@ -37,6 +31,12 @@ public class LecturerController {
 
     @Autowired
     GroupRepository groupRepo;
+
+    @Autowired
+    UsersController usersController;
+
+    @Autowired
+    CourseRepository courseRepository;
 	
 	@PostMapping("/creategroup")
     public HashMap<String,String> createGroup(@RequestBody Group group){
@@ -86,6 +86,38 @@ public class LecturerController {
 		return map;
 		
 	}
-	
+
+
+	@PostMapping(value = "/addcourse")
+    public Optional<Lecturer> addCourseToLecturer(@RequestParam("lecturer")String lecturerId,@RequestParam("course")String courseId){
+        System.out.println("addCourseToLecturer Controller");
+	    return lecturerService.addCourseToLecturer(lecturerId,courseId);
+    }
+
+    @DeleteMapping(value = "/deletecourse")
+    public Optional<Lecturer> removeCourseToLecturer(@RequestParam("lecturer")String lecturerId,@RequestParam("course")String courseId){
+	    return lecturerService.removeCourseToLecturer(lecturerId,courseId);
+    }
+
+    @GetMapping(value = "/find/all")
+    public Collection<Lecturer> findAll(){
+	    return lecturerService.findAll();
+    }
+
+    @GetMapping(value = "/find/{id}")
+    public Optional<Lecturer> findById(@PathVariable("id")String id){
+	    return lecturerService.findById(id);
+    }
+
+    @GetMapping(value = "/find/allcourses")
+    public Collection<Course> findAllCourses(){
+        Lecturer lec = usersController.getLecturerFromSession();
+        ArrayList<Course> courses = new ArrayList<>();
+        for (String s:lec.getCourseIds()){
+            Optional<Course> course = courseRepository.findById(s);
+            course.ifPresent(courses::add);
+        }
+        return courses;
+    }
 
 }
