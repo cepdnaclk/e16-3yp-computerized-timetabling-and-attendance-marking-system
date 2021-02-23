@@ -24,7 +24,7 @@ class App extends Component {
   
     render() { 
         return (
-            <>
+            <React.Fragment>
             <Router>
                 <Switch>
                     <Route path="/home" component={Home}></Route>
@@ -45,7 +45,8 @@ class App extends Component {
                 </Switch>
             </Router>
             <cssBaseline/>
-            </>
+            </React.Fragment> 
+            
          );
     }
 

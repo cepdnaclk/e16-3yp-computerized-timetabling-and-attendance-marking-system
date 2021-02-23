@@ -21,7 +21,7 @@ class TimeTable extends Component {
                 ["11:00" ,"12:30" ,"event-2" ,"CO321 Labs","Room No"],
                 ["14:00" ,"15:15"  ,"event-1" ,"CO322","Room No"]
             ],
-            [],
+            [["13:00" ,"14:00"  ,"event-1" ,"CO323","Room No"]],
             [],
             [
                 ["09:30", "10:30"  ,"event-1" ,"C0323","Room No"],

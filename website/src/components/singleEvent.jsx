@@ -64,7 +64,7 @@ export default function SingleEvent(props) {
                     <TextField id="outlined-basic" label="End time" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="Lecturer" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="Lecture Room" variant="outlined" color="secondary"/><br></br>
-                    <Button onClick={sendReq} variant="contained" color="secondary" style={{position:"relative",left:6}}>Submit</Button>
+                    <Button onClick={sendReq} variant="contained" color="secondary" style={{position:"relative",left:13}}>Submit</Button>
                 </form>
                     
                 </Popover>
