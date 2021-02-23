@@ -8,7 +8,8 @@ import {withRouter} from 'react-router-dom'
 import { Redirect } from 'react-router';
 
 const LOGIN_REST_API_URL = '/login';
-const ID_FROM_SESSION_URL = "/student/getdetailsfromsession";
+const STU_ID_FROM_SESSION_URL = "/student/getdetailsfromsession";
+const LEC_ID_FROM_SESSION_URL = '/lecturer/getdetailsfromsession';
 
 class Login extends Component {
     state = {  }
@@ -127,7 +128,7 @@ class Login extends Component {
             const auth = "Bearer "+ localStorage.getItem('token');
       
             axios
-              .get(ID_FROM_SESSION_URL,{
+              .get(STU_ID_FROM_SESSION_URL,{
                   headers: {
                     'Authorization': auth
                   }
@@ -145,9 +146,27 @@ class Login extends Component {
             return <Redirect to={{ pathname: "home" }} />;
           }
         if(this.state.isLoggedAdmin){
-                    return <Redirect to = {{pathname:"adminpanel"}}/>
+            return <Redirect to = {{pathname:"adminpanel"}}/>
         }
         if(this.state.isLoggedLecturer){
+
+            const auth = "Bearer "+ localStorage.getItem('token');
+      
+            axios
+              .get(LEC_ID_FROM_SESSION_URL,{
+                  headers: {
+                    'Authorization': auth
+                  }
+                })
+              .then((response) => {
+                  console.log(response.data);
+                localStorage.setItem("lid", response.data.result1);
+                localStorage.setItem("lfn", response.data.result2);
+                localStorage.setItem("lln", response.data.result3);
+              })
+              .catch((error) => {
+                console.log("error =", error);
+              });
           return <Redirect to = {{pathname:"lecturerdashboard"}}/>
         }
         return ( 
