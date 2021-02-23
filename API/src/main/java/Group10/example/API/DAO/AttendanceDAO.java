@@ -76,6 +76,16 @@ public class AttendanceDAO {
         return studentList;
     }
 
+    public Collection<AttendanceTemplate> findAttendancesByCourseId(String courseId) {
+        Collection<Attendance> attendances = attendanceRepository.findByCourseId(courseId);
+        HashSet<AttendanceTemplate> attendanceTemplates = new HashSet<>();
+        for (Attendance a: attendances) {
+            Optional<Student> student = studentRepository.findById(a.getStudentId());
+            student.ifPresent(s -> attendanceTemplates.add(new AttendanceTemplate(a,s.getFirstName()+" "+s.getLastName(),s.getRegNumber())));
+        }
+        return attendanceTemplates;
+    }
+
     public Attendance findAttendanceByStudentAndCourse(String courseId, String studentId) {
         return attendanceRepository.findByCourseIdAndStudentId(courseId,studentId).iterator().next();
     }
@@ -130,6 +140,7 @@ public class AttendanceDAO {
     public void deleteByCourseId(String courseId) {
         attendanceRepository.removeAllByCourseId(courseId);
     }
+
 
 
 }

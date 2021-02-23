@@ -13,6 +13,7 @@ class Home extends Component {
     courses: [],
     details: [],
     searchWord: null,
+    page : 'dailyattendance'
   };
 
   componentDidMount() {
@@ -45,7 +46,7 @@ class Home extends Component {
         <NavBar pageName="Home" />
         <img src={bgImage} className="homeloginImg"></img>
         <h2 className="hm-title">My Attendance records</h2>
-        <CourseList courses={this.state.courses} sw={this.state.searchWord} />
+        <CourseList page={this.state.page} courses={this.state.courses} sw={this.state.searchWord} />
         <UserCard data={[localStorage.getItem("sfn"), localStorage.getItem("sen")]} />
         <a href="coursereg" className="btn btn-secondary">Course Registration</a><br/>  
         {/* <a href="registeredcourses" className="btn btn-success">Registered Courses</a> */}

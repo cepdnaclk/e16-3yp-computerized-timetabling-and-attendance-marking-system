@@ -45,6 +45,8 @@ public class Course {
     //this stores student ids belongs to this course
     private Set<String> studentsIds = new HashSet<>();
 
+    private Set<String> lecturerIds = new HashSet<>();
+
     public String getCourseId() {
         return this.courseId;
     }
@@ -166,5 +168,23 @@ public class Course {
         this.studentsIds.clear();
     }
 
+    public Set<String> getLecturerIds() {
+        return lecturerIds;
+    }
 
+    public void setLecturerIds(Set<String> lecturerIds) {
+        this.lecturerIds = lecturerIds;
+    }
+
+    public void addLecturer(Optional<Lecturer> lecturer){
+        lecturer.ifPresent(l -> this.lecturerIds.add(l.getLectID()));
+    }
+
+    public void clearLecturerSet(){
+        this.lecturerIds.clear();
+    }
+
+    public void removeLecturer(Optional<Lecturer> lecturer){
+        lecturer.ifPresent(l -> this.lecturerIds.remove(l.getLectID()));
+    }
 }
