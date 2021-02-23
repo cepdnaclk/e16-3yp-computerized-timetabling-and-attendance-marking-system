@@ -61,4 +61,8 @@ public class AttendanceService {
     public String addCompleteAttendanceRecord(AttendanceLogList attendanceLogList) {
         return attendanceDAO.addCompleteAttendanceRecord(attendanceLogList);
     }
+
+    public Collection<AttendanceTemplate> findAttendancesByCourseId(String courseId) {
+        return attendanceDAO.findAttendancesByCourseId(courseId);
+    }
 }

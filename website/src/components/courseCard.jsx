@@ -43,7 +43,7 @@ class CourseCard extends Component {
       return (
         <Redirect
           to={{
-            pathname: "dailyattendance",
+            pathname: this.props.page,
             state: {
               course: this.props.course
             }

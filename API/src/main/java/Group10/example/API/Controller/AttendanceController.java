@@ -57,6 +57,11 @@ public class AttendanceController {
         return attendanceService.findStudentIdListByCourseId(courseId);
     }
 
+    @GetMapping(value = "courses/findattendancesbycourseid/{id}")//checked
+    public Collection<AttendanceTemplate> findAttendancesByCourseId(@PathVariable("id")String courseId){
+        return attendanceService.findAttendancesByCourseId(courseId);
+    }
+
     //this must return only one object (collection has only one object)
     @GetMapping(value = "attendance/findattendancebystudentidandcourseid")//checked
     public Attendance findAttendanceByStudentAndCourse(@RequestParam(name = "course")String courseId,

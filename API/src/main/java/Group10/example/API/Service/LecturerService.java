@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import Group10.example.API.Model.Group;
 import Group10.example.API.Repository.GroupRepository;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -41,13 +42,24 @@ public class LecturerService {
 
 
 	public Optional<Lecturer> addCourseToLecturer(String lecturerId, String courseId) {
+		System.out.println("addCourseToLecturer Service");
 		Optional<Lecturer> lecturer = lecturerRepository.findById(lecturerId);
 		Optional<Course> course = courseRepository.findById(courseId);
+		System.out.println("course = "+course.isPresent());
+		System.out.println("lecturer = "+lecturer.isPresent());
 		if(course.isPresent()){
-			lecturer.ifPresent(l -> l.addCourse(course));
+			lecturer.ifPresent(l -> {
+				System.out.println("addCourse");
+				l.addCourse(course);
+				lecturerRepository.save(l);
+			});
 		}
 		if(lecturer.isPresent()){
-			course.ifPresent(c -> c.addLecturer(lecturer));
+			course.ifPresent(c -> {
+				System.out.println("addLecturer");
+				c.addLecturer(lecturer);
+				courseRepository.save(c);
+			});
 		}
 		return lecturer;
 	}
@@ -57,11 +69,25 @@ public class LecturerService {
 		Optional<Lecturer> lecturer = lecturerRepository.findById(lecturerId);
 		Optional<Course> course = courseRepository.findById(courseId);
 		if(course.isPresent()){
-			lecturer.ifPresent(l -> l.removeCourse(course));
+			lecturer.ifPresent(l -> {
+				l.removeCourse(course);
+				lecturerRepository.save(l);
+			});
 		}
 		if(lecturer.isPresent()){
-			course.ifPresent(c -> c.removeLecturer(lecturer));
+			course.ifPresent(c -> {
+				c.removeLecturer(lecturer);
+				courseRepository.save(c);
+			});
 		}
 		return lecturer;
+	}
+
+	public Collection<Lecturer> findAll() {
+		return lecturerRepository.findAll();
+	}
+
+	public Optional<Lecturer> findById(String id) {
+		return lecturerRepository.findById(id);
 	}
 }

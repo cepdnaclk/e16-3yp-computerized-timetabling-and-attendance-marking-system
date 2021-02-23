@@ -124,6 +124,7 @@ public class Lecturer {
 
     public void addCourse(Optional<Course> course){
         course.ifPresent(c -> this.courseIds.add(c.getCourseId()));
+        System.out.println(this.getCourseIds());
     }
 
     public void removeCourse(Optional<Course> course){
