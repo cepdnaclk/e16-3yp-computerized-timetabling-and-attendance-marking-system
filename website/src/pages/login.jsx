@@ -8,7 +8,8 @@ import {withRouter} from 'react-router-dom'
 import { Redirect } from 'react-router';
 
 const LOGIN_REST_API_URL = '/login';
-const ID_FROM_SESSION_URL = "/student/getdetailsfromsession";
+const STU_ID_FROM_SESSION_URL = "/student/getdetailsfromsession";
+const LEC_ID_FROM_SESSION_URL = '/lecturer/getdetailsfromsession';
 
 class Login extends Component {
     state = {  }
@@ -20,6 +21,7 @@ class Login extends Component {
             password: '',
             isLoggedAdmin: false,
             isLoggedStu : false,
+            isLoggedLecturer : false,
             nameError : "",
             passError : "",
             loginError:""
@@ -59,7 +61,7 @@ class Login extends Component {
             "userName":this.state.userName,
             "password":this.state.password
         }
-
+        console.log(data);
          if(this.state.password.length === 0 && this.state.userName.length !== 0){
             this.setState({passError:"*Password Can not be Empty"})
             this.setState({nameError:""})
@@ -92,16 +94,19 @@ class Login extends Component {
                         localStorage.setItem('token', response.data.token);
                         if(response.data.role==="ROLE_STUDENT"){
                             this.setState({isLoggedStu:true});
-
                         }
 
                         else if(response.data.role==="ROLE_ADMIN"){
                             this.setState({isLoggedAdmin:true});
-
+                        }
+                        else if(response.data.role=="ROLE_LECTURER"){
+                            console.log('lecturer ');
+                          this.setState({isLoggedLecturer:true});
                         }
                     }
 
               }).catch( error => {
+                console.log("error =", error);
                  if (error.response.status===401){
                        //alert("Username or Password is Incorrect");
                        this.setState({loginError:"*Username or Password is Incorrect"});
@@ -123,7 +128,7 @@ class Login extends Component {
             const auth = "Bearer "+ localStorage.getItem('token');
       
             axios
-              .get(ID_FROM_SESSION_URL,{
+              .get(STU_ID_FROM_SESSION_URL,{
                   headers: {
                     'Authorization': auth
                   }
@@ -132,6 +137,7 @@ class Login extends Component {
                 localStorage.setItem("sid", response.data.result1);
                 localStorage.setItem("sfn", response.data.result2);
                 localStorage.setItem("sen", response.data.result3);
+                localStorage.setItem("sln", response.data.result4);
               })
               .catch((error) => {
                 console.log("error =", error);
@@ -140,7 +146,28 @@ class Login extends Component {
             return <Redirect to={{ pathname: "home" }} />;
           }
         if(this.state.isLoggedAdmin){
-                    return <Redirect to = {{pathname:"adminpanel"}}/>
+            return <Redirect to = {{pathname:"adminpanel"}}/>
+        }
+        if(this.state.isLoggedLecturer){
+
+            const auth = "Bearer "+ localStorage.getItem('token');
+      
+            axios
+              .get(LEC_ID_FROM_SESSION_URL,{
+                  headers: {
+                    'Authorization': auth
+                  }
+                })
+              .then((response) => {
+                  console.log(response.data);
+                localStorage.setItem("lid", response.data.result1);
+                localStorage.setItem("lfn", response.data.result2);
+                localStorage.setItem("lln", response.data.result3);
+              })
+              .catch((error) => {
+                console.log("error =", error);
+              });
+          return <Redirect to = {{pathname:"lecturerdashboard"}}/>
         }
         return ( 
             <div className="login">

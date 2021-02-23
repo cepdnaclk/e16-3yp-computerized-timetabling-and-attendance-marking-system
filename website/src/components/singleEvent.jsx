@@ -40,8 +40,8 @@ export default function SingleEvent(props) {
         return ( 
             <li className="single-event" data-start={props.start} data-end={props.end} data-content={props.content} data-event={props.eventType}>
                 <a href="#" onClick={handleClick}>
-                    <em className="event-name">{props.eventName}</em>
-                    <em className>{props.roomNo}</em>
+                    <em className="event-name" style={{fontSize:17}}>{props.eventName}</em>
+                    <em className style={{fontSize:17,color:"white"}}>{props.roomNo}</em>
                 </a>
 
                 <Popover
@@ -64,7 +64,7 @@ export default function SingleEvent(props) {
                     <TextField id="outlined-basic" label="End time" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="Lecturer" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="Lecture Room" variant="outlined" color="secondary"/><br></br>
-                    <Button onClick={sendReq} variant="contained" color="secondary" style={{position:"relative",left:45}}>Submit</Button>
+                    <Button onClick={sendReq} variant="contained" color="secondary" style={{position:"relative",left:6}}>Submit</Button>
                 </form>
                     
                 </Popover>

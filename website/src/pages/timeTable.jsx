@@ -64,7 +64,7 @@ class TimeTable extends Component {
                 <div>
                 <br />
 
-                
+                <div className="tt-outer">
                 <div className="cd-schedule loading ">
                     <div className="timeline">
                         <ul>
@@ -144,7 +144,7 @@ class TimeTable extends Component {
                 </div>
                 </div>
 
-               
+               </div>
                 
             
             </React.Fragment>
