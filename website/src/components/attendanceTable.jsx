@@ -35,14 +35,14 @@ export default function AttendanceTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.data.map((row) => (
-            <TableRow key={row.name} >
+          {props.data.map((attendanceItem) => (
+            <TableRow key={attendanceItem.name} >
               <TableCell component="th" scope="row" align="center">
-                {row[0]}
+                {attendanceItem.regNo}
               </TableCell>
-              <TableCell align="center">{row[1]}</TableCell>
-              <TableCell align="center">{row[2]}</TableCell>
-              <TableCell align="center">{row[3]}</TableCell>
+              <TableCell align="center">{attendanceItem.name}</TableCell>
+              <TableCell align="center">{(Math.round(attendanceItem.attendance.lecturePercentage * 100) / 100).toFixed(2)+'%'}</TableCell>
+              <TableCell align="center">{(Math.round(attendanceItem.attendance.labPercentage * 100) / 100).toFixed(2)+'%'}</TableCell>
               
             </TableRow>
           ))}

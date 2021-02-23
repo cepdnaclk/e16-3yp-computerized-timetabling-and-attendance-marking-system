@@ -3,45 +3,39 @@ import NavBar from "../components/navbar";
 import CourseList from "../components/courseList";
 import LecturerCard from "../components/lecturerCard";
 import bgImage from "../images/bg4.jpg";
+import axios from "axios";
 import "../css/home.css";
 import "../css/lecturerDashboard.css";
 
-// const STUDENT_HOME_PAGE_URI =  '/lecturer';
+const LECT_ALL_COURSES_URL = '/lec/find/allcourses';
+
 
 class LecturerDashboard extends Component {
   state = {
     courses: [],
     details: [],
     searchWord: null,
+    page : "attendance"
   };
 
   componentDidMount() {
-    this.setState({
-      courses: [
-        { courseNum: "CO321", courseName: "EMBEDED SYSTEMS" },
-        { courseNum: "CO322", courseName: "DATA STRUCTURES AND ALGORYTHMS" },
-        { courseNum: "CO323", courseName: "COMPUTER COMINUCATION NETWORKS II" },
-      ],
-    });
-    this.setState({
-      details: [
-        {
-          id: 1,
-          nameTag: "Name:",
-          value: "Saubhagya",
+    let name = localStorage.getItem('lfn')+' '+localStorage.getItem('lln');
+    this.setState({lec_name : name});
+    const auth = "Bearer " + localStorage.getItem("token");
+
+    axios
+      .get(LECT_ALL_COURSES_URL, {
+        headers: {
+          Authorization: auth,
         },
-        {
-          id: 2,
-          nameTag: "E Number:",
-          value: "E/16/242",
-        },
-        {
-          id: 3,
-          nameTag: "Password:",
-          value: "samplePassword",
-        },
-      ],
-    });
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ courses: response.data });
+      })
+      .catch((error) => {
+        console.log("error =", error);
+      });
 
     this.setState({ searchWord: "" });
   }
@@ -55,8 +49,8 @@ class LecturerDashboard extends Component {
         <NavBar pageName="Lecturer Dashboard" />
         <img src={bgImage} className="homeloginImg"></img>
         <h2 className="hm-title lc-title">Student Attendance</h2>
-        <CourseList courses={this.state.courses} sw={this.state.searchWord} />
-        <LecturerCard data={"Lecturer Name"} oc={this.onSerchValueChanged} />
+        <CourseList page={this.state.page} courses={this.state.courses} sw={this.state.searchWord} />
+        <LecturerCard data={this.state.lec_name} oc={this.onSerchValueChanged} />
       </div>
     );
   }
