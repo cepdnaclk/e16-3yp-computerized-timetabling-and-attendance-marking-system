@@ -3,7 +3,7 @@ import NavBar from "../components/navbar";
 import axios from "axios";
 import CourseRegistrationForm from "../components/courseRegistrationForm";
 import CourseRegistrationConfirm from "../components/courseRegistrationConfirm";
-import { Alert } from "@material-ui/lab";
+
 
 let ALL_COURSES_URL = "/courses/all/";
 let CONFIRM_PASSWORD_URL = "/check/password/";
