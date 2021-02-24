@@ -13,11 +13,15 @@ public class ScheduleUpdatePayload {
     @NotNull(message = "course ID cannot be Null")
     private String courseId;
 
+    private String courseNumber;
+
     @NotNull(message = "Lecturer ID cannot be null")
     private String lecturerId;
 
     @NotNull(message = "Lecture Room ID cannot be Null")
     private String roomId;
+
+    private String roomName;
 
     @Pattern(regexp = "MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY")
     private String dayOfWeek;//weekly schedule
@@ -61,5 +65,13 @@ public class ScheduleUpdatePayload {
 
     public int getLabOrLecture() {
         return labOrLecture;
+    }
+
+    public String getCourseNumber() {
+        return courseNumber;
+    }
+
+    public String getRoomName() {
+        return roomName;
     }
 }

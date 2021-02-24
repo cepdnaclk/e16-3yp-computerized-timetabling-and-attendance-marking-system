@@ -19,11 +19,15 @@ public class Schedule {
     @NotNull(message = "course ID cannot be Null")
     private String courseId;
 
+    private String courseNumber;
+
     @NotNull(message = "Lecturer ID cannot be null")
     private String lecturerId;
 
     @NotNull(message = "Lecture Room ID cannot be Null")
     private String roomId;
+
+    private String roomName;
 
     @Pattern(regexp = "MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY")
     private String dayOfWeek;//weekly schedule
@@ -109,5 +113,21 @@ public class Schedule {
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    public String getCourseNumber() {
+        return courseNumber;
+    }
+
+    public void setCourseNumber(String courseNumber) {
+        this.courseNumber = courseNumber;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 }

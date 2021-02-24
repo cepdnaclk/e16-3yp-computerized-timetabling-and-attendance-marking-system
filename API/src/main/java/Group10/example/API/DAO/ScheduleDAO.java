@@ -32,6 +32,8 @@ public class ScheduleDAO {
     public Schedule addScheduleItem(Schedule schedule) {
         Optional<Course> course = courseRepository.findById(schedule.getCourseId());
         Optional<LectureRoom> requested = lectureRoomRepository.findById(schedule.getRoomId());
+        course.ifPresent(c -> schedule.setCourseNumber(c.getCourseNumber()));
+        requested.ifPresent(l -> schedule.setRoomName(l.getRoomName()));
         Schedule s = scheduleRepository.insert(schedule);
         course.ifPresent(c -> {
             c.addScheduleId(schedule.getScheduleId());
@@ -42,12 +44,6 @@ public class ScheduleDAO {
     }
 
     public Collection<Schedule> findAllSchedules() {
-//        Collection<Course> courses = courseRepository.findAll();
-//        ArrayList<Schedule> timeTable = new ArrayList<>();
-//        courses.forEach(c -> c.getScheduleIds().forEach(s -> {
-//            Optional<Schedule> ss = scheduleRepository.findById(s);
-//            ss.ifPresent(timeTable::add);
-//        }));
         return scheduleRepository.findAll();
     }
 
@@ -83,7 +79,11 @@ public class ScheduleDAO {
 
     public Optional<Schedule> updateScheduleById(String scheduleId, ScheduleUpdatePayload scheduleUpdatePayload) {
         Optional<Schedule> schedule = scheduleRepository.findById(scheduleId);
+        Optional<Course> course = courseRepository.findById(scheduleUpdatePayload.getCourseId());
+        Optional<LectureRoom> lectureRoom = lectureRoomRepository.findById(scheduleUpdatePayload.getRoomId());
         schedule.ifPresent(s -> {
+            course.ifPresent(c -> s.setCourseNumber(c.getCourseNumber()));
+            lectureRoom.ifPresent(l -> s.setRoomName(l.getRoomName()));
             s.setCourseId(scheduleUpdatePayload.getCourseId());
             s.setLecturerId(scheduleUpdatePayload.getLecturerId());
             s.setRoomId(scheduleUpdatePayload.getRoomId());
