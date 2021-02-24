@@ -41,6 +41,7 @@ class LecturerCard extends Component {
                   variant="outlined"
                   color="secondary"
                   startIcon={<DateRangeOutlinedIcon></DateRangeOutlinedIcon>}
+                  onClick={event =>  window.location.href='timetable'}
                 >
                   My Timetables
                 </Button>
