@@ -5,11 +5,24 @@ import '../components/timetableSupport'
 import SingleEvent from '../components/singleEvent'
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
+import AddSchedules from '../components/addSchedules'
+import SubmitSchedules from '../components/submitSchedules'
+
+window.$schArray = []
 
 class TimeTable extends Component {
-    state = { timeTable:[]
+    state = { timeTable:[],
+              newSchedules:[],
+              start:null,
+              end:null,
+              day:null, 
+              lecturer:null,
+              room:null,
+           
         
      }
+
+    
 
     componentWillMount(){
      
@@ -32,7 +45,10 @@ class TimeTable extends Component {
                 
             ]
 
-        ]});
+        ],
+        
+       
+    });
     }
 
     createSchedule = (dayIndex) => {
@@ -40,7 +56,7 @@ class TimeTable extends Component {
         
 
         let tmp = this.state.timeTable[dayIndex];
-        console.log(tmp);
+        
         
 
         if(tmp.length !==0){
@@ -54,6 +70,52 @@ class TimeTable extends Component {
         }
 
     }
+
+    deleteSchedule = (index)=>{
+        let tmp = this.state.newSchedules.filter((s,idx) => idx !== index );
+        window.$schArray = [...tmp]
+        this.setState({newSchedules:tmp});
+    }
+
+    editSchedule = (sch,index)=> {
+        let tmp = this.state.newSchedules.filter((s,idx) => idx !== index );
+        window.$schArray = [...tmp]
+        this.setState({newSchedules:tmp,startTime:sch,start:sch.start,end:sch.end,day:sch.day,lecturer:sch.lecturer,room:sch.room});
+
+    }
+
+    createNewSchedule = ()=> {
+
+        let tmpArray = [...this.state.newSchedules]
+
+        let tmp = {start:this.state.start,
+               end:this.state.end,
+               day:this.state.day,
+               lecturer:this.state.lecturer,
+               room:this.state.room,
+        }
+
+        window.$schArray.push(tmp)
+
+        tmpArray.push(tmp)
+        this.setState({newSchedules:tmpArray,start:"",end:"",day:"",lecturer:"",room:""})
+
+    }
+
+    updateField = (event)=> {
+        this.setState({[event.target.name]:event.target.value})
+        
+
+    }
+
+    submitSchedules = ()=>{
+
+        //send req to the backend
+        console.log(window.$schArray)
+        
+    }
+
+    
 
     render() { 
         return ( 
@@ -143,6 +205,29 @@ class TimeTable extends Component {
                 
                 </div>
                 </div>
+
+                <div className="tt-align-outer">
+                <div className="tt-addschedule">
+                    <AddSchedules 
+                        st={this.state.startTime} 
+                        oc={this.updateField} 
+                        cns={this.createNewSchedule} 
+                        start={this.state.start}
+                        end={this.state.end}
+                        day={this.state.day}
+                        lecturer={this.state.lecturer}
+                        room={this.state.room}
+                        >
+                    </AddSchedules>
+                    
+                
+                </div>
+                
+                <div className="tt-submitschedules">
+                    <SubmitSchedules schedules={this.state.newSchedules} ds={this.deleteSchedule} es={this.editSchedule} subs={this.submitSchedules}></SubmitSchedules>
+                </div>
+                </div>
+                    
 
                </div>
                 

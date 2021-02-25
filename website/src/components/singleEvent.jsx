@@ -57,14 +57,19 @@ export default function SingleEvent(props) {
                     vertical: 'top',
                     horizontal: 'center',
                     }}
+
                 >
                 <form className={classes.root} noValidate autoComplete="off" >
                 
                     <TextField id="outlined-basic" label="Start time" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="End time" variant="outlined" color="secondary"/><br></br>
+                    <TextField id="outlined-basic" label="Day" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="Lecturer" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="Lecture Room" variant="outlined" color="secondary"/><br></br>
-                    <Button onClick={sendReq} variant="contained" color="secondary" style={{position:"relative",left:13}}>Submit</Button>
+                    <div style={{display:"flex",justifyContent:"center",gap:8}}>
+                      <Button onClick={sendReq} variant="contained" color="secondary" >Submit</Button>
+                      <Button variant="contained" color="secondary" >Delete</Button>
+                      </div>
                 </form>
                     
                 </Popover>
