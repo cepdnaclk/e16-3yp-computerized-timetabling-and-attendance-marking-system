@@ -658,3 +658,28 @@ q:after {
   top: 20px;
   padding-left: 160px;
 }
+
+.tt-addschedule {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 4px 4px 8px -3px rgba(163, 71, 71, 0.15);
+  border-radius: 5px;
+}
+
+.tt-submitschedules {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 4px 4px 8px -3px rgba(163, 71, 71, 0.15);
+  border-radius: 5px;
+  margin: 10px;
+  min-width: 800px;
+  min-height: auto;
+}
+
+.tt-align-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
