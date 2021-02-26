@@ -115,6 +115,7 @@ public class AttendanceDAO {
             else{
                 a.addAttendanceItem(absentAttendanceItem);
             }
+            attendanceRepository.save(a);
         }
         return "success";
     }
