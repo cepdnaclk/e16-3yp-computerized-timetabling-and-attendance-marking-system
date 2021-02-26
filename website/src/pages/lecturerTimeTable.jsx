@@ -7,15 +7,16 @@ import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
 
-let FIND_LEC_SCHEDULE_URL = "/schedule/findbylecturer/";
+let FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
 const weekdays = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"];
 
 class TimeTable extends Component {
   state = { timeTable: [], schedule: [] };
 
-  componentDidMount() {
+  componentWillMount() {
     const auth = "Bearer " + localStorage.getItem("token");
     FIND_LEC_SCHEDULE_URL += localStorage.getItem("lid");
+
     axios
       .get(FIND_LEC_SCHEDULE_URL, {
         headers: {
@@ -23,17 +24,7 @@ class TimeTable extends Component {
         },
       })
       .then((response) => {
-        let tt = [[],[],[],[],[]];
-        response.data.forEach((element) => {
-          let index = weekdays.indexOf(element.dayOfWeek);
-          let array = [element.startTime.toString().substring(0, 5),element.endTime.toString().substring(0, 5),'event-'+(parseInt(element.labOrLecture)+1),element.courseNumber+((element.labOrLecture == 1)?' labs':''),element.roomName];
-          // console.log('array = ',array);
-          tt[index].push(array);
-        });
-        if(tt){
-          this.setState({timeTable : tt});
-        }
-
+        this.setState({ timeTable: response.data });
       })
       .catch((error) => {
         console.log("error =", error);
@@ -41,27 +32,24 @@ class TimeTable extends Component {
     this.setState({
       schedule: [
         [
+          ["14:00", "15:15", "event-1", "CO322", "Room No"],
           ["08:00", "10:15", "event-1", "C0321", "Room No"],
           ["11:00", "12:30", "event-2", "CO321 Labs", "Room No"],
-          ["14:00", "15:15", "event-1", "CO322", "Room No"]
         ],
         [["13:00", "17:00", "event-1", "CO323", "Room No"]],
         [],
         [
           ["09:30", "10:30", "event-1", "C0323", "Room No"],
           ["15:00", "16:00", "event-1", "CO324", "Room No"],
-          ["16:00", "17:00", "event-2", "CO324 Labs", "Room No"]
+          ["16:00", "17:00", "event-2", "CO324 Labs", "Room No"],
         ],
         [["15:00", "16:00", "event-1", "CO324", "Room No"]],
-      ]
+      ],
     });
   }
 
   createSchedule = (dayIndex) => {
-    let tmp = this.state.timeTable[dayIndex];
-    // console.log(tmp);
-    // console.log("index = ", dayIndex);
-    // console.log(this.state.timeTable);
+    let tmp = this.state.schedule[dayIndex];
 
     if (tmp && tmp.length !== 0) {
       return tmp.map((schedule) => (
@@ -79,31 +67,12 @@ class TimeTable extends Component {
   };
 
   render() {
-    if(this.state.schedule && this.state.schedule.length > 0){
-      console.log('schedule in render = ',this.state.schedule);
-      let test = this.state.schedule;
-      // console.log(typeof test[0]);
-      // console.log(typeof test[1]);
-      // console.log(typeof test[2]);
-      // console.log(typeof test[3]);
-      // console.log(typeof test[4]);
-      console.log('schedule');
-      for(let i = 0;i < test.length;i++){
-        console.log(test[i]);
-      }
+    if (this.state.schedule && this.state.schedule.length > 0) {
+      console.log("schedule in render = ", this.state.schedule);
+      
     }
-    if(this.state.timeTable && this.state.timeTable.length > 0){
-      console.log('timeTable in render = ',this.state.timeTable);
-      let test = this.state.timeTable;
-      // console.log(typeof test[0]);
-      // console.log(typeof test[1]);
-      // console.log(typeof test[2]);
-      // console.log(typeof test[3]);
-      // console.log(typeof test[4]);
-      console.log('timeTable');
-      for(let i = 0;i < test.length;i++){
-        console.log(test[i]);
-      }
+    if (this.state.timeTable && this.state.timeTable.length > 0) {
+      console.log("timeTable in render = ", this.state.timeTable);
     }
     return (
       <React.Fragment>

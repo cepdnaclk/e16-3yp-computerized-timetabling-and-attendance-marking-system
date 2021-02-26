@@ -14,4 +14,6 @@ public interface ScheduleRepository extends MongoRepository<Schedule,String> {
 
     void removeAllByCourseId(String courseId);
 
+    Collection<Schedule> findByLecturerIdAndDayOfWeek(String lecturerId,String dayOfWeek);
+
 }

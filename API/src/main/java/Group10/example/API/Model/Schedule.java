@@ -33,12 +33,14 @@ public class Schedule {
     private String dayOfWeek;//weekly schedule
 
     @NotNull(message = "Start Time cannot be Null")
-    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
-    private LocalTime startTime;
+    @JsonFormat(pattern = "HH:mm",shape = JsonFormat.Shape.STRING)
+    @Pattern(regexp = "\\b\\d\\d:\\d\\d\\b",message = "startTime is not in Correct Format")
+    private String startTime;
 
     @NotNull(message = "End Time cannot be Null")
-    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
-    private LocalTime endTime;
+    @JsonFormat(pattern = "HH:mm",shape = JsonFormat.Shape.STRING)
+    @Pattern(regexp = "\\b\\d\\d:\\d\\d\\b",message = "endTime is not in Correct Format")
+    private String endTime;
 
     @NotNull(message = "Lab or Lecture cannot be Null")
     @Min(value = 0)
@@ -46,7 +48,7 @@ public class Schedule {
     private int labOrLecture;//lab = 1 , lecture = 0
 
 
-    public Schedule(String dayOfWeek, LocalTime startTime, LocalTime endTime, int labOrLecture, String roomId, String lecturerId) {
+    public Schedule(String dayOfWeek, String startTime, String endTime, int labOrLecture, String roomId, String lecturerId) {
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -67,19 +69,19 @@ public class Schedule {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public LocalTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public LocalTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

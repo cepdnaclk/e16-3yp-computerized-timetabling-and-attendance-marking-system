@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -70,6 +72,11 @@ public class ScheduleController {
     @DeleteMapping(value = "/deleteallbycourse/{id}")
     public Result deleteAllSchedulesByCourseId(@PathVariable("id")String courseId){
         return scheduleService.deleteAllSchedulesByCourseId(courseId);
+    }
+
+    @GetMapping(value = "/findscheduledetailsbylecturer/{id}")
+    public ArrayList<ArrayList<String[]>> findScheduleDetailsByLecturer(@PathVariable("id")String lecturerId){
+        return scheduleService.findScheduleDetailsByLecturer(lecturerId);
     }
 
 }

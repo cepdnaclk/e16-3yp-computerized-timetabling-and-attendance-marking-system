@@ -7,6 +7,7 @@ import Group10.example.API.Model.ScheduleUpdatePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -58,5 +59,9 @@ public class ScheduleService {
 
     public Result deleteAllSchedulesByCourseId(String courseId) {
         return scheduleDAO.deleteAllSchedulesByCourseId(courseId);
+    }
+
+    public ArrayList<ArrayList<String[]>> findScheduleDetailsByLecturer(String lecturerId) {
+        return scheduleDAO.findScheduleDetailsByLecturer(lecturerId);
     }
 }

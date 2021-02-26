@@ -6,7 +6,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.time.LocalTime;
 
 public class ScheduleUpdatePayload {
 
@@ -27,12 +26,14 @@ public class ScheduleUpdatePayload {
     private String dayOfWeek;//weekly schedule
 
     @NotNull(message = "Start Time cannot be Null")
-    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
-    private LocalTime startTime;
+    @JsonFormat(pattern = "HH:mm",shape = JsonFormat.Shape.STRING)
+    @Pattern(regexp = "\\b\\d\\d:\\d\\d\\b",message = "startTime is not in Correct Format")
+    private String startTime;
 
     @NotNull(message = "End Time cannot be Null")
-    @JsonFormat(pattern = "HH:mm:ss",shape = JsonFormat.Shape.STRING)
-    private LocalTime endTime;
+    @JsonFormat(pattern = "HH:mm",shape = JsonFormat.Shape.STRING)
+    @Pattern(regexp = "\\b\\d\\d:\\d\\d\\b",message = "endTime is not in Correct Format")
+    private String endTime;
 
     @NotNull(message = "Lab or Lecture cannot be Null")
     @Min(value = 0)
@@ -55,11 +56,11 @@ public class ScheduleUpdatePayload {
         return dayOfWeek;
     }
 
-    public LocalTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public LocalTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 

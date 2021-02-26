@@ -105,4 +105,24 @@ public class ScheduleDAO {
         scheduleRepository.removeAllByCourseId(courseId);
         return new Result("success");
     }
+
+    public ArrayList<ArrayList<String[]>> findScheduleDetailsByLecturer(String lecturerId) {
+        ArrayList<ArrayList<String[]>> scheduleDetails = new ArrayList<>();
+        String[] weekDays = new String[]{"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"};
+        for (int i = 0; i < 5; i++) {
+            Collection<Schedule> collection = scheduleRepository.findByLecturerIdAndDayOfWeek(lecturerId,weekDays[i]);
+            ArrayList<String[]> list = new ArrayList<>();
+            collection.forEach(schedule -> {
+                String arr[] = new String[5];
+                arr[0] = schedule.getStartTime();
+                arr[1] = schedule.getEndTime();
+                arr[2] = "event-"+(schedule.getLabOrLecture()+1);
+                arr[3] = schedule.getCourseNumber()+((schedule.getLabOrLecture() == 0)?"":" Labs");
+                arr[4] = schedule.getRoomName();
+                list.add(arr);
+            });
+            scheduleDetails.add(list);
+        }
+        return scheduleDetails;
+    }
 }
