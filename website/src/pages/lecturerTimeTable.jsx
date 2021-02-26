@@ -49,7 +49,8 @@ class TimeTable extends Component {
   }
 
   createSchedule = (dayIndex) => {
-    let tmp = this.state.schedule[dayIndex];
+    // let tmp = this.state.timeTable[dayIndex];//db array
+    let tmp = this.state.schedule[dayIndex];//original array
 
     if (tmp && tmp.length !== 0) {
       return tmp.map((schedule) => (
