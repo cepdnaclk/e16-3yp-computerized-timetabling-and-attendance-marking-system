@@ -1,23 +1,22 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Popover from '@material-ui/core/Popover';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Popover from "@material-ui/core/Popover";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: "25ch",
     },
   },
 }));
 
 export default function SingleEvent(props) {
-
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -29,47 +28,84 @@ export default function SingleEvent(props) {
     setAnchorEl(null);
   };
 
-  const sendReq = ()=> {
-      console.log("hi");
-  }
+  const sendReq = () => {
+    console.log("hi");
+  };
+  
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-    
-    
-        return ( 
-            <li className="single-event" data-start={props.start} data-end={props.end} data-content={props.content} data-event={props.eventType}>
-                <a href="#" onClick={handleClick}>
-                    <em className="event-name" style={{fontSize:17}}>{props.eventName}</em>
-                    <em className style={{fontSize:17,color:"white"}}>{props.roomNo}</em>
-                </a>
+  const id = open ? "simple-popover" : undefined;
 
-                <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                    }}
-                >
-                <form className={classes.root} noValidate autoComplete="off" >
-                
-                    <TextField id="outlined-basic" label="Start time" variant="outlined" color="secondary"/><br></br>
-                    <TextField id="outlined-basic" label="End time" variant="outlined" color="secondary"/><br></br>
-                    <TextField id="outlined-basic" label="Lecturer" variant="outlined" color="secondary"/><br></br>
-                    <TextField id="outlined-basic" label="Lecture Room" variant="outlined" color="secondary"/><br></br>
-                    <Button onClick={sendReq} variant="contained" color="secondary" style={{position:"relative",left:13}}>Submit</Button>
-                </form>
-                    
-                </Popover>
-            </li>
-);
-    
+  return (
+    <li
+      className="single-event"
+      data-start={props.start}
+      data-end={props.end}
+      data-content={props.content}
+      data-event={props.eventType}
+    >
+      <a href="#" onClick={handleClick}>
+        <em className="event-name" style={{ fontSize: 17 }}>
+          {props.eventName}
+        </em>
+        <em className style={{ fontSize: 17, color: "white" }}>
+          {props.roomNo}
+        </em>
+      </a>
+
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <form className={classes.root} noValidate autoComplete="off">
+          <TextField
+            id="outlined-basic"
+            label="Start time"
+            variant="outlined"
+            color="secondary"
+          />
+          <br></br>
+          <TextField
+            id="outlined-basic"
+            label="End time"
+            variant="outlined"
+            color="secondary"
+          />
+          <br></br>
+          <TextField
+            id="outlined-basic"
+            label="Lecturer"
+            variant="outlined"
+            color="secondary"
+          />
+          <br></br>
+          <TextField
+            id="outlined-basic"
+            label="Lecture Room"
+            variant="outlined"
+            color="secondary"
+          />
+          <br></br>
+          <Button
+            onClick={sendReq}
+            variant="contained"
+            color="secondary"
+            style={{ position: "relative", left: 13 }}
+          >
+            Submit
+          </Button>
+        </form>
+      </Popover>
+    </li>
+  );
 }
- 

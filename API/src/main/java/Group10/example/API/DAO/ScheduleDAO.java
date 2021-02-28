@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Component
@@ -106,8 +107,9 @@ public class ScheduleDAO {
         return new Result("success");
     }
 
-    public ArrayList<ArrayList<String[]>> findScheduleDetailsByLecturer(String lecturerId) {
+    public HashMap<String,ArrayList<ArrayList<String[]>>> findScheduleDetailsByLecturer(String lecturerId) {
         ArrayList<ArrayList<String[]>> scheduleDetails = new ArrayList<>();
+        HashMap<String,ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         String[] weekDays = new String[]{"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"};
         for (int i = 0; i < 5; i++) {
             Collection<Schedule> collection = scheduleRepository.findByLecturerIdAndDayOfWeek(lecturerId,weekDays[i]);
@@ -123,6 +125,7 @@ public class ScheduleDAO {
             });
             scheduleDetails.add(list);
         }
-        return scheduleDetails;
+        map.put("result",scheduleDetails);
+        return map;
     }
 }

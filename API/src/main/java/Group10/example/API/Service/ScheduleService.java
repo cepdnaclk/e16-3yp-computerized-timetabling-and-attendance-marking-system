@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Service
@@ -61,7 +62,7 @@ public class ScheduleService {
         return scheduleDAO.deleteAllSchedulesByCourseId(courseId);
     }
 
-    public ArrayList<ArrayList<String[]>> findScheduleDetailsByLecturer(String lecturerId) {
+    public HashMap<String,ArrayList<ArrayList<String[]>>> findScheduleDetailsByLecturer(String lecturerId) {
         return scheduleDAO.findScheduleDetailsByLecturer(lecturerId);
     }
 }
