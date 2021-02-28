@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
@@ -75,7 +76,7 @@ public class ScheduleController {
     }
 
     @GetMapping(value = "/findscheduledetailsbylecturer/{id}")
-    public ArrayList<ArrayList<String[]>> findScheduleDetailsByLecturer(@PathVariable("id")String lecturerId){
+    public HashMap<String,ArrayList<ArrayList<String[]>>> findScheduleDetailsByLecturer(@PathVariable("id")String lecturerId){
         return scheduleService.findScheduleDetailsByLecturer(lecturerId);
     }
 
