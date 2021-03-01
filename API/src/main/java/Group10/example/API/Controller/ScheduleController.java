@@ -30,6 +30,11 @@ public class ScheduleController {
         return scheduleService.addScheduleItem(schedule);
     }
 
+    @PostMapping(value = "add/all")
+    public ArrayList<Schedule> addScheduleList( @Valid @RequestBody ArrayList<Schedule> schedules){
+        return scheduleService.addScheduleList(schedules);
+    }
+
     @GetMapping(value = "/find/all")//checked
     public Collection<Schedule> findAllSchedules(){
         return scheduleService.findAllSchedules();
@@ -78,6 +83,11 @@ public class ScheduleController {
     @GetMapping(value = "/findscheduledetailsbylecturer/{id}")
     public HashMap<String,ArrayList<ArrayList<String[]>>> findScheduleDetailsByLecturer(@PathVariable("id")String lecturerId){
         return scheduleService.findScheduleDetailsByLecturer(lecturerId);
+    }
+
+    @GetMapping(value = "/findscheduledetailsbystudent/{id}")
+    public HashMap<String,ArrayList<ArrayList<String[]>>> findScheduleDetailsByStudent(@PathVariable("id")String studentId){
+        return scheduleService.findScheduleDetailsByStudent(studentId);
     }
 
 }

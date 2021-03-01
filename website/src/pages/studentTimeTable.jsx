@@ -2,59 +2,58 @@ import React, { Component } from "react";
 import NavBar from "../components/navbar";
 import "../css/timetable.css";
 import "../components/timetableSupport";
-import SingleEvent from "../components/singleEvent";
+import SingleStuEvent from "../components/singleStuEvent";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
-import axios from "axios";
 
-let FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
 let weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-let times = ["08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30", "15:00","15:30","16:00","16:30",
-  "17:00",];
+let times = [
+  "08:00",
+  "08:30",
+  "09:00",
+  "09:30",
+  "10:00",
+  "10:30",
+  "11:00",
+  "11:30",
+  "12:00",
+  "12:30",
+  "13:00",
+  "13:30",
+  "14:00",
+  "14:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+];
 class TimeTable extends React.Component {
-  state = {loading : false}
+  state = { loading: false };
 
   componentDidMount() {
-    const auth = "Bearer " + localStorage.getItem("token");
-    FIND_LEC_SCHEDULE_URL += localStorage.getItem("lid");
-
-    axios
-      .get(FIND_LEC_SCHEDULE_URL, {
-        headers: {
-          Authorization: auth,
-        },
-      })
-      .then((response) => {
-        console.log('response data = ',response.data);
-
-        this.setState(
-        {
-          timeTable: response.data.result
-        },
-        () => {
-          console.log('timeTable = ',this.state.timeTable);
-          this.setState({ loading: true });
-        }
-      );
-      })
-      .catch((error) => {
-        console.log("error =", error);
-      });
-    
+    this.setState(
+      {
+        timeTable: JSON.parse(localStorage.getItem("studentTimeTable")).result,
+      },
+      () => {
+        this.setState({ loading: true });
+      }
+    );
   }
 
   createSchedule = (dayIndex) => {
     let tmp = this.state.timeTable[dayIndex];
 
     return tmp.map((schedule) => (
-      <SingleEvent
+      <SingleStuEvent
         key={dayIndex}
         start={schedule[0]}
         end={schedule[1]}
         eventType={schedule[2]}
         eventName={schedule[3]}
         roomNo={schedule[4]}
-      ></SingleEvent>
+      ></SingleStuEvent>
     ));
   };
 
