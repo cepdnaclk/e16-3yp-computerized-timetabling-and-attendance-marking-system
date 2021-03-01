@@ -80,5 +80,10 @@ public class ScheduleController {
         return scheduleService.findScheduleDetailsByLecturer(lecturerId);
     }
 
+    @GetMapping(value = "/findscheduledetailsbystudent/{id}")
+    public HashMap<String,ArrayList<ArrayList<String[]>>> findScheduleDetailsByStudent(@PathVariable("id")String studentId){
+        return scheduleService.findScheduleDetailsByStudent(studentId);
+    }
+
 }
 

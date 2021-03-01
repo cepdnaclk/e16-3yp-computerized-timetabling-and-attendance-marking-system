@@ -8,6 +8,8 @@ import bgImage from "../images/bg4.jpg";
 import { Redirect } from "react-router";
 const STUDENT_HOME_PAGE_URI = "/student";
 let GET_COURSES_BY_SID_URL = "/courses/findcoursesbystudentid/";
+let FIND_STU_SCHEDULE_URL = "/schedule/findscheduledetailsbystudent/";
+
 class Home extends Component {
   state = {
     courses: [],
@@ -17,6 +19,11 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    console.log("sid = ",localStorage.getItem("sid"));
+    console.log("sfn = ",localStorage.getItem("sfn"));
+    console.log("sen = ",localStorage.getItem("sen"));
+    console.log("sln = ",localStorage.getItem("sln"));
+    
     const auth = "Bearer " + localStorage.getItem("token");
     GET_COURSES_BY_SID_URL += localStorage.getItem("sid");
     axios
@@ -33,6 +40,23 @@ class Home extends Component {
         console.log("error =", error);
       });
     this.setState({ searchWord: "" });
+
+
+    FIND_STU_SCHEDULE_URL += localStorage.getItem("sid");  
+    
+    axios
+      .get(FIND_STU_SCHEDULE_URL, {
+        headers: {
+          Authorization: auth,
+        },
+      })
+      .then((response) => {
+        console.log('response data = ',response.data);
+        localStorage.setItem("studentTimeTable",JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log("error =", error);
+      });
   }
 
   constructor(props) {
@@ -49,7 +73,7 @@ class Home extends Component {
         <CourseList page={this.state.page} courses={this.state.courses} sw={this.state.searchWord} />
         <UserCard data={[localStorage.getItem("sfn"), localStorage.getItem("sen")]} />
         <a href="coursereg" className="btn btn-secondary">Course Registration</a><br/>  
-        {/* <a href="registeredcourses" className="btn btn-success">Registered Courses</a> */}
+        <a href="stutimetable" className="btn btn-success">Student Time Table</a>
       </div>
     );
   }

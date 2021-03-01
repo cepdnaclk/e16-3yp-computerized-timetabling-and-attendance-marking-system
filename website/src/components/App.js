@@ -15,6 +15,7 @@ import EditGroups from '../pages/editGroups'
 import Attendance from '../pages/attendance'
 import DailyAttendance from '../pages/dailyAttendance'
 import LecturerTimeTable from '../pages/lecturerTimeTable'
+import StudentTimeTable from '../pages/studentTimeTable'
 import '../index.css'
 import cssBaseline from '@material-ui/core'
 
@@ -41,6 +42,7 @@ class App extends Component {
                     <Route path="/attendance" component={Attendance}></Route>
                     <Route path="/dailyattendance" component={DailyAttendance}></Route>
                     <Route path="/lectimetable" component={LecturerTimeTable}></Route>
+                    <Route path="/stutimetable" component={StudentTimeTable}></Route>
                     <Route path="/" component={Login}></Route>
                 </Switch>
             </Router>

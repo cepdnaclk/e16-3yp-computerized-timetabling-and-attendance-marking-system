@@ -128,4 +128,31 @@ public class ScheduleDAO {
         map.put("result",scheduleDetails);
         return map;
     }
+
+    public HashMap<String, ArrayList<ArrayList<String[]>>> findScheduleDetailsByStudent(String studentId) {
+        ArrayList<ArrayList<String[]>> scheduleDetails = new ArrayList<>();
+        ArrayList<String> courseIds = attendanceDAO.findCourseIdListByStudentId(studentId);
+        HashMap<String,ArrayList<ArrayList<String[]>>> map = new HashMap<>();
+        String[] weekDays = new String[]{"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"};
+        for (int i = 0; i < 5; i++) {
+            Collection<Schedule> collection = new ArrayList<>();
+            for(String courseId :courseIds){
+                collection.addAll(scheduleRepository.findByCourseIdAndDayOfWeek(courseId,weekDays[i]));
+            }
+            scheduleRepository.findByLecturerIdAndDayOfWeek(studentId,weekDays[i]);
+            ArrayList<String[]> list = new ArrayList<>();
+            collection.forEach(schedule -> {
+                String arr[] = new String[5];
+                arr[0] = schedule.getStartTime();
+                arr[1] = schedule.getEndTime();
+                arr[2] = "event-"+(schedule.getLabOrLecture()+1);
+                arr[3] = schedule.getCourseNumber()+((schedule.getLabOrLecture() == 0)?"":" Labs");
+                arr[4] = schedule.getRoomName();
+                list.add(arr);
+            });
+            scheduleDetails.add(list);
+        }
+        map.put("result",scheduleDetails);
+        return map;
+    }
 }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavBar from "../components/navbar";
 import "../css/timetable.css";
 import "../components/timetableSupport";
-import SingleEvent from "../components/singleEvent";
+import SingleStuEvent from "../components/singleStuEvent";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 
@@ -34,7 +34,7 @@ class TimeTable extends React.Component {
   componentDidMount() {
     this.setState(
       {
-        timeTable: JSON.parse(localStorage.getItem("timeTable")).result,
+        timeTable: JSON.parse(localStorage.getItem("studentTimeTable")).result,
       },
       () => {
         this.setState({ loading: true });
@@ -46,14 +46,14 @@ class TimeTable extends React.Component {
     let tmp = this.state.timeTable[dayIndex];
 
     return tmp.map((schedule) => (
-      <SingleEvent
+      <SingleStuEvent
         key={dayIndex}
         start={schedule[0]}
         end={schedule[1]}
         eventType={schedule[2]}
         eventName={schedule[3]}
         roomNo={schedule[4]}
-      ></SingleEvent>
+      ></SingleStuEvent>
     ));
   };
 
