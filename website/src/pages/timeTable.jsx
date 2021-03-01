@@ -1,240 +1,272 @@
-import React, { Component } from 'react';
-import NavBar from '../components/navbar'
-import '../css/timetable.css'
-import '../components/timetableSupport'
-import SingleEvent from '../components/singleEvent'
+import React, { Component } from "react";
+import NavBar from "../components/navbar";
+import "../css/timetable.css";
+import "../components/timetableSupport";
+import SingleEvent from "../components/singleEvent";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
-import AddSchedules from '../components/addSchedules'
-import SubmitSchedules from '../components/submitSchedules'
+import AddSchedules from "../components/addSchedules";
+import SubmitSchedules from "../components/submitSchedules";
+import axios from "axios";
 
-window.$schArray = []
-
+const GET_LECTUREROOMS_URL = "/lecturerooms/all";
+const SUBMIT_ALL_SCHEDULES_URL = "/schedule/add/all";
+window.$schArray = [];
+let weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+let capitalWeekDays = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"];
+let times = [
+  "08:00",
+  "08:30",
+  "09:00",
+  "09:30",
+  "10:00",
+  "10:30",
+  "11:00",
+  "11:30",
+  "12:00",
+  "12:30",
+  "13:00",
+  "13:30",
+  "14:00",
+  "14:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+];
 class TimeTable extends Component {
-    state = { timeTable:[],
-              newSchedules:[],
-              start:null,
-              end:null,
-              day:null, 
-              lecturer:null,
-              room:null,
-           
-        
-     }
+  state = {
+    timeTable: [],
+    newSchedules: [],
+    startTime: "08:00",
+    endTime: "08:00",
+    dayOfWeek: "",
+    lecturerId: null,
+    roomId: "",
+    courseId: "",
+    labOrLecture: "",
+    lectureRooms: [],
+    courses: [],
+  };
 
-    
+  componentWillMount() {
+    const auth = "Bearer " + localStorage.getItem("token");
+    this.setState(
+      {
+        timeTable: JSON.parse(localStorage.getItem("timeTable")).result,
+        courses: JSON.parse(localStorage.getItem("lecCourses")).courses,
+      },
+      () => {
+        this.setState({ loading: true });
+      }
+    );
 
-    componentWillMount(){
-     
-        
-      
-        this.setState({timeTable:[
-            [
-                ["09:00" ,"10:15" ,"event-1" ,"C0321" ,"Room No"],
-                ["11:00" ,"12:30" ,"event-2" ,"CO321 Labs","Room No"],
-                ["14:00" ,"15:15"  ,"event-1" ,"CO322","Room No"]
-            ],
-            [["13:00" ,"14:00"  ,"event-1" ,"CO323","Room No"]],
-            [],
-            [
-                ["09:30", "10:30"  ,"event-1" ,"C0323","Room No"],
-                ["15:00", "16:00" ,"event-1" ,"CO324","Room No"],
-                ["16:00" ,"17:00"  ,"event-2" ,"CO324 Labs","Room No"]
-            ],
-            [
-                
-            ]
+    axios
+      .get(GET_LECTUREROOMS_URL, {
+        headers: {
+          Authorization: auth,
+        },
+      })
+      .then((response) => {
+        this.setState({ lectureRooms: response.data });
+      })
+      .catch((error) => {
+        console.log("error =", error);
+      });
+  }
 
-        ],
-        
-       
+  createSchedule = (dayIndex) => {
+    let tmp = this.state.timeTable[dayIndex];
+
+    if (tmp.length !== 0) {
+      return tmp.map((schedule) => (
+        <SingleEvent
+          start={schedule[0]}
+          end={schedule[1]}
+          eventType={schedule[2]}
+          eventName={schedule[3]}
+          roomNo={schedule[4]}
+        ></SingleEvent>
+      ));
+    } else {
+      return <div></div>;
+    }
+  };
+
+  deleteSchedule = (index) => {
+    let tmp = this.state.newSchedules.filter((s, idx) => idx !== index);
+    window.$schArray = [...tmp];
+    this.setState({ newSchedules: tmp });
+  };
+
+  editSchedule = (sch, index) => {
+    let tmp = this.state.newSchedules.filter((s, idx) => idx !== index);
+    window.$schArray = [...tmp];
+    this.setState({
+      newSchedules: tmp,
+      startTime: sch.startTime,
+      endTime: sch.endTime,
+      dayOfWeek: sch.dayOfWeek,
+      courseId: sch.courseId,
+      labOrLecture: sch.labOrLecture,
+      lecturerId: sch.lecturerId,
+      roomId: sch.roomId,
     });
-    }
+  };
 
-    createSchedule = (dayIndex) => {
+  createNewSchedule = () => {
+    let tmpArray = [...this.state.newSchedules];
 
-        
+    let tmp = {
+      startTime: this.state.startTime,
+      endTime: this.state.endTime,
+      dayOfWeek: this.state.dayOfWeek,
+      lecturerId: localStorage.getItem("lid"),
+      courseId: this.state.courseId,
+      roomId: this.state.roomId,
+      labOrLecture: this.state.labOrLecture,
+    };
 
-        let tmp = this.state.timeTable[dayIndex];
-        
-        
+    window.$schArray.push(tmp);
 
-        if(tmp.length !==0){
-            
-                return tmp.map(schedule => <SingleEvent start={schedule[0]} end={schedule[1]} eventType={schedule[2]} eventName={schedule[3]} roomNo={schedule[4]}></SingleEvent>);
-            
+    tmpArray.push(tmp);
+    this.setState({
+      newSchedules: tmpArray,
+      startTime: "08:00",
+      endTime: "08:00",
+      dayOfWeek: "",
+      lecturerId: "",
+      courseId: "",
+      roomId: "",
+      labOrLecture: "",
+    });
+  };
+
+  updateField = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  submitSchedules = () => {
+    let tmpArray = [...this.state.newSchedules];
+    console.log(window.$schArray);
+    //send req to the backend
+    let data = window.$schArray;
+    const auth = "Bearer " + localStorage.getItem("token");
+    axios.post(SUBMIT_ALL_SCHEDULES_URL, data,{
+      headers: {
+          'Authorization': auth
+      }
+      }).then((response) => {
+        console.log('submit response = ',response);
+      }).catch(e =>{
+        console.log('error = ',e);
+      })
+    //update timetable in the page itself
+    console.log("timetable = ", this.state.timeTable);
+    let tempTimeTable = [...this.state.timeTable];
+    for (let i in window.$schArray) {
+      let target = window.$schArray[i];
+      console.log("Index = " + i + "   ,element = " + JSON.stringify(target));
+      let courseNumber;
+      let roomName;
+      for (let i in this.state.courses) {
+        if (this.state.courses[i].courseId === target.courseId) {
+          courseNumber = this.state.courses[i].courseNumber;
         }
-        else{
-            return <div></div>
-
+      }
+      for (let i in this.state.lectureRooms) {
+        if (this.state.lectureRooms[i].roomId === target.roomId) {
+          roomName = this.state.lectureRooms[i].roomName;
         }
-
+      }
+      let myArr = [];
+      myArr[0] = target.startTime;
+      myArr[1] = target.endTime;
+      myArr[2] = "event-" + (target.labOrLecture + 1);
+      myArr[3] = courseNumber;
+      myArr[4] = roomName;
+      let index = capitalWeekDays.indexOf(target.dayOfWeek);
+      console.log('myArr = ',myArr);
+      console.log('index = ',index);
+      console.log('tempTimeTable = ',tempTimeTable);
+      tempTimeTable[index].push(myArr);
     }
+    this.setState({ timeTable: tempTimeTable });
+    //clear schedules
+    // window.$schArray = [];
+  };
 
-    deleteSchedule = (index)=>{
-        let tmp = this.state.newSchedules.filter((s,idx) => idx !== index );
-        window.$schArray = [...tmp]
-        this.setState({newSchedules:tmp});
-    }
+  render() {
+    return (
+      <React.Fragment>
+        <NavBar pageName="Time table"></NavBar>
+        <div>
+          <img src={bgImage} className="homeloginImg"></img>
+          <div>
+            <br />
 
-    editSchedule = (sch,index)=> {
-        let tmp = this.state.newSchedules.filter((s,idx) => idx !== index );
-        window.$schArray = [...tmp]
-        this.setState({newSchedules:tmp,startTime:sch,start:sch.start,end:sch.end,day:sch.day,lecturer:sch.lecturer,room:sch.room});
-
-    }
-
-    createNewSchedule = ()=> {
-
-        let tmpArray = [...this.state.newSchedules]
-
-        let tmp = {start:this.state.start,
-               end:this.state.end,
-               day:this.state.day,
-               lecturer:this.state.lecturer,
-               room:this.state.room,
-        }
-
-        window.$schArray.push(tmp)
-
-        tmpArray.push(tmp)
-        this.setState({newSchedules:tmpArray,start:"",end:"",day:"",lecturer:"",room:""})
-
-    }
-
-    updateField = (event)=> {
-        this.setState({[event.target.name]:event.target.value})
-        
-
-    }
-
-    submitSchedules = ()=>{
-
-        //send req to the backend
-        console.log(window.$schArray)
-        
-    }
-
-    
-
-    render() { 
-        return ( 
-            <React.Fragment>
-                <NavBar pageName="Time table"></NavBar>
-                <div>
-                <img src={bgImage} className="homeloginImg"></img>
-                <div>
-                <br />
-
-                <div className="tt-outer">
-                <div className="cd-schedule loading ">
-                    <div className="timeline">
-                        <ul>
-                            <li><span>08:00</span></li>
-                            <li><span>08:30</span></li>
-                            <li><span>09:00</span></li>
-                            <li><span>09:30</span></li>
-                            <li><span>10:00</span></li>
-                            <li><span>10:30</span></li>
-                            <li><span>11:00</span></li>
-                            <li><span>11:30</span></li>
-                            <li><span>12:00</span></li>
-                            <li><span>12:30</span></li>
-                            <li><span>13:00</span></li>
-                            <li><span>13:30</span></li>
-                            <li><span>14:00</span></li>
-                            <li><span>14:30</span></li>
-                            <li><span>15:00</span></li>
-                            <li><span>15:30</span></li>
-                            <li><span>16:00</span></li>
-                            <li><span>16:30</span></li>
-                            <li><span>17:00</span></li>
-                        </ul>
-                    </div> 
-                
-                    <div className="events">
-                        <ul className="wrap">
-                            <li className="events-group">
-                                <div className="top-info"><span>Monday</span></div>
-                                <ul>
-                                    {this.createSchedule(0)}
-                                </ul>
-                                
-                            </li>
-                
-                            <li className="events-group">
-                                <div className="top-info"><span>Tuesday</span></div>
-                
-                                <ul>
-                                {this.createSchedule(1)}
-                                    
-                                </ul>
-                            </li>
-                
-                            <li className="events-group">
-                                <div className="top-info"><span>Wednesday</span></div>
-                
-                                <ul>
-                                    {this.createSchedule(2)}
-                                </ul>
-                            </li>
-                
-                            <li className="events-group">
-                                <div className="top-info"><span>Thursday</span></div>
-                
-                                <ul>
-                                    {this.createSchedule(3)}
-                                </ul>
-                            </li>
-                
-                            <li className="events-group">
-                                <div className="top-info"><span>Friday</span></div>
-                
-                                <ul>
-                                    {this.createSchedule(4)}                         
-                                </ul>
-                            </li>
-                      
-                      
-                      
-                        </ul>
-                    </div>
-                
-                    <div className="cover-layer"></div>
-                </div> 
-                
-                </div>
+            <div className="tt-outer">
+              <div className="cd-schedule loading ">
+                <div className="timeline">
+                  <ul>
+                    {times.map((time, index) => (
+                      <li key={index}>
+                        <span>{time}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <div className="tt-align-outer">
-                <div className="tt-addschedule">
-                    <AddSchedules 
-                        st={this.state.startTime} 
-                        oc={this.updateField} 
-                        cns={this.createNewSchedule} 
-                        start={this.state.start}
-                        end={this.state.end}
-                        day={this.state.day}
-                        lecturer={this.state.lecturer}
-                        room={this.state.room}
-                        >
-                    </AddSchedules>
-                    
-                
+                <div className="events">
+                  <ul className="wrap">
+                    {weekDays.map((day, index) => (
+                      <li key={index} className="events-group">
+                        <div className="top-info">
+                          <span>{day}</span>
+                        </div>
+                        <ul>{this.createSchedule(index)}</ul>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <div className="tt-submitschedules">
-                    <SubmitSchedules schedules={this.state.newSchedules} ds={this.deleteSchedule} es={this.editSchedule} subs={this.submitSchedules}></SubmitSchedules>
-                </div>
-                </div>
-                    
 
-               </div>
-                
-            
-            </React.Fragment>
-         );
-    }
+                <div className="cover-layer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="tt-align-outer">
+            <div className="tt-addschedule">
+              <AddSchedules
+                lectureRooms={this.state.lectureRooms}
+                courses={this.state.courses}
+                st={this.state.startTime}
+                oc={this.updateField}
+                cns={this.createNewSchedule}
+                startTime={this.state.startTime}
+                endTime={this.state.endTime}
+                dayOfWeek={this.state.dayOfWeek}
+                lecturerId={this.state.lecturerId}
+                courseId={this.state.courseId}
+                roomId={this.state.roomId}
+                labOrLecture={this.state.labOrLecture}
+              ></AddSchedules>
+            </div>
+
+            <div className="tt-submitschedules">
+              <SubmitSchedules
+                schedules={this.state.newSchedules}
+                ds={this.deleteSchedule}
+                es={this.editSchedule}
+                subs={this.submitSchedules}
+              ></SubmitSchedules>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
- 
+
 export default TimeTable;

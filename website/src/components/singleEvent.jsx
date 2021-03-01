@@ -64,7 +64,6 @@ export default function SingleEvent(props) {
                     <TextField id="outlined-basic" label="Start time" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="End time" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="Day" variant="outlined" color="secondary"/><br></br>
-                    <TextField id="outlined-basic" label="Lecturer" variant="outlined" color="secondary"/><br></br>
                     <TextField id="outlined-basic" label="Lecture Room" variant="outlined" color="secondary"/><br></br>
                     <div style={{display:"flex",justifyContent:"center",gap:8}}>
                       <Button onClick={sendReq} variant="contained" color="secondary" >Submit</Button>
@@ -77,4 +76,3 @@ export default function SingleEvent(props) {
 );
     
 }
- 
