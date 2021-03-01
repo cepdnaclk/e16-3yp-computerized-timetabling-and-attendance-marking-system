@@ -69,4 +69,8 @@ public class ScheduleService {
     public HashMap<String, ArrayList<ArrayList<String[]>>> findScheduleDetailsByStudent(String studentId) {
         return scheduleDAO.findScheduleDetailsByStudent(studentId);
     }
+
+    public ArrayList<Schedule> addScheduleList(ArrayList<Schedule> schedules) {
+        return scheduleDAO.addScheduleList(schedules);
+    }
 }

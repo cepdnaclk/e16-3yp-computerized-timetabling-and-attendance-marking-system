@@ -32,6 +32,7 @@ class LecturerDashboard extends Component {
       })
       .then((response) => {
         console.log(response);
+        localStorage.setItem("lecCourses",JSON.stringify({"courses":response.data}));
         this.setState({ courses: response.data });
       })
       .catch((error) => {
@@ -69,7 +70,7 @@ class LecturerDashboard extends Component {
         <img src={bgImage} className="homeloginImg"></img>
         <h2 className="hm-title lc-title">Student Attendance</h2>
         <CourseList page={this.state.page} courses={this.state.courses} sw={this.state.searchWord} />
-        <LecturerCard data={this.state.lec_name} oc={this.onSerchValueChanged} />
+        <LecturerCard data={this.state.lec_name} courses={this.state.courses} oc={this.onSerchValueChanged} />
       </div>
     );
   }

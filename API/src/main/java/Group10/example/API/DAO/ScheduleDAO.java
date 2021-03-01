@@ -44,6 +44,14 @@ public class ScheduleDAO {
         return s;
     }
 
+    public ArrayList<Schedule> addScheduleList(ArrayList<Schedule> schedules) {
+        ArrayList<Schedule> schedulesList = new ArrayList<>();
+        for(Schedule s:schedules){
+            schedulesList.add(this.addScheduleItem(s));
+        }
+        return schedulesList;
+    }
+
     public Collection<Schedule> findAllSchedules() {
         return scheduleRepository.findAll();
     }
@@ -155,4 +163,6 @@ public class ScheduleDAO {
         map.put("result",scheduleDetails);
         return map;
     }
+
+
 }

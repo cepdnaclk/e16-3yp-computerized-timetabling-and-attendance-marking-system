@@ -30,6 +30,11 @@ public class ScheduleController {
         return scheduleService.addScheduleItem(schedule);
     }
 
+    @PostMapping(value = "add/all")
+    public ArrayList<Schedule> addScheduleList( @Valid @RequestBody ArrayList<Schedule> schedules){
+        return scheduleService.addScheduleList(schedules);
+    }
+
     @GetMapping(value = "/find/all")//checked
     public Collection<Schedule> findAllSchedules(){
         return scheduleService.findAllSchedules();

@@ -19,11 +19,6 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    console.log("sid = ",localStorage.getItem("sid"));
-    console.log("sfn = ",localStorage.getItem("sfn"));
-    console.log("sen = ",localStorage.getItem("sen"));
-    console.log("sln = ",localStorage.getItem("sln"));
-    
     const auth = "Bearer " + localStorage.getItem("token");
     GET_COURSES_BY_SID_URL += localStorage.getItem("sid");
     axios
