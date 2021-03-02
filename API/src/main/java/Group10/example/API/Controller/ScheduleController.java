@@ -3,6 +3,7 @@ package Group10.example.API.Controller;
 import Group10.example.API.Model.Result;
 import Group10.example.API.Model.Schedule;
 import Group10.example.API.Model.ScheduleUpdatePayload;
+import Group10.example.API.Model.ScheduleUpdateTemplate;
 import Group10.example.API.Service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -88,6 +89,11 @@ public class ScheduleController {
     @GetMapping(value = "/findscheduledetailsbystudent/{id}")
     public HashMap<String,ArrayList<ArrayList<String[]>>> findScheduleDetailsByStudent(@PathVariable("id")String studentId){
         return scheduleService.findScheduleDetailsByStudent(studentId);
+    }
+
+    @PutMapping(value = "/updatescheduledetails")
+    public Optional<Schedule> updateScheduleDetails(@Valid @RequestBody ScheduleUpdateTemplate scheduleUpdateTemplate){
+        return scheduleService.updateScheduleDetails(scheduleUpdateTemplate);
     }
 
 }
