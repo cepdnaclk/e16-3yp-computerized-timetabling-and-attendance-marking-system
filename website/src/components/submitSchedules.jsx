@@ -26,6 +26,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const makeSchedule = (s)=>{
+
+  let tmp = ""
+  tmp += "[ Start Time : "+s.startTime+" , End Time : "+s.endTime+" , Day : "+s.dayOfWeek+" ]"
+  return tmp
+
+
+}
+
 function displaySchedules(schedules,ds,es){
 
     if(schedules.length === 0) return (
@@ -46,7 +55,7 @@ function displaySchedules(schedules,ds,es){
                 </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                primary={JSON.stringify(s)}
+                primary={makeSchedule(s)}
                 secondary={null}
                 style={{marginRight:35}}
                 />
@@ -66,11 +75,11 @@ function displaySchedules(schedules,ds,es){
 
 }
 
-function displayButton(schedules,subs){
+function displayButton(schedules,subs,buttonState){
 
   if(schedules.length !== 0){
     
-    return <Button variant="contained" color="secondary" onClick={subs}>Submit</Button>
+    return <Button variant="contained" color="secondary" disabled={buttonState} onClick={subs}>Submit</Button>
                    
   }
 
@@ -96,7 +105,7 @@ export default function SubmitSchedules(props){
                         {displaySchedules(props.schedules,props.ds,props.es)}
                     </List>
                     <div style={{display:"flex",justifyContent:"center",marginBottom:10}}>
-                    {displayButton(props.schedules,props.subs)}
+                    {displayButton(props.schedules,props.subs,props.buttonState)}
                     
                     </div>
                      </div>

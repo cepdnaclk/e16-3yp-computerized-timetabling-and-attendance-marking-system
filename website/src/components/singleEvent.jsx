@@ -7,8 +7,10 @@ import axios from "axios";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
+import PopOver from '../components/popOver'
 
 let DELETE_SCHEDULE_BY_ID_URL = "/schedule/delete/";
+let FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
 const UPDATE_SCHEDULE_URL = '/schedule/updatescheduledetails';
 const useStyles = (theme) => ({
   typography: {
@@ -38,6 +40,7 @@ class SingleEvent extends Component {
     courseId: "",
     roomId: "",
     labOrLecture: "",
+    workDone:false
   };
 
   updateField = (event) => {
@@ -55,7 +58,7 @@ class SingleEvent extends Component {
   sendReq = () => {
     console.log("sendreq");
     //close the popped form
-    this.handleClose();
+    //this.handleClose();
     //collect request data
     let data = {
       scheduleId: this.props.scheduleId,
@@ -64,11 +67,11 @@ class SingleEvent extends Component {
       labOrLecture: this.state.labOrLecture
     };
     //changes in current page
-    this.props.updateSingleEvent({
+    /*this.props.updateSingleEvent({
       result: data,
       scheduleId: this.props.scheduleId,
       dayIndex: this.props.dayIndex,
-    });
+    });*/
 
     //put request to backend server
     const auth = "Bearer " + localStorage.getItem("token");
@@ -81,6 +84,7 @@ class SingleEvent extends Component {
       })
       .then((response) => {
         console.log("update response data = ", response.data);
+        this.displayUpdates()
       })
       .catch((error) => {
         console.log("error =", error);
@@ -110,11 +114,55 @@ class SingleEvent extends Component {
       })
       .then((response) => {
         console.log("response data = ", response.data);
+        this.displayUpdates()
       })
       .catch((error) => {
         console.log("error =", error);
       });
   };
+
+  displayUpdates = ()=>{
+
+    console.log("work started")
+
+    const auth = "Bearer " + localStorage.getItem("token");
+
+    FIND_LEC_SCHEDULE_URL += localStorage.getItem("lid"); 
+
+    axios
+    .get(FIND_LEC_SCHEDULE_URL, {
+      headers: {
+        Authorization: auth,
+      },
+    })
+    .then((response) => {
+      console.log('response data = ',response.data);
+      localStorage.setItem("timeTable",JSON.stringify(response.data));
+      console.log("work done")
+      this.setState({workDone:true})
+     
+      
+    })
+    .catch((error) => {
+      console.log("error =", error);
+    });
+
+
+  }
+
+  displayPopOver = (info)=> {
+
+    if(this.state.workDone === true){
+          
+      return (
+              <div>
+                <PopOver info={info}></PopOver>
+             </div>
+             )
+    }
+
+  }
+
   render() {
     const open = Boolean(this.state.anchorEl);
     const { classes } = this.props;
@@ -131,10 +179,10 @@ class SingleEvent extends Component {
         data-event={this.props.eventType}
       >
         <a href="#" onClick={this.handleClick}>
-          <em className="event-name" style={{ fontSize: 17 }}>
+          <em className="event-name" style={{ fontSize: 15 }}>
             {this.props.eventName}
           </em>
-          <em className style={{ fontSize: 17, color: "white" }}>
+          <em className style={{ fontSize: 14, color: "white" }}>
             {this.props.roomNo}
           </em>
         </a>
@@ -224,8 +272,13 @@ class SingleEvent extends Component {
               >
                 Delete
               </Button>
+              <br></br>
+              
             </div>
           </form>
+          <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
+            {this.displayPopOver("Update Succeeded!")}
+          </div>
         </Popover>
       </li>
     );
