@@ -40,7 +40,7 @@ public class LectureRoomController {
     @PutMapping(value = "/update/{id}")
     public Optional<LectureRoom> updateLectureRoomById(@PathVariable("id") String id,@Valid @RequestBody LectureRoomUpdatePayLoad lectureRoomUpdatePayLoad){
         return lectureRoomService.updateLectureRoomById(id,lectureRoomUpdatePayLoad);
-    }
+    } 
 
     @GetMapping(value = "/findbydevice/{id}")
     public Optional<LectureRoom> findByDevice(@PathVariable("id") int device_id){
