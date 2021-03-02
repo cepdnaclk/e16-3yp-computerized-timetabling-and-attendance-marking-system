@@ -8,14 +8,15 @@ import "../css/home.css";
 import "../css/lecturerDashboard.css";
 
 const LECT_ALL_COURSES_URL = '/lec/find/allcourses';
-
+let FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
 
 class LecturerDashboard extends Component {
   state = {
     courses: [],
     details: [],
     searchWord: null,
-    page : "attendance"
+    page : "attendance",
+    timeTable : []
   };
 
   componentDidMount() {
@@ -31,6 +32,7 @@ class LecturerDashboard extends Component {
       })
       .then((response) => {
         console.log(response);
+        localStorage.setItem("lecCourses",JSON.stringify({"courses":response.data}));
         this.setState({ courses: response.data });
       })
       .catch((error) => {
@@ -38,7 +40,25 @@ class LecturerDashboard extends Component {
       });
 
     this.setState({ searchWord: "" });
+
+    FIND_LEC_SCHEDULE_URL += localStorage.getItem("lid");  
+    
+    axios
+      .get(FIND_LEC_SCHEDULE_URL, {
+        headers: {
+          Authorization: auth,
+        },
+      })
+      .then((response) => {
+        console.log('response data = ',response.data);
+        localStorage.setItem("timeTable",JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log("error =", error);
+      });
   }
+
+  
 
   onSerchValueChanged = (e) => {
     this.setState({ searchWord: e.target.value });
@@ -50,7 +70,7 @@ class LecturerDashboard extends Component {
         <img src={bgImage} className="homeloginImg"></img>
         <h2 className="hm-title lc-title">Student Attendance</h2>
         <CourseList page={this.state.page} courses={this.state.courses} sw={this.state.searchWord} />
-        <LecturerCard data={this.state.lec_name} oc={this.onSerchValueChanged} />
+        <LecturerCard data={this.state.lec_name} courses={this.state.courses} oc={this.onSerchValueChanged} />
       </div>
     );
   }

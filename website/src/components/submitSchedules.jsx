@@ -66,11 +66,11 @@ function displaySchedules(schedules,ds,es){
 
 }
 
-function displayButton(schedules,subs){
+function displayButton(schedules,subs,buttonState){
 
   if(schedules.length !== 0){
     
-    return <Button variant="contained" color="secondary" onClick={subs}>Submit</Button>
+    return <Button variant="contained" color="secondary" disabled={buttonState} onClick={subs}>Submit</Button>
                    
   }
 
@@ -96,7 +96,7 @@ export default function SubmitSchedules(props){
                         {displaySchedules(props.schedules,props.ds,props.es)}
                     </List>
                     <div style={{display:"flex",justifyContent:"center",marginBottom:10}}>
-                    {displayButton(props.schedules,props.subs)}
+                    {displayButton(props.schedules,props.subs,props.buttonState)}
                     
                     </div>
                      </div>
