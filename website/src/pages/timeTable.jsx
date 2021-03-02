@@ -6,11 +6,14 @@ import SingleEvent from "../components/singleEvent";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import AddSchedules from "../components/addSchedules";
+import PopOver from '../components/popOver'
 import SubmitSchedules from "../components/submitSchedules";
 import axios from "axios";
 
+
 const GET_LECTUREROOMS_URL = "/lecturerooms/all";
 const SUBMIT_ALL_SCHEDULES_URL = "/schedule/add/all";
+let FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
 window.$schArray = [];
 let weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 let capitalWeekDays = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"];
@@ -48,6 +51,7 @@ class TimeTable extends Component {
     labOrLecture: "",
     lectureRooms: [],
     courses: [],
+    workDone:false,
   };
 
   componentWillMount() {
@@ -74,6 +78,35 @@ class TimeTable extends Component {
       .catch((error) => {
         console.log("error =", error);
       });
+  }
+
+  displayUpdates = ()=>{
+
+    console.log("work started")
+
+    const auth = "Bearer " + localStorage.getItem("token");
+
+    FIND_LEC_SCHEDULE_URL += localStorage.getItem("lid"); 
+
+    axios
+    .get(FIND_LEC_SCHEDULE_URL, {
+      headers: {
+        Authorization: auth,
+      },
+    })
+    .then((response) => {
+      console.log('response data = ',response.data);
+      localStorage.setItem("timeTable",JSON.stringify(response.data));
+      console.log("work done")
+      this.setState({workDone:true})
+     
+      
+    })
+    .catch((error) => {
+      console.log("error =", error);
+    });
+
+
   }
 
   deleteSingleEvent = (input) => {
@@ -120,6 +153,7 @@ class TimeTable extends Component {
     console.log('tempTimeTable = ',tempTimeTable);
   }
 
+
   createSchedule = (dayIndex) => {
     let tmp = this.state.timeTable[dayIndex];
 
@@ -139,6 +173,7 @@ class TimeTable extends Component {
           updateSingleEvent={this.updateSingleEvent}
           lectureRooms={this.state.lectureRooms}
           courses={this.state.courses}
+
         ></SingleEvent>
       ));
     } else {
@@ -211,11 +246,12 @@ class TimeTable extends Component {
       }
       }).then((response) => {
         console.log('submit response = ',response);
+        this.displayUpdates()
       }).catch(e =>{
         console.log('error = ',e);
       })
     //update timetable in the page itself
-    console.log("timetable = ", this.state.timeTable);
+    console.log("timetable... = ", this.state.timeTable);
     let tempTimeTable = [...this.state.timeTable];
     for (let i in window.$schArray) {
       let target = window.$schArray[i];
@@ -244,14 +280,28 @@ class TimeTable extends Component {
       console.log('tempTimeTable = ',tempTimeTable);
       tempTimeTable[index].push(myArr);
     }
-    this.setState({ timeTable: tempTimeTable ,newSchedules: []});
+    //this.setState({ timeTable: tempTimeTable });
     //clear schedules
     window.$schArray = [];
 
   };
 
+  displayPopOver = ()=> {
+
+    if(this.state.workDone === true){
+
+      return <PopOver info="TimeTable sucsesfully updated — Refresh the page!"></PopOver>
+    }
+
+  }
+
   render() {
+
+    
+
     return (
+
+      
       <React.Fragment>
         <NavBar pageName="Time table"></NavBar>
         <div>
@@ -259,6 +309,7 @@ class TimeTable extends Component {
           <div>
             <br />
 
+            
             <div className="tt-outer">
               <div className="cd-schedule loading ">
                 <div className="timeline">
@@ -306,7 +357,7 @@ class TimeTable extends Component {
                 labOrLecture={this.state.labOrLecture}
               ></AddSchedules>
             </div>
-
+            
             <div className="tt-submitschedules">
               <SubmitSchedules
                 schedules={this.state.newSchedules}
@@ -314,6 +365,10 @@ class TimeTable extends Component {
                 es={this.editSchedule}
                 subs={this.submitSchedules}
               ></SubmitSchedules>
+              <div className="tt-popOver">
+                {this.displayPopOver()}
+              </div>
+              
             </div>
           </div>
         </div>
