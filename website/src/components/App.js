@@ -14,6 +14,8 @@ import StudentGroups from '../pages/studentGroups'
 import EditGroups from '../pages/editGroups'
 import Attendance from '../pages/attendance'
 import DailyAttendance from '../pages/dailyAttendance'
+import StudentTimeTable from '../pages/studentTimeTable'
+import TimeTable from '../pages/timeTable'
 import '../index.css'
 import cssBaseline from '@material-ui/core'
 
@@ -23,7 +25,7 @@ class App extends Component {
   
     render() { 
         return (
-            <>
+            <React.Fragment>
             <Router>
                 <Switch>
                     <Route path="/home" component={Home}></Route>
@@ -39,11 +41,14 @@ class App extends Component {
                     <Route path="/editgroups/:id" component={EditGroups}></Route>
                     <Route path="/attendance" component={Attendance}></Route>
                     <Route path="/dailyattendance" component={DailyAttendance}></Route>
+                    <Route path="/lectimetable" component={TimeTable}></Route>
+                    <Route path="/stutimetable" component={StudentTimeTable}></Route>
                     <Route path="/" component={Login}></Route>
                 </Switch>
             </Router>
             <cssBaseline/>
-            </>
+            </React.Fragment> 
+            
          );
     }
 

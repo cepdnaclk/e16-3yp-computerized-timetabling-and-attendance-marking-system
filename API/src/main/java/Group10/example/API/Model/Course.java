@@ -28,24 +28,27 @@ public class Course {
     @Min(value = 1,message = "Minimum value of semester is 1")
     @Max(value = 8,message = "Maximum value of Semester is 8")
     private int semester;
+
+    @NotNull(message = "Department Name cannot be Null")
     private String departmentName;
+
     @NotNull(message = "days cannot be Null")
     @Min(value = 1,message = "Minimum value of Days is 1")
     private int days;
 
-    @NotNull(message = "TimeTable cannot be null")
-    private List<Schedule> timeTable;
-
     @NotNull(message = "Course Log cannot be null")
     private List<Log> courseLog;
 
-    //this stores  the lecture Room ID s belongs to this course
     private Set<LectureRoomRef> lectureRoomIDs = new HashSet<>();
 
     //this stores student ids belongs to this course
     private Set<String> studentsIds = new HashSet<>();
 
+    //this stores lecturer ids belongs to this course
     private Set<String> lecturerIds = new HashSet<>();
+
+    //this stores schedule ids belongs to this course
+    private Set<String> scheduleIds = new HashSet<>();
 
     public String getCourseId() {
         return this.courseId;
@@ -91,13 +94,7 @@ public class Course {
         this.days = days;
     }
 
-    public List<Schedule> getTimeTable() {
-        return timeTable;
-    }
 
-    public void setTimeTable(List<Schedule> timeTable) {
-        this.timeTable = timeTable;
-    }
 
     public List<Log> getCourseLog() {
         return courseLog;
@@ -109,10 +106,6 @@ public class Course {
 
     public void addCourseLog(Log log) {
         this.courseLog.add(log);
-    }
-
-    public void addCourseSchedule(Schedule schedule) {
-        this.timeTable.add(schedule);
     }
 
     public void addLectureRoom(LectureRoom lectureRoom){
@@ -138,18 +131,7 @@ public class Course {
         //1.in Schedule field  2.lecturerooms field
         //both will be removed and saved
 
-//        System.out.println("prev = "+this.lectureRoomIDs);
         this.lectureRoomIDs.removeIf(lRef -> lRef.getRoomId().equals(lectureRoomRef.getRoomId()));
-//        System.out.println("post = "+this.lectureRoomIDs);
-
-        for(Schedule s :this.timeTable){
-            if(s.getRoomName().equals(lectureRoom.getRoomName())){
-                timeTable.remove(s);
-                break;
-            }
-        }
-
-
     }
 
     public Set<String> getStudentsIds() {
@@ -186,5 +168,21 @@ public class Course {
 
     public void removeLecturer(Optional<Lecturer> lecturer){
         lecturer.ifPresent(l -> this.lecturerIds.remove(l.getLectID()));
+    }
+
+    public Set<String> getScheduleIds() {
+        return scheduleIds;
+    }
+
+    public void setScheduleIds(Set<String> scheduleIds) {
+        this.scheduleIds = scheduleIds;
+    }
+
+    public void addScheduleId(String id){
+        this.scheduleIds.add(id);
+    }
+
+    public void removeScheduleId(String id){
+        this.scheduleIds.remove(id);
     }
 }
