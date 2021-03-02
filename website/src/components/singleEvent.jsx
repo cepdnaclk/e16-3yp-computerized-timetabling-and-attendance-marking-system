@@ -8,10 +8,12 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import PopOver from '../components/popOver'
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 let DELETE_SCHEDULE_BY_ID_URL = "/schedule/delete/";
 let FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
-const UPDATE_SCHEDULE_URL = '/schedule/updatescheduledetails';
+const UPDATE_SCHEDULE_URL = "/schedule/updatescheduledetails";
+
 const useStyles = (theme) => ({
   typography: {
     padding: theme.spacing(2),
@@ -22,6 +24,10 @@ const useStyles = (theme) => ({
       width: "25ch",
     },
   },
+  helperText: {
+    color: 'red',
+    fontSize: '.8em'
+  }
 });
 
 class SingleEvent extends Component {
@@ -38,12 +44,22 @@ class SingleEvent extends Component {
     anchorEl: null,
     isDeleted: false,
     courseId: "",
+    courseIdError: "",
     roomId: "",
+    roomIdError: "",
     labOrLecture: "",
+    labOrLectureError: "",
     workDone:false
   };
 
   updateField = (event) => {
+    let error = event.target.name+'Error';
+    if(event.target.value === ''){
+      this.setState({[error]:'This field is required.'});
+    }
+    else {
+      this.setState({[error]:''});
+    }
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -55,6 +71,30 @@ class SingleEvent extends Component {
     this.setState({ anchorEl: null });
   };
 
+  validate = () => {
+    let isError = false;
+    const errors = {};
+    if(this.state.courseId === ''){
+      isError = true;
+      errors.courseIdError = 'This field is required.'
+    }
+    if(this.state.roomId === ''){
+      isError = true;
+      errors.roomIdError = 'This field is required.'
+    }
+    if(this.state.labOrLecture === ''){
+      isError = true;
+      errors.labOrLectureError = 'This field is required.'
+    }
+    if(isError) {
+      this.setState({
+        ...this.state,
+        ...errors
+      });
+    }
+    return isError;
+  }
+
   sendReq = () => {
     console.log("sendreq");
     //close the popped form
@@ -64,8 +104,22 @@ class SingleEvent extends Component {
       scheduleId: this.props.scheduleId,
       courseId: this.state.courseId,
       roomId: this.state.roomId,
-      labOrLecture: this.state.labOrLecture
+      labOrLecture: this.state.labOrLecture,
     };
+    console.log("sendreq data = ",data);
+    //check for errors
+    const error = this.validate();
+    if (!error) {
+      //close the popped form
+      this.handleClose();
+      //collect request data
+      let data = {
+        scheduleId: this.props.scheduleId,
+        courseId: this.state.courseId,
+        roomId: this.state.roomId,
+        labOrLecture: this.state.labOrLecture,
+      };
+
     //changes in current page
     /*this.props.updateSingleEvent({
       result: data,
@@ -89,7 +143,9 @@ class SingleEvent extends Component {
       .catch((error) => {
         console.log("error =", error);
       });
-    
+
+      
+    }
   };
 
   deleteReq = () => {
@@ -201,7 +257,7 @@ class SingleEvent extends Component {
             horizontal: "center",
           }}
         >
-          <form className={classes.root} noValidate autoComplete="off">
+          <form className={classes.root} error>
             <InputLabel htmlFor="selectCourseLabel">Course</InputLabel>
             <Select
               labelId="selectCourseLabel"
@@ -218,7 +274,9 @@ class SingleEvent extends Component {
                 <MenuItem value={c.courseId}>{c.courseName}</MenuItem>
               ))}
             </Select>
-            <br></br>
+            <FormHelperText error>
+              {this.state.courseIdError}
+            </FormHelperText>
 
             <InputLabel htmlFor="selectLRLabel">Lecture Room</InputLabel>
             <Select
@@ -236,7 +294,9 @@ class SingleEvent extends Component {
                 <MenuItem value={lr.roomId}>{lr.roomName}</MenuItem>
               ))}
             </Select>
-            <br></br>
+            <FormHelperText error>
+              {this.state.roomIdError}
+            </FormHelperText>
 
             <InputLabel htmlFor="selectLabOrLectureLabel">
               Lab or Lecture
@@ -255,13 +315,15 @@ class SingleEvent extends Component {
               <MenuItem value="0">Lecture</MenuItem>
               <MenuItem value="1">Lab</MenuItem>
             </Select>
-            <br></br>
+            <FormHelperText error>
+              {this.state.labOrLectureError}
+            </FormHelperText>
 
             <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
               <Button
                 onClick={this.sendReq}
                 variant="contained"
-                color="secondary"
+                color="primary"
               >
                 Submit
               </Button>

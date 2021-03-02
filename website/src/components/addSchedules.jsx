@@ -37,7 +37,6 @@ export default function AddSchedules(props) {
         key={1}
         value={props.startTime}
       />
-      <br></br>
       <InputLabel htmlFor="endLabel">End Time</InputLabel>
       <TextField
         labelId="endLabel"
@@ -50,7 +49,6 @@ export default function AddSchedules(props) {
         onChange={(e) => props.oc(e)}
         value={props.endTime}
       />
-      <br></br>
       <InputLabel htmlFor="selectDayLabel">Day</InputLabel>
       <Select
         labelId="selectDayLabel"
@@ -67,7 +65,6 @@ export default function AddSchedules(props) {
           <MenuItem value={day}>{day}</MenuItem>
         ))}
       </Select>
-      <br></br>
 
       <InputLabel htmlFor="selectCourseLabel">Course</InputLabel>
       <Select
@@ -85,7 +82,6 @@ export default function AddSchedules(props) {
           <MenuItem value={c.courseId}>{c.courseName}</MenuItem>
         ))}
       </Select>
-      <br></br>
 
       <InputLabel htmlFor="selectLRLabel">Lecture Room</InputLabel>
       <Select
@@ -103,7 +99,6 @@ export default function AddSchedules(props) {
           <MenuItem value={lr.roomId}>{lr.roomName}</MenuItem>
         ))}
       </Select>
-      <br></br>
       <InputLabel htmlFor="selectLabOrLectureLabel">Lab or Lecture</InputLabel>
       <Select
         labelId="selectLabOrLectureLabel"
@@ -119,13 +114,12 @@ export default function AddSchedules(props) {
         <MenuItem value="0">Lecture</MenuItem>
         <MenuItem value="1">Lab</MenuItem>
       </Select>
-      <br></br>
       <div
         style={{ display: "flex", justifyContent: "center", marginBottom: 10 }}
       >
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={props.cns}
           style={{ paddingLeft: 70, paddingRight: 70 }}
         >
