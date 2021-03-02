@@ -11,12 +11,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PopOver() {
+export default function PopOver(props) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Alert severity="success">TimeTable sucsesfully updated — Refresh the page!</Alert>
+      <Alert severity="success">{props.info}</Alert>
     </div>
   );
 }
+

@@ -4,6 +4,7 @@ import Group10.example.API.DAO.ScheduleDAO;
 import Group10.example.API.Model.Result;
 import Group10.example.API.Model.Schedule;
 import Group10.example.API.Model.ScheduleUpdatePayload;
+import Group10.example.API.Model.ScheduleUpdateTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,5 +73,9 @@ public class ScheduleService {
 
     public ArrayList<Schedule> addScheduleList(ArrayList<Schedule> schedules) {
         return scheduleDAO.addScheduleList(schedules);
+    }
+
+    public Optional<Schedule> updateScheduleDetails(ScheduleUpdateTemplate scheduleUpdateTemplate) {
+        return scheduleDAO.updateScheduleDetails(scheduleUpdateTemplate);
     }
 }

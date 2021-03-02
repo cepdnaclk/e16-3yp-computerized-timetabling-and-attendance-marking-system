@@ -26,6 +26,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const makeSchedule = (s)=>{
+
+  let tmp = ""
+  tmp += "[ Start Time : "+s.startTime+" , End Time : "+s.endTime+" , Day : "+s.dayOfWeek+" ]"
+  return tmp
+
+
+}
+
 function displaySchedules(schedules,ds,es){
 
     if(schedules.length === 0) return (
@@ -46,7 +55,7 @@ function displaySchedules(schedules,ds,es){
                 </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                primary={JSON.stringify(s)}
+                primary={makeSchedule(s)}
                 secondary={null}
                 style={{marginRight:35}}
                 />

@@ -102,7 +102,22 @@ public class ScheduleDAO {
             s.setLabOrLecture(scheduleUpdatePayload.getLabOrLecture());
             scheduleRepository.save(s);
         });
-        return null;
+        return schedule;
+    }
+
+    public Optional<Schedule> updateScheduleDetails(ScheduleUpdateTemplate scheduleUpdateTemplate) {
+        Optional<Schedule> schedule = scheduleRepository.findById(scheduleUpdateTemplate.getScheduleId());
+        Optional<Course> course = courseRepository.findById(scheduleUpdateTemplate.getCourseId());
+        Optional<LectureRoom> lectureRoom = lectureRoomRepository.findById(scheduleUpdateTemplate.getRoomId());
+        schedule.ifPresent(s -> {
+            course.ifPresent(c -> s.setCourseId(c.getCourseId()));
+            course.ifPresent(c -> s.setCourseNumber(s.getCourseNumber()));
+            lectureRoom.ifPresent(l ->s.setRoomId(l.getRoomId()));
+            lectureRoom.ifPresent(l -> s.setRoomName(l.getRoomName()));
+            s.setLabOrLecture(scheduleUpdateTemplate.getLabOrLecture());
+            scheduleRepository.save(s);
+        });
+        return schedule;
     }
 
     public Result deleteScheduleById(String scheduleId) {
@@ -123,12 +138,13 @@ public class ScheduleDAO {
             Collection<Schedule> collection = scheduleRepository.findByLecturerIdAndDayOfWeek(lecturerId,weekDays[i]);
             ArrayList<String[]> list = new ArrayList<>();
             collection.forEach(schedule -> {
-                String arr[] = new String[5];
+                String arr[] = new String[6];
                 arr[0] = schedule.getStartTime();
                 arr[1] = schedule.getEndTime();
                 arr[2] = "event-"+(schedule.getLabOrLecture()+1);
                 arr[3] = schedule.getCourseNumber()+((schedule.getLabOrLecture() == 0)?"":" Labs");
                 arr[4] = schedule.getRoomName();
+                arr[5] = schedule.getScheduleId();
                 list.add(arr);
             });
             scheduleDetails.add(list);
@@ -163,6 +179,7 @@ public class ScheduleDAO {
         map.put("result",scheduleDetails);
         return map;
     }
+
 
 
 }

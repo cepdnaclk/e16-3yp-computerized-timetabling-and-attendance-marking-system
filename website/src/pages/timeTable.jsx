@@ -109,17 +109,71 @@ class TimeTable extends Component {
 
   }
 
+  deleteSingleEvent = (input) => {
+    console.log('delete single Event, input = ',input);
+    let tempTimeTable = this.state.timeTable;
+    let dayItemsArray = this.state.timeTable[input.dayIndex];
+    let tmpItem = dayItemsArray.filter((s, idx) => s[5] !== input.scheduleId);
+    tempTimeTable[input.dayIndex] = tmpItem;
+    localStorage.setItem("timeTable",JSON.stringify({"result":tempTimeTable}));
+    this.setState({timeTable : tempTimeTable});
+  }
+
+  updateSingleEvent = (input) => {
+    console.log('update single Event, input = ',input);
+    let tempTimeTable = this.state.timeTable;
+    let dayItemsArray = this.state.timeTable[input.dayIndex];
+    let tmpItem = dayItemsArray.filter((s, idx) => s[5] !== input.scheduleId);
+    let target;
+    for(let i in dayItemsArray){
+      if(dayItemsArray[i][5] === input.scheduleId){
+        target = dayItemsArray[i];
+        ///////////////
+        let courseNumber;
+        let roomName;
+        for (let i in this.state.courses) {
+          if (this.state.courses[i].courseId === input.result.courseId) {
+            courseNumber = this.state.courses[i].courseNumber;
+          }
+        }
+        for (let i in this.state.lectureRooms) {
+          if (this.state.lectureRooms[i].roomId === input.result.roomId) {
+            roomName = this.state.lectureRooms[i].roomName;
+          }
+        }
+        target[2] = 'event-'+(input.result.labOrLecture+1);
+        target[3] = courseNumber+((input.result.labOrLecture === 1)?' labs':'');
+        target[4] = roomName;
+        tmpItem.push(target);
+      }
+    }
+    tempTimeTable[input.dayIndex] = tmpItem;
+    localStorage.setItem("timeTable",JSON.stringify({"result":tempTimeTable}));
+    this.setState({timeTable : tempTimeTable});
+    console.log('tempTimeTable = ',tempTimeTable);
+  }
+
+
   createSchedule = (dayIndex) => {
     let tmp = this.state.timeTable[dayIndex];
 
     if (tmp.length !== 0) {
-      return tmp.map((schedule) => (
+      return tmp.map((schedule,index) => (
         <SingleEvent
+          key={schedule[5]}
           start={schedule[0]}
           end={schedule[1]}
           eventType={schedule[2]}
           eventName={schedule[3]}
           roomNo={schedule[4]}
+          dayIndex={dayIndex}
+          index={index}
+          scheduleId={schedule[5]}
+          deleteSingleEvent={this.deleteSingleEvent}
+          updateSingleEvent={this.updateSingleEvent}
+          lectureRooms={this.state.lectureRooms}
+          courses={this.state.courses}
+
         ></SingleEvent>
       ));
     } else {
@@ -130,7 +184,7 @@ class TimeTable extends Component {
   deleteSchedule = (index) => {
     let tmp = this.state.newSchedules.filter((s, idx) => idx !== index);
     window.$schArray = [...tmp];
-    this.setState({ newSchedules: tmp });
+    this.setState({ newSchedules: tmp ,timeTable: tmp});
   };
 
   editSchedule = (sch, index) => {
@@ -228,14 +282,15 @@ class TimeTable extends Component {
     }
     //this.setState({ timeTable: tempTimeTable });
     //clear schedules
-    // window.$schArray = [];
+    window.$schArray = [];
+
   };
 
   displayPopOver = ()=> {
 
     if(this.state.workDone === true){
 
-      return <PopOver></PopOver>
+      return <PopOver info="TimeTable sucsesfully updated — Refresh the page!"></PopOver>
     }
 
   }
