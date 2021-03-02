@@ -5,6 +5,9 @@ import "../components/timetableSupport";
 import SingleStuEvent from "../components/singleStuEvent";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
+import axios from "axios";
+
+let FIND_STU_SCHEDULE_URL = "/schedule/findscheduledetailsbystudent/";
 
 let weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 let times = [
@@ -40,6 +43,24 @@ class TimeTable extends React.Component {
         this.setState({ loading: true });
       }
     );
+
+    const auth = "Bearer " + localStorage.getItem("token");
+    FIND_STU_SCHEDULE_URL += localStorage.getItem("sid");  
+
+    axios
+      .get(FIND_STU_SCHEDULE_URL, {
+        headers: {
+          Authorization: auth,
+        },
+      })
+      .then((response) => {
+        console.log('response data = ',response.data);
+        localStorage.setItem("studentTimeTable",JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log("error =", error);
+      });
+
   }
 
   createSchedule = (dayIndex) => {
