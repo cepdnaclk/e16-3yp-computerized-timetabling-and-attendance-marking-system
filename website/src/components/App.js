@@ -14,6 +14,7 @@ import StudentGroups from '../pages/studentGroups'
 import EditGroups from '../pages/editGroups'
 import Attendance from '../pages/attendance'
 import DailyAttendance from '../pages/dailyAttendance'
+import NewTestComp from  '../components/NewTestComp'
 import '../index.css'
 import cssBaseline from '@material-ui/core'
 
@@ -36,9 +37,9 @@ class App extends Component {
                     <Route path="/coursereg" component={CourseReg}></Route>
                     <Route path="/registeredcourses" component={RegisteredCourses}></Route>
                     <Route path="/studentgroups" component={StudentGroups}></Route>
-                    <Route path="/editgroups/:id" component={EditGroups}></Route>
                     <Route path="/attendance" component={Attendance}></Route>
                     <Route path="/dailyattendance" component={DailyAttendance}></Route>
+                    <Route path="/editgroups" render={(props) => <EditGroups {...props}/>}/>
                     <Route path="/" component={Login}></Route>
                 </Switch>
             </Router>

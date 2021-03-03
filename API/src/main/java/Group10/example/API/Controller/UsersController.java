@@ -2,9 +2,11 @@ package Group10.example.API.Controller;
 
 import Group10.example.API.Model.*;
 import Group10.example.API.Repository.AdminRepository;
+import Group10.example.API.Repository.GroupRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
 import Group10.example.API.Service.CourseService;
+import Group10.example.API.Service.GroupService;
 import Group10.example.API.Service.MailService;
 import Group10.example.API.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
 @RestController
 public class UsersController {
+
+    @Autowired
+    GroupRepository grpRepo;
 
     @Autowired
     StudentRepository stuRepo;
@@ -40,6 +46,9 @@ public class UsersController {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    GroupService grpService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -105,8 +114,28 @@ public class UsersController {
         student.setRole("STUDENT");
         String pass = studentService.passGenerate();
         student.setPassword(passwordEncoder.encode(pass));
-
         stuRepo.save(student);
+
+
+        //add into group
+        String grpName = student.getYear();
+        String tempName="E/"+grpName.substring(grpName.length() - 2);
+        List<String> stuList = new ArrayList<>();
+        stuList.add(student.getUserName());
+        Group grp = grpRepo.findBygroupName(tempName);
+        if(grp==null){
+
+            Group newGroup = new Group(tempName);
+            grpService.addStudents(stuList,tempName);
+
+        }
+       else{
+           grpService.addStudents(stuList,tempName);
+       }
+
+
+
+
         String mail = student.getEmail();
         String password ="Password: " + pass;
         String name = "User Name: " + student.getUserName();

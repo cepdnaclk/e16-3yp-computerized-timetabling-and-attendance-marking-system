@@ -49,5 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://efac-attendance.herokuapp.com"
+  "proxy": "http://localhost:8080"
 }
