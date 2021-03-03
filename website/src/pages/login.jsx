@@ -148,7 +148,7 @@ class Login extends Component {
       
             
           }
-          if (this.state.isLoggedStu && !this.state.loadingStu) {
+          if (this.state.isLoggedStu && this.state.loadingStu) {
             return <Redirect to={{ pathname: "home" }} />;
           }  
         if(this.state.isLoggedAdmin){
