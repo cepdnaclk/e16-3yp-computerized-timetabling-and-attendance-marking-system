@@ -29,7 +29,7 @@ class DailyAttendance extends Component {
       this.props.location.state.course.courseId +
       "&student=" +
       localStorage.getItem("sid");
-    // console.log(GET_ATTENDANCE_URL);
+    console.log(GET_ATTENDANCE_URL);
 
     axios
       .get(GET_ATTENDANCE_URL, {

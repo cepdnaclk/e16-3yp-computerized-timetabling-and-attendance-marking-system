@@ -6,7 +6,7 @@ import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
 
-let ATTENDANCE_OF_STUDENTS_URL = "/courses/findattendancesbycourseid/";
+const ATTENDANCE_OF_STUDENTS_URL = "/courses/findattendancesbycourseid/";
 
 class Attendance extends Component {
   state = {
@@ -18,11 +18,12 @@ class Attendance extends Component {
 
   componentDidMount() {
     const auth = "Bearer " + localStorage.getItem("token");
-    ATTENDANCE_OF_STUDENTS_URL += this.props.location.state.course.courseId;
-    console.log(ATTENDANCE_OF_STUDENTS_URL);
+    console.log('course id = ',this.props.location.state.course.courseId);
+    let attendance_url = ATTENDANCE_OF_STUDENTS_URL + this.props.location.state.course.courseId;
+    console.log(attendance_url);
 
     axios
-      .get(ATTENDANCE_OF_STUDENTS_URL, {
+      .get(attendance_url, {
         headers: {
           Authorization: auth,
         },
