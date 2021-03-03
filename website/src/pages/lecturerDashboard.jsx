@@ -6,7 +6,6 @@ import bgImage from "../images/bg4.jpg";
 import axios from "axios";
 import "../css/home.css";
 import "../css/lecturerDashboard.css";
-import LoadingComponent from "../components/loadingComponent"
 
 const LECT_ALL_COURSES_URL = "/lec/find/allcourses";
 const FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
@@ -92,7 +91,7 @@ class LecturerDashboard extends Component {
         </div>
       );
     }
-    return <LoadingComponent></LoadingComponent>
+    return <div></div>;
   }
 }
 
