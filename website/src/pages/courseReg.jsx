@@ -7,6 +7,7 @@ import { Grid } from "@material-ui/core";
 import PageHeader from "../components/PageHeader";
 import PeopleOutlineTwoToneIcon from "@material-ui/icons/PeopleOutlineTwoTone";
 import { Paper, makeStyles } from "@material-ui/core";
+import LoadingComponent from "../components/loadingComponent"
 
 let ALL_COURSES_URL = "/courses/all/";
 let CONFIRM_PASSWORD_URL = "/check/password/";
@@ -92,7 +93,7 @@ class CourseReg extends Component {
 
   render() {
     if (!this.state.loading) {
-      return <div></div>;
+      return <LoadingComponent></LoadingComponent>;
     }
     return (
       <div>

@@ -40,6 +40,7 @@ class CourseRegistrationConfirm extends Component {
             variant="outlined"
             label="Password"
             id="password"
+            type="password"
             onChange={this.handleChange}
             helperText={this.props.passwordError && this.props.passwordError}
           />

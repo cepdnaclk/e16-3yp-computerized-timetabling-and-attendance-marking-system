@@ -62,6 +62,8 @@ class TimeTable extends Component {
         courses: JSON.parse(localStorage.getItem("lecCourses")).courses,
       },
       () => {
+        // console.log('timetable data = ',this.state.timeTable);
+        // console.log('lecCourses data = ',this.state.courses);
         this.setState({ loading: true });
       }
     );
@@ -95,9 +97,8 @@ class TimeTable extends Component {
       },
     })
     .then((response) => {
-      console.log('response data = ',response.data);
+      // console.log('response data = ',response.data);
       localStorage.setItem("timeTable",JSON.stringify(response.data));
-      console.log("work done")
       this.setState({workDone:true})
      
       
@@ -110,7 +111,7 @@ class TimeTable extends Component {
   }
 
   deleteSingleEvent = (input) => {
-    console.log('delete single Event, input = ',input);
+    // console.log('delete single Event, input = ',input);
     let tempTimeTable = this.state.timeTable;
     let dayItemsArray = this.state.timeTable[input.dayIndex];
     let tmpItem = dayItemsArray.filter((s, idx) => s[5] !== input.scheduleId);
@@ -120,7 +121,7 @@ class TimeTable extends Component {
   }
 
   updateSingleEvent = (input) => {
-    console.log('update single Event, input = ',input);
+    // console.log('update single Event, input = ',input);
     let tempTimeTable = this.state.timeTable;
     let dayItemsArray = this.state.timeTable[input.dayIndex];
     let tmpItem = dayItemsArray.filter((s, idx) => s[5] !== input.scheduleId);
@@ -148,9 +149,9 @@ class TimeTable extends Component {
       }
     }
     tempTimeTable[input.dayIndex] = tmpItem;
-    localStorage.setItem("timeTable",JSON.stringify({"result":tempTimeTable}));
+    // localStorage.setItem("timeTable",JSON.stringify({"result":tempTimeTable}));
     this.setState({timeTable : tempTimeTable});
-    console.log('tempTimeTable = ',tempTimeTable);
+    // console.log('tempTimeTable = ',tempTimeTable);
   }
 
 
@@ -184,7 +185,7 @@ class TimeTable extends Component {
   deleteSchedule = (index) => {
     let tmp = this.state.newSchedules.filter((s, idx) => idx !== index);
     window.$schArray = [...tmp];
-    this.setState({ newSchedules: tmp ,timeTable: tmp});
+    this.setState({ newSchedules: tmp });
   };
 
   editSchedule = (sch, index) => {
@@ -236,7 +237,7 @@ class TimeTable extends Component {
 
   submitSchedules = () => {
     let tmpArray = [...this.state.newSchedules];
-    console.log(window.$schArray);
+    // console.log(window.$schArray);
     //send req to the backend
     let data = window.$schArray;
     const auth = "Bearer " + localStorage.getItem("token");
