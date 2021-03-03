@@ -28,7 +28,7 @@ class Home extends Component {
         },
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.setState({ courses: response.data });
       })
       .catch((error) => {
@@ -46,7 +46,7 @@ class Home extends Component {
         },
       })
       .then((response) => {
-        console.log('response data = ',response.data);
+        // console.log('response data = ',response.data);
         localStorage.setItem("studentTimeTable",JSON.stringify(response.data));
       })
       .catch((error) => {

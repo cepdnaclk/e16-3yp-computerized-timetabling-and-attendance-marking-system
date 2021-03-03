@@ -24,7 +24,9 @@ class Login extends Component {
             isLoggedLecturer : false,
             nameError : "",
             passError : "",
-            loginError:""
+            loginError: "",
+            loadingStu: false,
+            loadingLec: false
         }
 
         this.passChangeHandler= this.passChangeHandler.bind(this);
@@ -124,7 +126,7 @@ class Login extends Component {
     
 
     render() {
-        if (this.state.isLoggedStu) {
+        if (this.state.isLoggedStu && !this.state.loadingStu) {
             const auth = "Bearer "+ localStorage.getItem('token');
       
             axios
@@ -138,17 +140,21 @@ class Login extends Component {
                 localStorage.setItem("sfn", response.data.result2);
                 localStorage.setItem("sen", response.data.result3);
                 localStorage.setItem("sln", response.data.result4);
+                this.setState({loadingStu: true});
               })
               .catch((error) => {
                 console.log("error =", error);
               });
       
-            return <Redirect to={{ pathname: "home" }} />;
+            
           }
+          if (this.state.isLoggedStu && !this.state.loadingStu) {
+            return <Redirect to={{ pathname: "home" }} />;
+          }  
         if(this.state.isLoggedAdmin){
             return <Redirect to = {{pathname:"adminpanel"}}/>
         }
-        if(this.state.isLoggedLecturer){
+        if(this.state.isLoggedLecturer && !this.state.loadingLec){
 
             const auth = "Bearer "+ localStorage.getItem('token');
       
@@ -163,10 +169,18 @@ class Login extends Component {
                 localStorage.setItem("lid", response.data.result1);
                 localStorage.setItem("lfn", response.data.result2);
                 localStorage.setItem("lln", response.data.result3);
+                // console.log('login');
+                // console.log('lid = ',localStorage.getItem("lid"));
+                // console.log('lfn = ',localStorage.getItem("lfn"));
+                // console.log('lln = ',localStorage.getItem("lln"));
+                this.setState({loadingLec: true});
               })
               .catch((error) => {
                 console.log("error =", error);
               });
+          
+        }
+        if(this.state.isLoggedLecturer && this.state.loadingLec){
           return <Redirect to = {{pathname:"lecturerdashboard"}}/>
         }
         return ( 
