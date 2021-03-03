@@ -3,8 +3,8 @@ import { Paper, Card, Typography, makeStyles, Button } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: '#fdfdff',
-        marginLeft: "10%"
+        backgroundColor: 'transparent',
+        marginTop:50
     },
     pageHeader:{
         padding:theme.spacing(4),
@@ -13,13 +13,15 @@ const useStyles = makeStyles(theme => ({
     pageIcon:{
         display:'inline-block',
         padding:theme.spacing(2),
-        color:'#3c44b1'
+        color:'#3c44b1',
+        opacity:0.7
     },
     pageTitle:{
         paddingLeft:theme.spacing(4),
         '& .MuiTypography-subtitle2':{
             opacity:'0.6'
-        }
+        },
+        marginTop:15
     }
 }))
 
@@ -28,6 +30,7 @@ export default function PageHeader(props) {
     const classes = useStyles();
     const { title, subTitle, icon } = props;
     return (
+        <div style={{display:"flex",justifyContent:"center"}}>
         <Paper elevation={0} square className={classes.root}>
             <div className={classes.pageHeader}>
                 <Card className={classes.pageIcon}>
@@ -45,5 +48,6 @@ export default function PageHeader(props) {
                 </div>
             </div>
         </Paper>
+        </div>
     )
 }
