@@ -4,6 +4,7 @@ import DAttendanceTable from "../components/dAttedanceTable";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
+import LoadingComponent from "../components/loadingComponent"
 
 const GET_ATTENDANCE_URL = "/attendance/findattendancebystudentidandcourseid";
 
@@ -14,6 +15,7 @@ class DailyAttendance extends Component {
     courseCode: null,
     regNo: null,
     name: null,
+    loading: true,
   };
 
   constructor(props) {
@@ -43,6 +45,8 @@ class DailyAttendance extends Component {
         this.setState({
           attendanceData: response.data.attendanceItemList,
           atteandance: response.data,
+        }, () => {
+          this.setState({ loading: false });
         });
       })
       .catch((error) => {
@@ -57,6 +61,9 @@ class DailyAttendance extends Component {
   }
 
   render() {
+    if(this.state.loading){
+      return <LoadingComponent></LoadingComponent>;
+    }
     return (
       <React.Fragment>
         <NavBar pageName="Daily Attendance" />
