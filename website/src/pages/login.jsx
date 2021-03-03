@@ -192,7 +192,9 @@ class Login extends Component {
                 <div className="lgnloginCard">
                     <LoginCard loginError = {this.state.loginError} ocn={this.nameChangeHandler} ocp={this.passChangeHandler} sr={this.sendReq} nameError ={this.state.nameError} passError= {this.state.passError}></LoginCard>
                 </div>
-                </div>
+            </div>
+
+                
          );
     }
 }
