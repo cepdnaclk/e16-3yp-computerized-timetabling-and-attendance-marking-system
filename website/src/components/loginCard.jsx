@@ -9,6 +9,9 @@ import {makeStyles } from '@material-ui/core';
 import axios from 'axios'
 import { CircularProgress } from '@material-ui/core';
 
+
+
+
 const LOGIN_REST_API_URL = '/login';
 const STU_ID_FROM_SESSION_URL = "/student/getdetailsfromsession";
 const LEC_ID_FROM_SESSION_URL = '/lecturer/getdetailsfromsession';
@@ -27,8 +30,7 @@ const loading = {
   isLoggedAdmin: false,
   isLoggedStu : false,
   isLoggedLecturer : false,
-  loadingStu: false,
-  loadingLec: false
+  
 }
 
 
@@ -95,14 +97,13 @@ const Login=()=>{
   } = useForm(initialFValues, true, validate);
 
   const callBack=()=>{
+    
     setLoading({
       isLoading:false,
       errorMsg:"Username or Password is Incorrect",
       isLoggedAdmin: false,
       isLoggedStu : false,
       isLoggedLecturer : false,
-      loadingStu: false,
-      loadingLec: false
     })
     console.log(errorObj)
 
@@ -123,117 +124,80 @@ const Login=()=>{
 
             if(response.data.token&&response.data.role){
 
-             
+                resetForm()
                 localStorage.setItem('token', response.data.token);
 
                 if(response.data.role==="ROLE_STUDENT"){
-                    setLoading({isLoggedStu:true,
-                                isLoading:false,
-                                errorMsg:null,
-                                isLoggedAdmin: false,
-                                isLoggedLecturer : false,
-                                loadingStu: false,
-                                loadingLec: false
-                              });
+                  const auth = "Bearer "+ localStorage.getItem('token');
+                  axios
+                    .get(STU_ID_FROM_SESSION_URL,{
+                        headers: {
+                          'Authorization': auth
+                        }
+                      })
+                    .then((response) => {
+                      localStorage.setItem("sid", response.data.result1);
+                      localStorage.setItem("sfn", response.data.result2);
+                      localStorage.setItem("sen", response.data.result3);
+                      localStorage.setItem("sln", response.data.result4);
+                      
+                      
+                      
+                      
+                    })
+                    .catch((error) => {
+                      console.log("error =", error);
+                    });
+
+                    setLoading({isLoggedStu:true,isLoading:false})
+            
                 }
 
                 else if(response.data.role==="ROLE_ADMIN"){
-                  setLoading({isLoggedStu:true,
-                    isLoading:false,
-                    errorMsg:null,
-                    isLoggedAdmin: true,
-                    isLoggedLecturer : false,
-                    loadingStu: false,
-                    loadingLec: false
-                  });
+                  
+                  setLoading({isLoggedAdmin:true,isLoading:false})
+                  
                     
                 }
                 else if(response.data.role=="ROLE_LECTURER"){
-                  setLoading({isLoggedStu:true,
-                    isLoading:false,
-                    errorMsg:null,
-                    isLoggedAdmin: false,
-                    isLoggedLecturer : true,
-                    loadingStu: false,
-                    loadingLec: false
-                  });
-                }
-            }
 
-              if (errorObj.isLoggedStu && !errorObj.loadingStu) {
-                const auth = "Bearer "+ localStorage.getItem('token');
-          
-                axios
-                  .get(STU_ID_FROM_SESSION_URL,{
-                      headers: {
-                        'Authorization': auth
-                      }
-                    })
-                  .then((response) => {
-                    localStorage.setItem("sid", response.data.result1);
-                    localStorage.setItem("sfn", response.data.result2);
-                    localStorage.setItem("sen", response.data.result3);
-                    localStorage.setItem("sln", response.data.result4);
-                    setLoading({loadingStu: true});
-                    
-                  })
-                  .catch((error) => {
-                    console.log("error =", error);
-                  });
-          
-                
-              }
-              
-            else if(errorObj.isLoggedLecturer && !errorObj.loadingLec){
-  
-              const auth = "Bearer "+ localStorage.getItem('token');
+                  const auth = "Bearer "+ localStorage.getItem('token');
         
-              axios
-                .get(LEC_ID_FROM_SESSION_URL,{
-                    headers: {
-                      'Authorization': auth
-                    }
-                  })
-                .then((response) => {
-                    console.log(response.data);
-                  localStorage.setItem("lid", response.data.result1);
-                  localStorage.setItem("lfn", response.data.result2);
-                  localStorage.setItem("lln", response.data.result3);
-                  setLoading({loadingLec: true});
-                })
-                .catch((error) => {
-                  console.log("error =", error);
-                });
-              
-            }
-              
-            
+                  axios
+                    .get(LEC_ID_FROM_SESSION_URL,{
+                        headers: {
+                          'Authorization': auth
+                        }
+                      })
+                    .then((response) => {
+                        console.log(response.data);
+                      localStorage.setItem("lid", response.data.result1);
+                      localStorage.setItem("lfn", response.data.result2);
+                      localStorage.setItem("lln", response.data.result3);
+                      })
+                      .catch((error) => {
+                        console.log("error =", error);
+                      });
 
-      }).catch( error => {
+                      setLoading({isLoggedLecturer: true,isLoading:false});
 
-        if (error.response.status===401){
-            callBack()
-        }
-     
-      
 
-      })
+                }
+                  
+            }}).catch( error => {
+              if (error.response.status===401){
+              callBack()
+              }
+            })
     }
 
   }
 
-  if(errorObj.isLoggedStu && errorObj.loadingStu){
-    return <Redirect to={{ pathname: "home" }} />
-  }
-
-  else if(errorObj.isLoggedAdmin){
-    return <Redirect to = {{pathname:"adminpanel"}}/>
-  }
-  else if(errorObj.isLoggedLecturer && errorObj.loadingLec){
-    return <Redirect to = {{pathname:"lecturerdashboard"}}/>
-  }
   return(
     <>
+        {errorObj.isLoggedAdmin?<Redirect to = {{pathname:"adminpanel"}}/>:''}
+        {errorObj.isLoggedStu?<Redirect to = {{pathname:"home"}}/>:''}
+        {errorObj.isLoggedLecturer?<Redirect to = {{pathname:"lecturerdashboard"}}/>:''}
         <Paper className={classes.pageContent}>
           <Grid align='center'>
                 <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
