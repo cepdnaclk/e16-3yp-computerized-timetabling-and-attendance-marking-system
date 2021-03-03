@@ -30,7 +30,7 @@ class CourseRegistrationConfirm extends Component {
       <Grid 
       item
       alignItems="center"
-      justify="center"
+      justifyContent="center"
       >
         <form>
         
@@ -44,6 +44,7 @@ class CourseRegistrationConfirm extends Component {
             helperText={this.props.passwordError && this.props.passwordError}
           />
           <br/><br/>
+          <div style={{display:"flex",justifyContent:"center"}}>
           <Button
             onClick={(e) => this.props.onSubmit(this.state.value)}
             variant="contained"
@@ -51,6 +52,7 @@ class CourseRegistrationConfirm extends Component {
           >
             Register
           </Button>
+          </div>
         </form>
       </Grid>
     );
