@@ -14,10 +14,10 @@ export default function SingleStuEvent(props) {
       data-event={props.eventType}
     >
       <a>
-        <em className="event-name" style={{ fontSize: 17 }}>
+        <em className="event-name" style={{ fontSize: 15 }}>
           {props.eventName}
         </em>
-        <em className style={{ fontSize: 17, color: "white" }}>
+        <em className style={{ fontSize: 14, color: "white" }}>
           {props.roomNo}
         </em>
       </a>

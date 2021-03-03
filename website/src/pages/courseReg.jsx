@@ -8,6 +8,9 @@ import PageHeader from "../components/PageHeader";
 import PeopleOutlineTwoToneIcon from "@material-ui/icons/PeopleOutlineTwoTone";
 import { Paper, makeStyles } from "@material-ui/core";
 import LoadingComponent from "../components/loadingComponent"
+import "../css/home.css";
+import bgImage from "../images/bg4.jpg";
+import "../css/courseReg.css"
 
 let ALL_COURSES_URL = "/courses/all/";
 let CONFIRM_PASSWORD_URL = "/check/password/";
@@ -98,6 +101,10 @@ class CourseReg extends Component {
     return (
       <div>
         <NavBar pageName="" />
+        <img src={bgImage} className="homeloginImg"></img>
+        <div className="courseReg-outer">
+        <div className="courseReg-inner">
+        
         <PageHeader
           title="Course Registration"
           icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
@@ -122,7 +129,10 @@ class CourseReg extends Component {
             <CourseRegistrationConfirm onSubmit={this.handleSubmit} changeValue={this.changeValue} passwordError={this.state.passwordError}/>
           </Grid>
         </Grid>
+        </div>
+        </div>
       </div>
+     
     );
   }
 }
