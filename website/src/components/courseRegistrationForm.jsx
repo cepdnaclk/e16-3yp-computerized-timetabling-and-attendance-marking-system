@@ -6,7 +6,8 @@ import axios from "axios";
 import { Redirect } from "react-router";
 import { Grid } from "@material-ui/core";
 import { TextField } from '@material-ui/core';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 const COURSE_REGISTRATION_URL = "/courses/registration/add";
 
 class CourseRegistrationForm extends Component {

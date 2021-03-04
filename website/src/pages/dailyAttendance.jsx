@@ -4,8 +4,9 @@ import DAttendanceTable from "../components/dAttedanceTable";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
+import LoadingComponent from "../components/loadingComponent"
 
-let GET_ATTENDANCE_URL = "/attendance/findattendancebystudentidandcourseid";
+const GET_ATTENDANCE_URL = "/attendance/findattendancebystudentidandcourseid";
 
 class DailyAttendance extends Component {
   state = {
@@ -14,6 +15,7 @@ class DailyAttendance extends Component {
     courseCode: null,
     regNo: null,
     name: null,
+    loading: true,
   };
 
   constructor(props) {
@@ -24,15 +26,16 @@ class DailyAttendance extends Component {
 
   componentDidMount() {
     const auth = "Bearer " + localStorage.getItem("token");
-    GET_ATTENDANCE_URL +=
+    console.log('url = ',GET_ATTENDANCE_URL);
+    let attendance_url = GET_ATTENDANCE_URL +
       "?course=" +
       this.props.location.state.course.courseId +
       "&student=" +
       localStorage.getItem("sid");
-    console.log(GET_ATTENDANCE_URL);
+    console.log('url = ',attendance_url);
 
     axios
-      .get(GET_ATTENDANCE_URL, {
+      .get(attendance_url, {
         headers: {
           Authorization: auth,
         },
@@ -42,6 +45,8 @@ class DailyAttendance extends Component {
         this.setState({
           attendanceData: response.data.attendanceItemList,
           atteandance: response.data,
+        }, () => {
+          this.setState({ loading: false });
         });
       })
       .catch((error) => {
@@ -56,6 +61,9 @@ class DailyAttendance extends Component {
   }
 
   render() {
+    if(this.state.loading){
+      return <LoadingComponent></LoadingComponent>;
+    }
     return (
       <React.Fragment>
         <NavBar pageName="Daily Attendance" />

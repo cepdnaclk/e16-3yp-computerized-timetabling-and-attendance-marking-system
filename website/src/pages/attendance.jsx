@@ -5,6 +5,7 @@ import "../css/attendance.css";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
+import LoadingComponent from "../components/loadingComponent"
 
 const ATTENDANCE_OF_STUDENTS_URL = "/courses/findattendancesbycourseid/";
 
@@ -13,12 +14,16 @@ class Attendance extends Component {
     attendanceData: [],
     courseName: null,
     studentCount: null,
-    courseNumber: null
+    courseNumber: null,
+    loading: true
   };
 
   componentDidMount() {
     const auth = "Bearer " + localStorage.getItem("token");
+<<<<<<< HEAD
     console.log('course id = ',this.props.location.state.course.courseId);
+=======
+>>>>>>> upstream/develop
     let attendance_url = ATTENDANCE_OF_STUDENTS_URL + this.props.location.state.course.courseId;
     console.log(attendance_url);
 
@@ -35,6 +40,8 @@ class Attendance extends Component {
           studentCount: response.data.length,
           courseName : this.props.location.state.course.courseName,
           courseNumber : this.props.location.state.course.courseNumber
+        }, () => {
+          this.setState({ loading: false });
         });
       })
       .catch((error) => {
@@ -51,6 +58,9 @@ class Attendance extends Component {
   }
 
   render() {
+    if(this.state.loading){
+      return <LoadingComponent></LoadingComponent>;
+    }
     return (
       <React.Fragment>
         <NavBar pageName="Attendance" />
