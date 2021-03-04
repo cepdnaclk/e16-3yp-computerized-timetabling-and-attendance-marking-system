@@ -107,7 +107,7 @@ const Login=()=>{
       isLoading:false,
     })
     console.log(errorObj)
-    //setOpen(true)
+    setOpen(true)
 
   }
 
@@ -142,7 +142,7 @@ const Login=()=>{
                       localStorage.setItem("sfn", response.data.result2);
                       localStorage.setItem("sen", response.data.result3);
                       localStorage.setItem("sln", response.data.result4);
-                      
+                      setLoading({isLoggedStu:true,isLoading:false})
                       
                       
                       
@@ -151,7 +151,7 @@ const Login=()=>{
                       console.log("error =", error);
                     });
 
-                    setLoading({isLoggedStu:true,isLoading:false})
+                    
             
                 }
 
@@ -176,12 +176,13 @@ const Login=()=>{
                       localStorage.setItem("lid", response.data.result1);
                       localStorage.setItem("lfn", response.data.result2);
                       localStorage.setItem("lln", response.data.result3);
+                      setLoading({isLoggedLecturer: true,isLoading:false});
                       })
                       .catch((error) => {
                         console.log("error =", error);
                       });
 
-                      setLoading({isLoggedLecturer: true,isLoading:false});
+                      
 
 
                 }
@@ -276,7 +277,7 @@ function Alert(props) {
 
             <div className={classes.root}>
 
-              <Snackbar open={true} autoHideDuration={6000} onClose={handleClose}>
+              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error">
                   Username or Password is Incorrect!
                 </Alert>
