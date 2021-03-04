@@ -1,14 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import efacImg from "../images/efac.jpg"
 import "../css/login.css"
 import LoginCard from "../components/loginCard"
 import PeraLogo from "../images/pera3.png"
-import axios from 'axios'
-import {withRouter} from 'react-router-dom'
-import { Redirect } from 'react-router';
-
-const LOGIN_REST_API_URL = '/login';
-const ID_FROM_SESSION_URL = "/student/getdetailsfromsession";
 
 
 export default function Login() {

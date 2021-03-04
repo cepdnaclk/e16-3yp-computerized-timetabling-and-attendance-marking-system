@@ -8,6 +8,8 @@ import Controls from "../components/controls/Controls";
 import {makeStyles } from '@material-ui/core';
 import axios from 'axios'
 import { CircularProgress } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 
 
@@ -37,7 +39,7 @@ const loading = {
 const Login=()=>{
 
   const [errorObj,setLoading] = useState(loading);
-
+  const [open, setOpen] = React.useState(false);
   const avatarStyle={backgroundColor:'#1bbd7e'}
   const btnstyle={opacity:1,marginTop:"3%",backgroundColor: '#1bbd7e'}
   const useStyles = makeStyles(theme => ({
@@ -53,7 +55,10 @@ const Login=()=>{
         
         },
         root: {
-          padding:5
+          width: '100%',
+          '& > * + *': {
+            marginTop: theme.spacing(2),
+          },
         },
   }))
 
@@ -100,12 +105,9 @@ const Login=()=>{
     
     setLoading({
       isLoading:false,
-      errorMsg:"Username or Password is Incorrect",
-      isLoggedAdmin: false,
-      isLoggedStu : false,
-      isLoggedLecturer : false,
     })
     console.log(errorObj)
+    //setOpen(true)
 
   }
 
@@ -193,11 +195,29 @@ const Login=()=>{
 
   }
 
+
+
+
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
   return(
     <>
         {errorObj.isLoggedAdmin?<Redirect to = {{pathname:"adminpanel"}}/>:''}
         {errorObj.isLoggedStu?<Redirect to = {{pathname:"home"}}/>:''}
         {errorObj.isLoggedLecturer?<Redirect to = {{pathname:"lecturerdashboard"}}/>:''}
+        
+
         <Paper className={classes.pageContent}>
           <Grid align='center'>
                 <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
@@ -247,9 +267,23 @@ const Login=()=>{
             }
             </Button>
 
+            
+
           </Grid>
           </Grid>
+
         </Paper>
+
+            <div className={classes.root}>
+
+              <Snackbar open={true} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error">
+                  Username or Password is Incorrect!
+                </Alert>
+              </Snackbar>
+              
+          
+            </div>
       
     </>
   )
