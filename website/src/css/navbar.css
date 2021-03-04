@@ -43,3 +43,19 @@
   position: absolute;
   left: 25px;
 }
+
+.my-navbar {
+  position: fixed;
+ }
+
+.my-nav {
+  display: flex;
+  align-items: center;
+}
+
+.my-nav>img {
+  position: absolute;
+  top: 17%;
+  height: 60%;
+  width: 3%;
+}
