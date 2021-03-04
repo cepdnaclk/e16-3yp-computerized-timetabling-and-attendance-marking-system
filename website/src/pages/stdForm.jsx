@@ -47,14 +47,14 @@ export default function EmployeeForm() {
         if ('sem' in fieldValues)
             temp.sem = (fieldValues.sem > 8 || fieldValues.sem < 1) ? "Invalid semester" : ""
             
-        //if ('regNumber' in fieldValues)
-            //temp.regNumber =("\\bE\\\\d{2}\\\\d{3}\\b").test(fieldValues.regNumber) ? "" : "Registration number is not valid."
+        if ('regNumber' in fieldValues)
+            temp.regNumber =(/^E\/\d{2}\/\d{3}$/).test(fieldValues.regNumber) ? "" : "Registration number is not valid."
 
         if ('departmentId' in fieldValues)
             temp.departmentId = fieldValues.departmentId.length != 0 ? "" : "This field is required."
 
         setErrors({
-            ...temp
+            ...temp 
         })
 
         if (fieldValues == values)

@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -50,7 +51,7 @@ public class Student {
    // @ValidPassword
     private String password;
 
-    @NotNull(message = "Registartion Number is mandatory")
+    @NotNull(message = "Registration Number is mandatory")
     private String regNumber;
 
     @NotNull(message = "semester is mandatory")

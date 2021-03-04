@@ -3,7 +3,14 @@ import NavBar from "../components/navbar";
 import axios from "axios";
 import CourseRegistrationForm from "../components/courseRegistrationForm";
 import CourseRegistrationConfirm from "../components/courseRegistrationConfirm";
-import { Alert } from "@material-ui/lab";
+import { Grid } from "@material-ui/core";
+import PageHeader from "../components/PageHeader";
+import PeopleOutlineTwoToneIcon from "@material-ui/icons/PeopleOutlineTwoTone";
+import { Paper, makeStyles } from "@material-ui/core";
+import LoadingComponent from "../components/loadingComponent"
+import "../css/home.css";
+import bgImage from "../images/bg4.jpg";
+import "../css/courseReg.css"
 
 let ALL_COURSES_URL = "/courses/all/";
 let CONFIRM_PASSWORD_URL = "/check/password/";
@@ -11,6 +18,9 @@ let CONFIRM_PASSWORD_URL = "/check/password/";
 class CourseReg extends Component {
   state = {
     submit: false,
+    loading: false,
+    password: "",
+    passwordError:""
   };
 
   componentDidMount() {
@@ -23,19 +33,33 @@ class CourseReg extends Component {
       })
       .then((response) => {
         console.log(response.data);
-        this.setState({ courses: response.data });
+        this.setState({ courses: response.data }, () => {
+          this.setState({ loading: true });
+        });
       })
       .catch((error) => {
         console.log("error =", error);
       });
   }
 
+  changeValue = (input) => {
+    console.log('input = ',input);
+    if(input.value === ''){
+      this.setState({passwordError: 'Password must not be empty'});
+    }
+    else{
+      this.setState({passwordError: ''});
+    }
+    this.setState({password: input.value})
+    
+  }
+
   handleSubmit = (password) => {
     password = password.trim();
     // console.log('handleSUbmit called');
     // console.log("password", password);
-    if(password === ''){
-      alert("Password cannot be Empty.");
+    if (password === "") {
+      this.setState({passwordError: 'Password must not be empty'});
       return;
     }
     let url = CONFIRM_PASSWORD_URL + password;
@@ -52,9 +76,8 @@ class CourseReg extends Component {
         // console.log(response.data.result);
         if (response.data.result1 === "True") {
           this.setState({ submit: true });
-        }
-        else {
-          alert("Wrong Password");
+        } else {
+          this.setState({passwordError: 'Wrong Password'});
         }
       })
       .catch((error) => {
@@ -64,7 +87,7 @@ class CourseReg extends Component {
 
   unSetSubmit = () => {
     // console.log('unSetSubmit called');
-    this.setState({ submit: false } ,this.checkSubmit);
+    this.setState({ submit: false }, this.checkSubmit);
   };
 
   checkSubmit = () => {
@@ -72,16 +95,44 @@ class CourseReg extends Component {
   };
 
   render() {
+    if (!this.state.loading) {
+      return <LoadingComponent></LoadingComponent>;
+    }
     return (
       <div>
-        <NavBar pageName="Course Registration" />
-        <CourseRegistrationForm
-          courses={this.state.courses}
-          check={this.state.submit}
-          afterSubmit={this.unSetSubmit}
+        <NavBar pageName="" />
+        <img src={bgImage} className="homeloginImg"></img>
+        <div className="courseReg-outer">
+        <div className="courseReg-inner">
+        
+        <PageHeader
+          title="Course Registration"
+          icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
         />
-        <CourseRegistrationConfirm onSubmit={this.handleSubmit} />
+
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justify="center"
+        >
+          <Grid item xs={6}>
+            <CourseRegistrationForm
+              courses={this.state.courses}
+              check={this.state.submit}
+              afterSubmit={this.unSetSubmit}
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <CourseRegistrationConfirm onSubmit={this.handleSubmit} changeValue={this.changeValue} passwordError={this.state.passwordError}/>
+          </Grid>
+        </Grid>
+        </div>
+        </div>
       </div>
+     
     );
   }
 }

@@ -1,20 +1,13 @@
 package Group10.example.API.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.time.LocalTime;
 
-@Document(collection = "Schedule")
-public class Schedule {
-
-    @Id
-    public String scheduleId;
+public class ScheduleUpdatePayload {
 
     @NotNull(message = "course ID cannot be Null")
     private String courseId;
@@ -47,89 +40,39 @@ public class Schedule {
     @Max(value = 1)
     private int labOrLecture;//lab = 1 , lecture = 0
 
-
-    public Schedule(String dayOfWeek, String startTime, String endTime, int labOrLecture, String roomId, String lecturerId) {
-        this.dayOfWeek = dayOfWeek;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.labOrLecture = labOrLecture;
-        this.roomId = roomId;
-        this.lecturerId = lecturerId;
-    }
-
-    public String getScheduleId() {
-        return scheduleId;
-    }
-
-    public String getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public void setDayOfWeek(String dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getLabOrLecture() {
-        return labOrLecture;
-    }
-
-    public void setLabOrLecture(int labOrLecture) {
-        this.labOrLecture = labOrLecture;
-    }
-
     public String getCourseId() {
         return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
     }
 
     public String getLecturerId() {
         return lecturerId;
     }
 
-    public void setLecturerId(String lecturerId) {
-        this.lecturerId = lecturerId;
-    }
-
     public String getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public int getLabOrLecture() {
+        return labOrLecture;
     }
 
     public String getCourseNumber() {
         return courseNumber;
     }
 
-    public void setCourseNumber(String courseNumber) {
-        this.courseNumber = courseNumber;
-    }
-
     public String getRoomName() {
         return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
     }
 }

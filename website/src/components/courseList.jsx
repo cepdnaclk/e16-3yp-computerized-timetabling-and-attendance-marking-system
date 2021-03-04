@@ -5,7 +5,9 @@ import "../css/courseCard.css";
 class CourseList extends Component {
   state = {};
 
-  
+  constructor(props){
+    super(props);
+  }
 
   
 
@@ -18,6 +20,7 @@ class CourseList extends Component {
             code={course.courseNumber}
             name={course.courseName.toUpperCase()}
             course={course}
+            page={this.props.page}
             sw={this.props.sw}
           ></CourseCard>
         ))}
