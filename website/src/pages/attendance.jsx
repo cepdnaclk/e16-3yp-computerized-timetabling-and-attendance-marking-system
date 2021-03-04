@@ -5,24 +5,26 @@ import "../css/attendance.css";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
+import LoadingComponent from "../components/loadingComponent"
 
-let ATTENDANCE_OF_STUDENTS_URL = "/courses/findattendancesbycourseid/";
+const ATTENDANCE_OF_STUDENTS_URL = "/courses/findattendancesbycourseid/";
 
 class Attendance extends Component {
   state = {
     attendanceData: [],
     courseName: null,
     studentCount: null,
-    courseNumber: null
+    courseNumber: null,
+    loading: true
   };
 
   componentDidMount() {
     const auth = "Bearer " + localStorage.getItem("token");
-    ATTENDANCE_OF_STUDENTS_URL += this.props.location.state.course.courseId;
-    console.log(ATTENDANCE_OF_STUDENTS_URL);
+    let attendance_url = ATTENDANCE_OF_STUDENTS_URL + this.props.location.state.course.courseId;
+    console.log(attendance_url);
 
     axios
-      .get(ATTENDANCE_OF_STUDENTS_URL, {
+      .get(attendance_url, {
         headers: {
           Authorization: auth,
         },
@@ -34,6 +36,8 @@ class Attendance extends Component {
           studentCount: response.data.length,
           courseName : this.props.location.state.course.courseName,
           courseNumber : this.props.location.state.course.courseNumber
+        }, () => {
+          this.setState({ loading: false });
         });
       })
       .catch((error) => {
@@ -50,6 +54,9 @@ class Attendance extends Component {
   }
 
   render() {
+    if(this.state.loading){
+      return <LoadingComponent></LoadingComponent>;
+    }
     return (
       <React.Fragment>
         <NavBar pageName="Attendance" />

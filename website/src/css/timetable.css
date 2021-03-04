@@ -674,6 +674,7 @@ q:after {
   margin: 10px;
   min-width: 800px;
   min-height: auto;
+  margin-bottom: 50px;
 }
 
 .tt-align-outer {
@@ -682,4 +683,10 @@ q:after {
   align-items: center;
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.tt-popOver {
+  position: relative;
+  top: 70px;
+  margin-top: 50px;
 }

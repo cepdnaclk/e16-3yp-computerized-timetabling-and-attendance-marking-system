@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "../css/userCard.css";
 import Button from "@material-ui/core/Button";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import SubjectIcon from '@material-ui/icons/Subject';
+import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 
 class UserCard extends Component {
   state = {};
@@ -34,6 +36,30 @@ class UserCard extends Component {
                 >
                   Password
                 </Button>
+              </div>
+              <div className="row">
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  startIcon={<SubjectIcon></SubjectIcon>}
+                  onClick={event =>  window.location.href='coursereg'}
+
+                >
+                  Course Registration
+                </Button>
+                
+              </div>
+              <div className="row">
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  startIcon={<DateRangeOutlinedIcon></DateRangeOutlinedIcon>}
+                  onClick={event =>  window.location.href='stutimetable'}
+
+                >
+                  My Timetables
+                </Button>
+                
               </div>
             </div>
           </div>

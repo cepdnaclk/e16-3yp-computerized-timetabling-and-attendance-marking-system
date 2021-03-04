@@ -6,11 +6,14 @@ import SingleEvent from "../components/singleEvent";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import AddSchedules from "../components/addSchedules";
+import PopOver from '../components/popOver'
 import SubmitSchedules from "../components/submitSchedules";
 import axios from "axios";
 
+
 const GET_LECTUREROOMS_URL = "/lecturerooms/all";
 const SUBMIT_ALL_SCHEDULES_URL = "/schedule/add/all";
+let FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
 window.$schArray = [];
 let weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 let capitalWeekDays = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"];
@@ -48,6 +51,7 @@ class TimeTable extends Component {
     labOrLecture: "",
     lectureRooms: [],
     courses: [],
+    workDone:false,
   };
 
   componentWillMount() {
@@ -58,6 +62,8 @@ class TimeTable extends Component {
         courses: JSON.parse(localStorage.getItem("lecCourses")).courses,
       },
       () => {
+        // console.log('timetable data = ',this.state.timeTable);
+        // console.log('lecCourses data = ',this.state.courses);
         this.setState({ loading: true });
       }
     );
@@ -76,17 +82,99 @@ class TimeTable extends Component {
       });
   }
 
+  displayUpdates = ()=>{
+
+    console.log("work started")
+
+    const auth = "Bearer " + localStorage.getItem("token");
+
+    FIND_LEC_SCHEDULE_URL += localStorage.getItem("lid"); 
+
+    axios
+    .get(FIND_LEC_SCHEDULE_URL, {
+      headers: {
+        Authorization: auth,
+      },
+    })
+    .then((response) => {
+      // console.log('response data = ',response.data);
+      localStorage.setItem("timeTable",JSON.stringify(response.data));
+      this.setState({workDone:true})
+     
+      
+    })
+    .catch((error) => {
+      console.log("error =", error);
+    });
+
+
+  }
+
+  deleteSingleEvent = (input) => {
+    // console.log('delete single Event, input = ',input);
+    let tempTimeTable = this.state.timeTable;
+    let dayItemsArray = this.state.timeTable[input.dayIndex];
+    let tmpItem = dayItemsArray.filter((s, idx) => s[5] !== input.scheduleId);
+    tempTimeTable[input.dayIndex] = tmpItem;
+    localStorage.setItem("timeTable",JSON.stringify({"result":tempTimeTable}));
+    this.setState({timeTable : tempTimeTable});
+  }
+
+  updateSingleEvent = (input) => {
+    // console.log('update single Event, input = ',input);
+    let tempTimeTable = this.state.timeTable;
+    let dayItemsArray = this.state.timeTable[input.dayIndex];
+    let tmpItem = dayItemsArray.filter((s, idx) => s[5] !== input.scheduleId);
+    let target;
+    for(let i in dayItemsArray){
+      if(dayItemsArray[i][5] === input.scheduleId){
+        target = dayItemsArray[i];
+        ///////////////
+        let courseNumber;
+        let roomName;
+        for (let i in this.state.courses) {
+          if (this.state.courses[i].courseId === input.result.courseId) {
+            courseNumber = this.state.courses[i].courseNumber;
+          }
+        }
+        for (let i in this.state.lectureRooms) {
+          if (this.state.lectureRooms[i].roomId === input.result.roomId) {
+            roomName = this.state.lectureRooms[i].roomName;
+          }
+        }
+        target[2] = 'event-'+(input.result.labOrLecture+1);
+        target[3] = courseNumber+((input.result.labOrLecture === 1)?' labs':'');
+        target[4] = roomName;
+        tmpItem.push(target);
+      }
+    }
+    tempTimeTable[input.dayIndex] = tmpItem;
+    // localStorage.setItem("timeTable",JSON.stringify({"result":tempTimeTable}));
+    this.setState({timeTable : tempTimeTable});
+    // console.log('tempTimeTable = ',tempTimeTable);
+  }
+
+
   createSchedule = (dayIndex) => {
     let tmp = this.state.timeTable[dayIndex];
 
     if (tmp.length !== 0) {
-      return tmp.map((schedule) => (
+      return tmp.map((schedule,index) => (
         <SingleEvent
+          key={schedule[5]}
           start={schedule[0]}
           end={schedule[1]}
           eventType={schedule[2]}
           eventName={schedule[3]}
           roomNo={schedule[4]}
+          dayIndex={dayIndex}
+          index={index}
+          scheduleId={schedule[5]}
+          deleteSingleEvent={this.deleteSingleEvent}
+          updateSingleEvent={this.updateSingleEvent}
+          lectureRooms={this.state.lectureRooms}
+          courses={this.state.courses}
+
         ></SingleEvent>
       ));
     } else {
@@ -149,7 +237,7 @@ class TimeTable extends Component {
 
   submitSchedules = () => {
     let tmpArray = [...this.state.newSchedules];
-    console.log(window.$schArray);
+    // console.log(window.$schArray);
     //send req to the backend
     let data = window.$schArray;
     const auth = "Bearer " + localStorage.getItem("token");
@@ -159,11 +247,12 @@ class TimeTable extends Component {
       }
       }).then((response) => {
         console.log('submit response = ',response);
+        this.displayUpdates()
       }).catch(e =>{
         console.log('error = ',e);
       })
     //update timetable in the page itself
-    console.log("timetable = ", this.state.timeTable);
+    console.log("timetable... = ", this.state.timeTable);
     let tempTimeTable = [...this.state.timeTable];
     for (let i in window.$schArray) {
       let target = window.$schArray[i];
@@ -192,13 +281,28 @@ class TimeTable extends Component {
       console.log('tempTimeTable = ',tempTimeTable);
       tempTimeTable[index].push(myArr);
     }
-    this.setState({ timeTable: tempTimeTable });
+    //this.setState({ timeTable: tempTimeTable });
     //clear schedules
-    // window.$schArray = [];
+    window.$schArray = [];
+
   };
 
+  displayPopOver = ()=> {
+
+    if(this.state.workDone === true){
+
+      return <PopOver info="TimeTable sucsesfully updated — Refresh the page!"></PopOver>
+    }
+
+  }
+
   render() {
+
+    
+
     return (
+
+      
       <React.Fragment>
         <NavBar pageName="Time table"></NavBar>
         <div>
@@ -206,6 +310,7 @@ class TimeTable extends Component {
           <div>
             <br />
 
+            
             <div className="tt-outer">
               <div className="cd-schedule loading ">
                 <div className="timeline">
@@ -253,7 +358,7 @@ class TimeTable extends Component {
                 labOrLecture={this.state.labOrLecture}
               ></AddSchedules>
             </div>
-
+            
             <div className="tt-submitschedules">
               <SubmitSchedules
                 schedules={this.state.newSchedules}
@@ -261,6 +366,10 @@ class TimeTable extends Component {
                 es={this.editSchedule}
                 subs={this.submitSchedules}
               ></SubmitSchedules>
+              <div className="tt-popOver">
+                {this.displayPopOver()}
+              </div>
+              
             </div>
           </div>
         </div>
