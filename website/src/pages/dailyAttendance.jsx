@@ -5,6 +5,7 @@ import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
 import LoadingComponent from "../components/loadingComponent"
+import Footer from '../components/footer'
 
 const GET_ATTENDANCE_URL = "/attendance/findattendancebystudentidandcourseid";
 
@@ -113,6 +114,7 @@ class DailyAttendance extends Component {
             </div>
           </div>
         </div>
+        <Footer/>
       </React.Fragment>
     );
   }

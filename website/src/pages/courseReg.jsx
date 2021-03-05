@@ -11,6 +11,7 @@ import LoadingComponent from "../components/loadingComponent"
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import "../css/courseReg.css"
+import Footer from '../components/footer'
 
 let ALL_COURSES_URL = "/courses/all/";
 let CONFIRM_PASSWORD_URL = "/check/password/";
@@ -131,6 +132,7 @@ class CourseReg extends Component {
         </Grid>
         </div>
         </div>
+        <Footer/>
       </div>
      
     );

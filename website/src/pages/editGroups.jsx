@@ -11,8 +11,9 @@ import { withRouter } from 'react-router';
 import Controls from "../components/controls/Controls";
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import Footer from '../components/footer';
 
-const GET_GROUP_NAMES_URI = "admin/groups/all/students"
+const GET_GROUP_NAMES_URI = "/groups/all/students"
 
 class EditGroups extends Component {
 
@@ -47,7 +48,7 @@ class EditGroups extends Component {
     componentDidMount(){
         
         const auth = "Bearer "+ localStorage.getItem('token');
-        const data = {groupName : this.props.location.state.group_id}
+        const data = {groupName : localStorage.getItem("clickedG")}
 
         axios.post(GET_GROUP_NAMES_URI,data, {
             headers: {
@@ -78,7 +79,7 @@ class EditGroups extends Component {
         return this.state.eNumbers && (  
             <React.Fragment>
 
-                <NavBar pageName={this.props.location.state.group_id.toUpperCase()} />
+                <NavBar pageName={localStorage.getItem("clickedG").toUpperCase()} />
                 <img src={bgImage} className="homeloginImg"></img>
 
 
@@ -106,9 +107,11 @@ class EditGroups extends Component {
 
                 <div className="edtgps-studentList-outer" style={{marginTop:"0px"}}>
                     <div className="edtgps-studentList">
-                        {this.state.eNumbers.map(eNumber => <StudentCard eNbr={eNumber} grpName={this.props.location.state.group_id} handleBack={this.handleCallback}></StudentCard>)}
+                        {this.state.eNumbers.map(eNumber => <StudentCard eNbr={eNumber} grpName={localStorage.getItem("clickedG")} handleBack={this.handleCallback}></StudentCard>)}
                     </div>
                 </div>
+
+                <Footer/>
             </React.Fragment>
         );
     }

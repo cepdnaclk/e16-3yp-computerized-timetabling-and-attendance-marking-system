@@ -126,7 +126,7 @@ const Login=()=>{
 
             if(response.data.token&&response.data.role){
 
-                resetForm()
+                
                 localStorage.setItem('token', response.data.token);
 
                 if(response.data.role==="ROLE_STUDENT"){
@@ -264,7 +264,7 @@ function Alert(props) {
               disabled = {errorObj.isLoading}
               fullWidth> {
                 errorObj.isLoading ? 
-                <CircularProgress size={24}  />:"Sign In"                        
+                <CircularProgress style={{'color':'#008000'}} size={24}  />:"Sign In"                        
             }
             </Button>
 
