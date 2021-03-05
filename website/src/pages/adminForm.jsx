@@ -133,6 +133,14 @@
                                 isLoading:false
                             })
                         }
+                        else if(e.response.status===400){
+                        
+                            setLoading({
+    
+                                errorMsg:e.response.data.errors,
+                                isLoading:false
+                            })
+                        }
                     })
             }
             

@@ -45,7 +45,8 @@
 }
 
 .my-navbar {
-  position: fixed;
+  position: sticky;
+  background-color:#132036;
  }
 
 .my-nav {
