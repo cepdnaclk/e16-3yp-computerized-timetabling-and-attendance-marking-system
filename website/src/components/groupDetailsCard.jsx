@@ -10,7 +10,7 @@ import AddStudent from './addStudent'
 import axios from 'axios';
 import { CircularProgress } from '@material-ui/core';
 
-const CREATE_GROUP_URI = "admin/groups/create"
+const CREATE_GROUP_URI = "/groups/create"
 
  const useStyles = makeStyles((theme) => ({
         formControl: {

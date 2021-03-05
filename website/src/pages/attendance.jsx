@@ -6,6 +6,7 @@ import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
 import LoadingComponent from "../components/loadingComponent"
+import Footer from '../components/footer'
 
 const ATTENDANCE_OF_STUDENTS_URL = "/courses/findattendancesbycourseid/";
 
@@ -82,6 +83,8 @@ class Attendance extends Component {
             <AttendanceTable data={this.state.attendanceData}></AttendanceTable>
           </div>
         </div>
+
+        <Footer/>
       </React.Fragment>
     );
   }

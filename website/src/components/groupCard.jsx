@@ -14,9 +14,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import { Redirect } from 'react-router';
 import { useHistory } from "react-router-dom";
 
-const GROUP_NAMES_DELETE_URI = "admin/groups/delete"
+const GROUP_NAMES_DELETE_URI = "/groups/delete"
 
 class GroupCard extends Component {
+
     state = { 
         groupName:this.props.groupName,
         open:false,
@@ -36,7 +37,10 @@ class GroupCard extends Component {
     }
 
     onClickRedirect=()=>{
-        this.setState({isRedirect:true})
+        
+        localStorage.setItem('clickedG',this.state.groupName)
+        window.location.href = "/editgroups"
+        
     }
 
     onClickDelete=()=>{
@@ -140,7 +144,7 @@ class GroupCard extends Component {
     }
 
     render() { 
-        return this.state.isRedirect ? <Redirect to={{ pathname: "editgroups" , state: { group_id: this.state.groupName } }} />: this.checkSearchResualts();
+       return this.checkSearchResualts();
     }
 }
  

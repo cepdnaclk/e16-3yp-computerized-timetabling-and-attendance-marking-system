@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
-@RequestMapping("admin/groups")
+@RequestMapping("/groups")
 public class GroupController {
     private final GroupService groupService;
 

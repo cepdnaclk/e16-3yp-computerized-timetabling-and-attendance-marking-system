@@ -186,7 +186,7 @@ export default function EmployeeForm() {
                 text = {errorObj.errorMsg}
             />
     
-            <Form onSubmit={handleSubmit}>
+            <Form  onSubmit={handleSubmit}>
                 <Grid container>
                     <Grid item xs={6}>
                         <Controls.Input

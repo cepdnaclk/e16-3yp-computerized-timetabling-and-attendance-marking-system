@@ -36,7 +36,7 @@ class App extends Component {
                     <Route path="/lecturerdashboard" component={LecturerDashboard}></Route>
                     <Route path="/coursereg" component={CourseReg}></Route>
                     <Route path="/studentgroups" component={StudentGroups}></Route>
-                    <Route path="/editgroups/:id" component={EditGroups}></Route>
+                    <Route path="/editgroups" component={EditGroups}></Route>
                     <Route path="/attendance" component={Attendance}></Route>
                     <Route path="/dailyattendance" component={DailyAttendance}></Route>
                     <Route path="/lectimetable" component={TimeTable}></Route>

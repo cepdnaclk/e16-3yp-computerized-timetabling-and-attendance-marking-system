@@ -8,8 +8,9 @@ import '../css/home.css'
 import bgImage from '../images/bg4.jpg'
 import axios from 'axios';
 import Controls from "../components/controls/Controls";
+import Footer from '../components/footer'
 
-const GET_GROUP_NAMES_URI = "admin/groups/all"
+const GET_GROUP_NAMES_URI = "/groups/all"
 
 
 class StudentGroups extends Component {
@@ -41,7 +42,7 @@ class StudentGroups extends Component {
 
         const groupNames=this.state.groupNames.concat(childData.groupName)
         this.setState({groupNames:groupNames});
-     }
+    }
 
 
     componentDidMount(){
@@ -61,6 +62,7 @@ class StudentGroups extends Component {
             )
             .catch(e=>{
                 console.log(e);
+                
             })
     }
 
@@ -118,7 +120,7 @@ class StudentGroups extends Component {
 
                     <div className="stdgps-extra">
                         <div className="stdgps-groupdetailscard">
-                            <GroupDetailsCard 
+                            <GroupDetailsCard
                                 callBack = {this.handleCreateGroup}
                                 groupNames={this.state.groupNames} 
                                 numberList={this.state.numberList}
@@ -128,6 +130,8 @@ class StudentGroups extends Component {
                         </div>
                     </div>
                 </div>
+
+                <Footer/>
 
             </React.Fragment>
 

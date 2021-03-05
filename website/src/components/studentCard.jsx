@@ -6,7 +6,7 @@ import groupIcon from '../images/profile-user.png'
 import axios from 'axios'
 
 
-const GROUP_STUDENT_DELETE_URI = "admin/groups/remove/students"
+const GROUP_STUDENT_DELETE_URI = "/groups/remove/students"
 class StudentCard extends Component {
     state = { 
         eNbr:this.props.eNbr,

@@ -4,10 +4,12 @@
 }
 
 .buttonPanel {
+ 
   display: grid;
   position: absolute;
   grid-template-columns: 33% 33% 33%;
   grid-column-gap: 10px;
   top: 100px;
-  left: 14%;
+  left: 20%;
+  
 }
