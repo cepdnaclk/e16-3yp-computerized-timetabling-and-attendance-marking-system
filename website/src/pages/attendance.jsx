@@ -5,8 +5,8 @@ import "../css/attendance.css";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
-import LoadingComponent from "../components/loadingComponent"
-import Footer from '../components/footer'
+import LoadingComponent from "../components/loadingComponent";
+import Footer from "../components/footer";
 
 const ATTENDANCE_OF_STUDENTS_URL = "/courses/findattendancesbycourseid/";
 
@@ -16,16 +16,13 @@ class Attendance extends Component {
     courseName: null,
     studentCount: null,
     courseNumber: null,
-    loading: true
+    loading: true,
   };
 
   componentDidMount() {
     const auth = "Bearer " + localStorage.getItem("token");
-<<<<<<< HEAD
-    console.log('course id = ',this.props.location.state.course.courseId);
-=======
->>>>>>> upstream/develop
-    let attendance_url = ATTENDANCE_OF_STUDENTS_URL + this.props.location.state.course.courseId;
+    let attendance_url =
+      ATTENDANCE_OF_STUDENTS_URL + this.props.location.state.course.courseId;
     console.log(attendance_url);
 
     axios
@@ -36,14 +33,17 @@ class Attendance extends Component {
       })
       .then((response) => {
         console.log(response);
-        this.setState({
-          attendanceData: response.data,
-          studentCount: response.data.length,
-          courseName : this.props.location.state.course.courseName,
-          courseNumber : this.props.location.state.course.courseNumber
-        }, () => {
-          this.setState({ loading: false });
-        });
+        this.setState(
+          {
+            attendanceData: response.data,
+            studentCount: response.data.length,
+            courseName: this.props.location.state.course.courseName,
+            courseNumber: this.props.location.state.course.courseNumber,
+          },
+          () => {
+            this.setState({ loading: false });
+          }
+        );
       })
       .catch((error) => {
         console.log("error =", error);
@@ -59,7 +59,7 @@ class Attendance extends Component {
   }
 
   render() {
-    if(this.state.loading){
+    if (this.state.loading) {
       return <LoadingComponent></LoadingComponent>;
     }
     return (
@@ -71,9 +71,13 @@ class Attendance extends Component {
         <div className="atdtble-coursedetails-outer">
           <div>
             <div className="atdtble-coursedetails">
-              <p className="atdtble-paras">Course Name:{this.state.courseName}</p>
+              <p className="atdtble-paras">
+                Course Name:{this.state.courseName}
+              </p>
               <br></br>
-              <p className="atdtble-paras">Course Number:{this.state.courseNumber}</p>
+              <p className="atdtble-paras">
+                Course Number:{this.state.courseNumber}
+              </p>
               <br></br>
               <p className="atdtble-paras">
                 No of Students:{this.state.studentCount}
@@ -88,7 +92,7 @@ class Attendance extends Component {
           </div>
         </div>
 
-        <Footer/>
+        <Footer />
       </React.Fragment>
     );
   }
