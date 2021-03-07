@@ -703,13 +703,13 @@ section {
 --------------------------------------------------------------*/
 
 .section-final-device{
-  display:flex;
-  justifyContent:center
+  
   
 }
 
 .section-final-device-outer{
-
+  display:flex;
+  justifyContent:center
 }
 
 
