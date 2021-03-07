@@ -7,6 +7,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import AddStudent from './addStudent'
+import axios from 'axios';
+import { CircularProgress } from '@material-ui/core';
+
+const CREATE_GROUP_URI = "/groups/create"
 
  const useStyles = makeStyles((theme) => ({
         formControl: {
@@ -24,69 +28,109 @@ export default function GroupDetailsCard(props)  {
 
     const classes = useStyles();
 
+    const [values, setValues] = React.useState({
+        groupName: '',
+        isLoading:false
+    });
+
+   
+    const createGroups=()=>{
+
+        setValues({
+            ...values,
+            isLoading: true
+        })
+
+       const auth = "Bearer "+ localStorage.getItem('token');
+
+        axios.post(CREATE_GROUP_URI,values, {
+            headers: {
+                'Authorization': auth
+            }
+            })
+            .then(
+                (res)=>{
+                    if(res.status===200){
+
+                        setValues({
+                            ...values,
+                            isLoading: false
+                        })
+                        props.callBack(
+                            {msg:'Group is successfully created !',
+                            Severity:'error',
+                            groupName:values.groupName
+                        }
+                        )
+
+                    }
+                    
+                   
+                }
+            )
+            .catch(e=>{
+                console.log(e);
+                setValues({
+                    ...values,
+                    isLoading: false
+                })
+                props.callBack(
+                    {msg:'Something went Wrong, Deleting Group Try again!',
+                    Severity:'error'
+                }
+                )
+            })
+            
+    }
+
     const selectionValueChanged = (event) => {
         console.log(event.target.value);
     }
 
 
-        return (
+    const handleInputChange = e => {
+        const { name, value } = e.target
+        
+        setValues({
+            ...values,
+            [name]: value
+        })
 
-            <div className="gdclass">
-                <TextField
-                
-                    variant="outlined"
-                    color="secondary"
-                    margin="normal"
-                    required
-                    id="groupName"
-                    label="Group Name"
-                    name="groupName"
-                    
+    }
+
+
+    return (
+
+        <div className="gdclass">
+            <TextField
             
-                />
-                <div className="gd-addgroups">
-                    <p className="gd-para">Add Groups :</p>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-label" color="secondary">Group Name</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                //value={age}
-                                onChange={e => selectionValueChanged(e)}
-                                color="secondary"
-                                style = {{width: 120}}
-                                >
-                                <MenuItem value="None">None</MenuItem>
-                                {props.groupNames.map( groupName =><MenuItem value={groupName }>{groupName}</MenuItem>)}
-                                
-                            </Select>
-                    </FormControl>
-                </div>
-                <div className="gd-addStudents-outer">
-                    <p className="gd-addStudents">Add Students :</p>
-                </div>
-                <TextField id="outlined-search"
-                    label="Student Id" 
-                    type="search" 
-                    variant="outlined" 
-                    color="secondary"
-                    onChange={e => props.changeStudent(e)}/>
-                <AddStudent numberList={props.numberList} searchWord={props.searchWord}></AddStudent>
+                variant="outlined"
+                color="secondary"
+                margin="normal"
+                required
+                onChange={handleInputChange}
+                id="groupName"
+                label="Group Name"
+                name="groupName"
+                
+        
+            />
+            <Button
+                
+                disableFocusRipple={true}
+                variant="contained"
+                color="secondary"
+                style = {{width: 150}}
+                onClick={createGroups}
+                disabled={values.isLoading}
+                
+            >
+                {values.isLoading ? <CircularProgress style={{'color': 'pink'}} size={24}  />:"Create Group"}
+            </Button>
 
-                <Button
-                    
-                    
-                    variant="contained"
-                    color="secondary"
-                    style = {{width: 150}}
-                    
-                >
-                    CREATE GROUP
-                </Button>
+        </div>
 
-            </div>
+    );
 
-        );
-    
 }
  

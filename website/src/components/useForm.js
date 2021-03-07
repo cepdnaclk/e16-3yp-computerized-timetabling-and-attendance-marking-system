@@ -81,4 +81,26 @@ export function AdminForm(props) {
 }
 
 
+const useStylesLogin = makeStyles(theme => ({
+    root: {
+        '& .MuiFormControl-root': {
+            width: '100%',
+            margin: theme.spacing(1),
+            align:'auto'
+        }
+    }
+}))
+
+export function LoginForm(props) {
+
+    const classes = useStylesLogin();
+    const { children, ...other } = props;
+    return (
+        <form className={classes.root} autoComplete="off" {...other}>
+            {props.children}
+        </form>
+    )
+}
+
+
 

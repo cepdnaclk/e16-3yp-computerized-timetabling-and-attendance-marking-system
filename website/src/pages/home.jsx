@@ -7,9 +7,10 @@ import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import { Redirect } from "react-router";
 import LoadingComponent from "../components/loadingComponent"
+import Footer from "../components/footer";
 const STUDENT_HOME_PAGE_URI = "/student";
-let GET_COURSES_BY_SID_URL = "/courses/findcoursesbystudentid/";
-let FIND_STU_SCHEDULE_URL = "/schedule/findscheduledetailsbystudent/";
+const GET_COURSES_BY_SID_URL = "/courses/findcoursesbystudentid/";
+const FIND_STU_SCHEDULE_URL = "/schedule/findscheduledetailsbystudent/";
 
 class Home extends Component {
   state = {
@@ -23,16 +24,18 @@ class Home extends Component {
 
   componentDidMount() {
     const auth = "Bearer " + localStorage.getItem("token");
-    GET_COURSES_BY_SID_URL += localStorage.getItem("sid");
+    let course_url = GET_COURSES_BY_SID_URL + localStorage.getItem("sid");
     axios
-      .get(GET_COURSES_BY_SID_URL, {
+      .get(course_url, {
         headers: {
           Authorization: auth,
         },
       })
       .then((response) => {
         console.log(response);
-        this.setState({ courses: response.data ,loading1:false});
+        this.setState({ courses: response.data }, () => {
+          this.setState({ loading1: false });
+        });
       })
       .catch((error) => {
         console.log("error =", error);
@@ -40,16 +43,16 @@ class Home extends Component {
     this.setState({ searchWord: "" });
 
 
-    FIND_STU_SCHEDULE_URL += localStorage.getItem("sid");  
+    let timetable_url = FIND_STU_SCHEDULE_URL + localStorage.getItem("sid");  
     
     axios
-      .get(FIND_STU_SCHEDULE_URL, {
+      .get(timetable_url, {
         headers: {
           Authorization: auth,
         },
       })
       .then((response) => {
-        console.log('response data = ',response.data);
+        console.log('timetable response data = ',response.data);
         localStorage.setItem("studentTimeTable",JSON.stringify(response.data));
         this.setState({loading2:false});
       })
@@ -68,6 +71,7 @@ class Home extends Component {
     if(this.state.loading1 === true || this.state.loading2 === true) return <LoadingComponent></LoadingComponent>
 
     return (
+      <>
       <div className="home-outer">
         <NavBar pageName="Home" />
         <img src={bgImage} className="homeloginImg"></img>
@@ -75,6 +79,8 @@ class Home extends Component {
         <CourseList page={this.state.page} courses={this.state.courses} sw={this.state.searchWord} />
         <UserCard data={[localStorage.getItem("sfn"), localStorage.getItem("sen")]} />
      </div>
+     <Footer/>
+     </>
     );
   }
 }
