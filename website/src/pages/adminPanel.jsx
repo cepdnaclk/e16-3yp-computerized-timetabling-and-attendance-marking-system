@@ -11,6 +11,7 @@ import b6 from '../images/ttbt.svg'
 import bgImage from '../images/bg4.jpg'
 import Footer from '../components/footer'
 
+
 class AdminPanel extends Component {
     state = {  }
 
@@ -28,7 +29,8 @@ class AdminPanel extends Component {
                     <AdminButton t1="STUDENT" t2="GROUPS" val="5" img={b5}></AdminButton>
                     <AdminButton t1="MODIFY" t2="TIMETABELS" val="6" img={b6}></AdminButton>
 
-                </div>
+                    </div>
+                
                 <Footer/>
             
             </React.Fragment>
