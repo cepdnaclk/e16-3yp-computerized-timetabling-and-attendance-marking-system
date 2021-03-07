@@ -703,10 +703,13 @@ section {
 --------------------------------------------------------------*/
 
 .section-final-device{
-  display:grid;
-  gap:20px;
-  grid-template-columns:50% 50%
+  display:flex;
+  justifyContent:center
   
+}
+
+.section-final-device-outer{
+
 }
 
 
