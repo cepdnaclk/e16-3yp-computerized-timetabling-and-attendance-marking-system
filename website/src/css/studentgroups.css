@@ -1,0 +1,67 @@
+.stdgps-search {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.stdgps-search-outer {
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 4px 4px 8px -3px rgba(163, 71, 71, 0.15);
+}
+
+.stdgps-groupList {
+  display: grid;
+  text-decoration: none;
+}
+
+.stdgps-outer {
+  margin-top: 40px;
+  min-height: 400px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-content: center;
+}
+
+.stdgps-extra {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 15%;
+}
+
+.gdclass {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: 6px;
+  width: 300px;
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 4px 4px 8px -3px rgba(163, 71, 71, 0.15);
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px 0 15px 0;
+}
+
+.gd-para {
+  display: inline-block;
+  position: relative;
+  top: 15px;
+}
+
+.gd-addgroups {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  text-align: left;
+}
+
+.gd-addStudents {
+  position: relative;
+  left: -62px;
+}
+
+.addstudent-para {
+  display: inline-block;
+  position: relative;
+  top: 2px;
+}

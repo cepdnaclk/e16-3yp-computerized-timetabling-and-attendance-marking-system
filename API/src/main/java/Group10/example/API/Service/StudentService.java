@@ -83,7 +83,7 @@ public class StudentService {
                 userCourses.add(courseDetails);
             }
         }
-        UserDetails userDetails = new UserDetails(stu.getUserName(),stu.getRegNumber());
+        UserDetails userDetails = new UserDetails(stu.getFirstName(),stu.getRegNumber());
         //return user details and course details
         map.put("student",userDetails);
         map.put("courses",userCourses);

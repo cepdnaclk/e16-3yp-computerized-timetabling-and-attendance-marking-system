@@ -27,8 +27,7 @@ public class CourseUpdatePayLoad {
     @Min(value = 1,message = "Minimum value of Days is 1")
     private int days;
 
-    @NotNull(message = "TimeTable cannot be null")
-    private List<Schedule> timeTable;
+    private Set<String> scheduleIds = new HashSet<>();
 
     @NotNull(message = "Course Log cannot be null")
     private List<Log> courseLog;
@@ -51,10 +50,6 @@ public class CourseUpdatePayLoad {
         return days;
     }
 
-    public List<Schedule> getTimeTable() {
-        return timeTable;
-    }
-
     public List<Log> getCourseLog() {
         return courseLog;
     }
@@ -63,4 +58,7 @@ public class CourseUpdatePayLoad {
         return this.lectureRoomIDs;
     }
 
+    public Set<String> getScheduleIds() {
+        return scheduleIds;
+    }
 }

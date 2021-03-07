@@ -1,13 +1,12 @@
 package Group10.example.API.Controller;
 
-import Group10.example.API.Model.Admin;
-import Group10.example.API.Model.Lecturer;
-import Group10.example.API.Model.Student;
-import Group10.example.API.Model.StudentPayload;
+import Group10.example.API.Model.*;
 import Group10.example.API.Repository.AdminRepository;
+import Group10.example.API.Repository.GroupRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
 import Group10.example.API.Service.CourseService;
+import Group10.example.API.Service.GroupService;
 import Group10.example.API.Service.MailService;
 import Group10.example.API.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +17,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 
 @RestController
 public class UsersController {
+
+    @Autowired
+    GroupRepository grpRepo;
 
     @Autowired
     StudentRepository stuRepo;
@@ -48,6 +48,9 @@ public class UsersController {
     CourseService courseService;
 
     @Autowired
+    GroupService grpService;
+
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     //get student details from session
@@ -60,12 +63,23 @@ public class UsersController {
         return null;
     }
 
+    //get lecturer details from session
+    Lecturer getLecturerFromSession() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return lecRepo.findByuserName(currentUserName);
+        }
+        return null;
+    }
+
     //testing aurthorization filters
     @RequestMapping("/admin")
     public String helloAdmin(){
         //take logged user username
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
+
         return "hello " + name;
     }
 
@@ -103,15 +117,35 @@ public class UsersController {
 
         //check whether user is already exists
         if(stud != null) {
-            map.put("msg","user Name is already exists Try with different one");
+            map.put("msg","user Name is already exists");
             return map;
         }
 
         student.setRole("STUDENT");
         String pass = studentService.passGenerate();
         student.setPassword(passwordEncoder.encode(pass));
-
         stuRepo.save(student);
+
+
+        //add into group
+        String grpName = student.getYear();
+        String tempName="E/"+grpName.substring(grpName.length() - 2);
+        List<String> stuList = new ArrayList<>();
+        stuList.add(student.getUserName());
+        Group grp = grpRepo.findBygroupName(tempName);
+        if(grp==null){
+
+            Group newGroup = new Group(tempName);
+            grpService.addStudents(stuList,tempName);
+
+        }
+       else{
+           grpService.addStudents(stuList,tempName);
+       }
+
+
+
+
         String mail = student.getEmail();
         String password ="Password: " + pass;
         String name = "User Name: " + student.getUserName();
@@ -171,8 +205,6 @@ public class UsersController {
         lecturer.setRole("LECTURER");
         String pass = studentService.passGenerate();
         lecturer.setPassword(passwordEncoder.encode(pass));
-
-        lecturer.setPassword(passwordEncoder.encode(lecturer.getPassword()));
         lecRepo.save(lecturer);
 
         String mail = lecturer.getEmail();
@@ -207,6 +239,21 @@ public class UsersController {
         return stuRepo.findAll();
    }
 
+   @GetMapping(value = "student/getdetailsfromsession")
+    public Result getStuDetailsFromSession(){
+        Student s = getStudentFromSession();
+        return (s == null)?null:new Result(s.getStudentID(),s.getFirstName(),s.getRegNumber(),s.getLastName());
+    }
 
+    public String getUserName(){
+        Student s = getStudentFromSession();
+        return (s == null)?null:s.getUserName();
+    }
+
+    @GetMapping(value = "lecturer/getdetailsfromsession")
+    public Result getLecDetailsFromSession(){
+        Lecturer l = getLecturerFromSession();
+        return (l == null)?null:new Result(l.getLectID(),l.getFirstName(),l.getLastName());
+    }
 
 }
