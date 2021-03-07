@@ -1,0 +1,79 @@
+.gc-card {
+  display: grid;
+  grid-template-columns: 30% 30% 20% 20%;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  justify-content: center;
+  align-content: center;
+  box-shadow: 4px 4px 8px -3px rgba(163, 71, 71, 0.15);
+  width: 300px;
+  margin: 10px;
+  text-decoration: none;
+  color: black;
+  height: 120px;
+}
+
+.gc-para {
+  position: relative;
+  top: 10px;
+  left: 7px;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gc-avatar {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding: 15px 0 15px 15px;
+}
+
+.gc-image {
+  width: 60px;
+  height: auto;
+}
+
+.gc-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gc-content-container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+}
+
+.gc-title {
+  margin: 0 0 5px 0;
+  font-weight: bold;
+  padding-bottom: 5px;
+  padding-top: 7px;
+}
+
+.gc-content {
+  font-size: 0.8em;
+  margin: 0;
+}
+
+a {
+  color: #0060b6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  border: solid gray 1px;
+}
+
+.home-courseList {
+  position: relative;
+  margin-left: 170px;
+  top: 100px;
+}

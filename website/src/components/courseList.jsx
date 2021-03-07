@@ -1,17 +1,32 @@
-import React, { Component } from 'react';
-import CourseCard from "./courseCard"
-import "../css/courseCard.css"
+import React, { Component } from "react";
+import CourseCard from "./courseCard";
+import "../css/courseCard.css";
 
 class CourseList extends Component {
-    state = { }
+  state = {};
 
-    render() { 
-        return (  
-            <div className="courseList">
-                {this.props.courses.map( course => <CourseCard key={course.courseNum} code={course.courseNum} name={course.courseName}></CourseCard>)}
-            </div>
-            );}
-    
+  constructor(props){
+    super(props);
+  }
+
+  
+
+  render() {
+    return (
+      <div className="home-courseList">
+        {this.props.courses.map((course) => (
+          <CourseCard
+            key={course.courseNumber}
+            code={course.courseNumber}
+            name={course.courseName.toUpperCase()}
+            course={course}
+            page={this.props.page}
+            sw={this.props.sw}
+          ></CourseCard>
+        ))}
+      </div>
+    );
+  }
 }
- 
+
 export default CourseList;

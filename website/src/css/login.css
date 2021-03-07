@@ -7,18 +7,16 @@
   /* width: 100%;
   height: 75vh;
   z-index: 2; */
-
-
+  opacity: 0.8;
   width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0; 
-    left: 0; 
-    z-index: -1;
-    /* Preserve aspet ratio */
-    min-width: 100%;
-    min-height: 100%;
-    
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .loginCard {
@@ -72,8 +70,6 @@
 .textInput {
   width: 90%;
   height: 30px;
-
-
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -86,26 +82,31 @@
   width: 150px;
   height: 150px;
   position: absolute;
-  top: 90px;
+  top: 70px;
   left: 45%;
   display: inline;
   z-index: 1;
-  margin:auto;
+  margin: auto;
 }
 
 .title1 {
   position: absolute;
-  top: 235px;
-  left: 37%;
-  z-index: 1;
-  font-weight: bold;
+  top: 247px;
+  z-index: 3;
+  text-align: center;
   color: black;
+  
 }
 
 .title2 {
   position: absolute;
-  top: 265px;
-  left: 35%;
-  font-weight: bold;
+  top: 287px;
   color: black;
+  z-index: 3;
+
+}
+
+.lgnloginCard {
+  position: relative;
+  margin-bottom: 200px;
 }
