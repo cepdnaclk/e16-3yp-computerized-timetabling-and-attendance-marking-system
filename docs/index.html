@@ -295,11 +295,180 @@
 
     <!-- ======= Hardware Section ======= -->
     <section id="hardware" class="cards">
-      <div class="container">
+      <div class="container ">
         <div class="section-title">
-          <h2>Hardware Components</h2>
-          <!--          <p>On the registration day of the students,fingerprints and student details are taken and added to the database using the website.A RFID token is registered for a student and given to them.Student can do the registration via the website or mobile app.Before a particular class starts,corresponding student details and fingerprint details are loaded into the sd card and fingerprint device with the help of nodemcu & backend server for student identification purposes.when a particular student put their attendance using fingerprint device and RFID sensor student details are displayed in the LCD display.At the same time,new attendance data is sent to the backend.All timetable data is added to the database and lecture reminding is automatically done by the server.Student and teachers are able to analyze and visualize attendance data via the website or mobile app.</p>-->
+          <h2>Hardware Components Used</h2>
+          <div style="text-align: center">
+            <div class="text-left" style="display:  inline-block">
+              <h5>1. ATmega328P microcontroller</h5>
+              <table>
+                <tr>
+                  <td>
+                    <ul>
+                      <li>Operating Voltage: 1.8V-5.5V</li>
+                      <li>Flash Program Memory: 32 kbytes</li>
+                      <li>EEPROM Data Memory: 1 kbytes</li>
+                      <li>I/O Pins: 23</li>
+                      <li>SPI and I²C Master and Slave Support</li>
+                      <li>USART Support</li>
+                      <li>External Oscillator: up to 20MHz</li>
+                    </ul>
+                  </td>
+                  <td><img src="images/hardware/atmega328p.jpg" class="img-fluid" alt="" /></td>
+                </tr>
+              </table>
+
+              <br/>
+
+              <h5>2. ESP8266 microcontroller</h5>
+              <table>
+                <tr>
+                  <td>
+                    <ul>
+                      <li>Operating Voltage: 3.3V</li>
+                      <li>Flash Memory: 4 MB</li>
+                      <li>EEPROM Data Memory: 1 kbytes</li>
+                      <li>Digital I/O Pins : 16</li>
+                      <li>SPI and I²C Support</li>
+                      <li>USART Support</li>
+                      <li>PCB Antenna</li>
+                      <li>Integrated TCP/IP Protocol Stack</li>
+                      <li>External Oscillator: up to 80 MHz</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <img src="images/hardware/nodemcu.jpg" class="img-fluid" alt="" />
+                  </td>
+                </tr>
+              </table>
+              <br/>
+
+              <h5>3. R307 Fingerprint Module</h5>
+              <table>
+                <tr>
+                  <td>
+                    <ul>
+                      <li>Interfacing
+                        <ul>
+                          <li>UART              -> for microcontrollers/ARM processors</li>
+                          <li>USB 2.0           ->for computers</li>
+                          <li>Software serial -> to use other digital pins</li>
+                        </ul>
+                      </li>
+                      <li>Reliability
+                        <ul>
+                          <li>Flash memory for saving fingerprint templates -> Avoids data loss in power failures</li>
+                        </ul>
+                      </li>
+                      <li>Power Usage </li>
+                      <ul>
+                        <li>Operating on 3.3v or 5v
+                        <li>Sensing circuitry consumes 5µA(very low)</li>
+                      </ul>
+                      </li>
+                    </ul>
+                  </td>
+                  <td><img src="images/hardware/fingerprintsensor.jpg" class="img-fluid" alt="" /></td>
+                </tr>
+              </table>
+              <br/>
+
+              <h5>4. RC522 RFID Module</h5>
+              <table>
+                <tr>
+                  <td>
+                    <ul>
+                      <li>Operating voltage: 2.5V to 3.3V</li>
+                      <li>Communication : SPI, I2C protocol, UART</li>
+                      <li>Maximum Data Rate: 10Mbps</li>
+                      <li>Maximum Read Range: 5cm</li>
+                      <li>Current Consumption: 13-26mA</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <img src="images/hardware/rfid.jpg" class="img-fluid" alt="" />
+                  </td>
+                </tr>
+              </table>
+
+              <br/>
+
+              <h5>5. Keypad & Port Expander(PCF8574P)</h5>
+              <table>
+                <tr>
+                  <td>
+                    <ul>
+                      <li>4x4 keypad -> 8 pins(wastage of pins)</li>
+                      <li>Port expander
+                        <ul>
+                          <li>Pin usage reduces to 2 pins</li>
+                          <li>Uses I2C protocol</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </td>
+                  <td><img src="images/hardware/keypad.webp" class="img-fluid" alt="" /></td>
+                </tr>
+              </table>
+
+              <br/>
+
+              <h5>6. 16x2 LCD Dispaly & Port Expander(PCF8574P)</h5>
+              <table>
+                <tr>
+                  <td>
+                    <ul>
+                      <li>LCD module - > 11 pins(wastage of pins)</li>
+                      <li>Port expander
+                        <ul>
+                          <li>Spi -> i2c Conversion</li>
+                          <li>Pin usage reduces to 2 pins/li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </td>
+                  <td>
+                    <img src="images/hardware/lcd.jpg" style="width: 300px; height: 300px" class="img-fluid" alt="" />
+                  </td>
+                </tr>
+              </table>
+
+              <br/>
+
+              <h5>7. Rechargeable battery(Li-Po)</h5>
+              <table>
+                <tr>
+                  <td>
+                    <ul>
+                      <li>Output voltage - > 12v</li>
+                      <li>Capacity       - > 2500mAh</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <img src="images/hardware/lipo.jpg" style="width: 300px; height: 300px" class="img-fluid" alt="" />
+                  </td>
+                </tr>
+              </table>
+
+            </div>
+          </div>
+
+
         </div>
+        <h2>Circuit Diagrams</h2>
+        <div class="section-title">
+          <img src="images/hardware/circuit1.png" class="img-fluid" alt="" style="border: 5px solid #555;"/>
+        </div>
+        <div class="section-title">
+          <img src="images/hardware/circuit2.png" class="img-fluid" alt="" style="border: 5px solid #555;"/>
+        </div>
+        <br></br>
+        <h2>PCB design</h2>
+        <div class="section-title">
+          <img src="images/hardware/pcb.png" class="img-fluid" alt="" style="border: 5px solid #555;"/>
+        </div>
+        <br></br>
+        <h2>Protocols</h2>
         <div class="section-title">
           <img src="images/hardware/components.png" class="img-fluid" alt="" style="border: 5px solid #555;"/>
         </div>
@@ -332,6 +501,81 @@
         <div class="section-title">
           <h4>Results</h4>
           <img src="images/testing/result.png" class="img-fluid" alt="" style="border: 5px solid #555;"/>
+        </div>
+        
+        <!--        unit testing-->
+        <div class="section-title">
+          <h3>Unit Testing</h3>
+          <div style="text-align: left"><p><b>&nbsp; &nbsp; UNIT TESTING</b>, also known as COMPONENT TESTING, is a level of
+            software testing where individual units / components of a software are tested. The purpose is to validate that
+            each unit of the software performs as designed.</p></div>
+        </div>
+        <div class="section-title">
+          <h4>Example :- Lecture Attendance Percentage Update</h4>
+          <img src="images/testing/unitTest.png" class="img-fluid" alt="" style="border: 5px solid #555;"/>
+        </div>
+        <div class="section-title">
+          <h4>Results</h4>
+          <img src="images/testing/unitResult.png" class="img-fluid" alt="" style="border: 5px solid #555;"/>
+        </div>
+        
+<!--        summary report-->
+        <div class="section-title">
+          <h4>Summary Report-Software Testing</h4>
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Feature / Unit</th>
+              <th scope="col"> Functionality</th>
+              <th scope="col">Tools</th>
+              <th scope="col">Results</th>
+            </tr>
+            </thead>
+            <tbody class="table-secondary text-left">
+            <tr>
+              <th scope="row">1</th>
+              <td>Backend Validations</td>
+              <td>Registration number and Email were tested for proper pattern with different inputs</td>
+              <td>JUnit</td>
+              <td>Given Registration number and Email should have proper pattern for user registration</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Frontend Validations</td>
+              <td>Frontend forms were tested with different set of inputs.</td>
+              <td>Jest and Enzyme</td>
+              <td>Forms can not submit without proper inputs</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Joins in the database</td>
+              <td>
+                  <ui>
+                    <li>After Course registration of a student,  Course and Student and Attendance Collection details were tested. </li>
+                    <li>Course and Lecturer collections was tested</li>
+                    <li>Course and TimeTable collections were tested </li>
+                  </ui>
+              </td>
+              <td>JUnit</td>
+              <td>
+                <ui>
+                  <li>Attendance details were join correctly with Course and the Student</li>
+                  <li> Lecturer collection joins correctly with course collection.</li>
+                  <li>Course collection joins correctly with Timetable collection</li>
+                </ui>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Lecture Attendance</td>
+              <td>Tested whether correct present days,absent days and attendance percentages of student is calculated after adding attendance of a lecture by hardware device </td>
+              <td>JUnit</td>
+              <td>Attendance details are correctly calculated and stored in the database. </td>
+            </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
     </section><!-- End Hardware Section -->

@@ -10,6 +10,7 @@
   grid-template-columns: 50% 50%;
   padding-left: 280px;
   grid-gap: 5px 20px;
+  width: 75%;
 }
 
 .submitButton {

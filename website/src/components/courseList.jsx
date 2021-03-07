@@ -1,39 +1,32 @@
-import React, { Component } from 'react';
-import CourseCard from "./courseCard"
-import "../css/courseCard.css"
+import React, { Component } from "react";
+import CourseCard from "./courseCard";
+import "../css/courseCard.css";
 
 class CourseList extends Component {
-    state = {  courses: []}
+  state = {};
 
-    constructor(){
+  constructor(props){
+    super(props);
+  }
 
-        super();
+  
 
-        var courses = [
-            {
-                code:"CO321",
-                name:"Embeded Systems"
-            },
-            {
-                code:"CO322",
-                name:"Data Structures and Algorythms"
-            },
-            {
-                code:"CO323",
-                name:"Computer and Network Security"
-            }
-        ]
-
-        this.state.courses = courses
-    }
-
-    render() { 
-        return (  
-            <div className="courseList">
-                {this.state.courses.map( course => <CourseCard key={course.code} code={course.code} name={course.name}></CourseCard>)}
-            </div>
-            );}
-    
+  render() {
+    return (
+      <div className="home-courseList">
+        {this.props.courses.map((course) => (
+          <CourseCard
+            key={course.courseNumber}
+            code={course.courseNumber}
+            name={course.courseName.toUpperCase()}
+            course={course}
+            page={this.props.page}
+            sw={this.props.sw}
+          ></CourseCard>
+        ))}
+      </div>
+    );
+  }
 }
- 
+
 export default CourseList;

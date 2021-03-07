@@ -6,18 +6,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Document(collection = "Lecturer")
 public class Lecturer {
 
-    public Lecturer(@NotNull(message = "User Name is mandatory") String userName, @NotNull(message = "password is mandatory") String password, @NotNull(message = "First Name is mandatory") String firstName, @NotNull(message = "Last Name is mandatory") String lastName, @Email(message = "Email should be valid") String email, @NotNull(message = "Department is mandatory") String department) {
+    public Lecturer(@NotNull(message = "User Name is mandatory") String userName, @NotNull(message = "First Name is mandatory") String firstName, @NotNull(message = "Last Name is mandatory") String lastName, @Email(message = "Email should be valid") String email, @NotNull(message = "Department is mandatory") String department) {
         this.userName = userName;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.department = department;
     }
+    public Lecturer(){}
 
     @Id
     private String lectID;
@@ -25,8 +28,8 @@ public class Lecturer {
     @NotNull(message = "User Name is mandatory")
     private String userName;
 
-    @NotNull(message = "password is mandatory")
-    @ValidPassword
+    //@NotNull(message = "password is mandatory")
+    //@ValidPassword
     private String password;
 
     @NotNull(message = "First Name is mandatory")
@@ -43,6 +46,9 @@ public class Lecturer {
     @NotNull(message = "Department is mandatory")
     private String department;
 
+    private Set<String>  courseIds = new HashSet<>();
+
+    private HashSet<String> groupSet = new HashSet<>();
 
     public String getLectID() {
         return lectID;
@@ -106,5 +112,26 @@ public class Lecturer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<String> getCourseIds() {
+        return courseIds;
+    }
+
+    public void setCourseIds(Set<String> courseIds) {
+        this.courseIds = courseIds;
+    }
+
+    public void addCourse(Optional<Course> course){
+        course.ifPresent(c -> this.courseIds.add(c.getCourseId()));
+        System.out.println(this.getCourseIds());
+    }
+
+    public void removeCourse(Optional<Course> course){
+        course.ifPresent(c -> this.courseIds.remove(c.getCourseId()));
+    }
+
+    public void removeAllCourses(){
+        this.courseIds.clear();
     }
 }

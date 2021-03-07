@@ -1,53 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import efacImg from "../images/efac.jpg"
 import "../css/login.css"
 import LoginCard from "../components/loginCard"
-import PeraLogo from "../images/pera.jpg"
-import axios from 'axios'
+import PeraLogo from "../images/pera3.png"
 
-const LOGIN_REST_API_URL = 'http://localhost:8080/login';
 
-class Login extends Component {
-    state = {  }
-
-    constructor(){
-        super();
-        this.state = {
-            userName: '',
-            password: ''
-        }
-    }
-
-    changeHandler = (event) => {
-
-        let name = event.target.name;
-        let value = event.target.value;
-        this.setState({[name]:value});
-
-    }
-
-    sendReq = () =>{
-        //sent http request to login using state object
-        const data = this.state;
-        console.log(data);
-
-        axios.post(LOGIN_REST_API_URL, data)
-          .then(function (response) {
-            console.log(response.data.token);
-          })
-    }
-
-    render() { 
-        return ( 
-            <div className="login">
-                <img src={efacImg} className="loginImg"></img>
-                <img src={PeraLogo} className="logo"></img>
-                <h3 className="title1">UNIVERSITY OF PERADENIYA</h3>
-                <h3 className="title2">ATTENDANCE MARKING SYSTEM</h3>
-                <LoginCard oc={this.changeHandler} sr={this.sendReq}></LoginCard>
+export default function Login() {
+    return ( 
+        <div>
+            <img src={efacImg} className="loginImg"></img>
+            <img src={PeraLogo} className="logo"></img>
+            <h3 style={{textAlign:'center',marginTop:"250px",zIndex:3}}><strong>UNIVERSITY OF PERADENIYA</strong></h3>
+            <h3 style={{textAlign:'center',zIndex:3}}><strong>ATTENDANCE MARKING SYSTEM</strong></h3>
+            <div className="lgnloginCard">
+                <LoginCard/>
             </div>
-         );
-    }
+        </div>
+      );
 }
- 
-export default Login;
+
+

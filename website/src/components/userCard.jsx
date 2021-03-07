@@ -1,62 +1,72 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import "../css/userCard.css";
-import userIcon from "../images/profile-user.svg";
-import InputField from "./inputField";
+import Button from "@material-ui/core/Button";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import SubjectIcon from '@material-ui/icons/Subject';
+import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 
 class UserCard extends Component {
+  state = {};
 
-    state = {
-        details:[]
-    }
+  render() {
+    console.log(this.props.data[0]);
+    return (
+      <div className="userCard-outer">
+        <div className="background"></div>
+        <div className="profile-card">
+          <div className="cover"></div>
+          <div className="profile">
+            <div className="hm-pic"></div>
+            <div className="above-fold">
+              <div className="name">{this.props.data[0]}</div>
+              <div className="role">{this.props.data[1]}</div>
 
-    constructor(){
-        super();
+              <div className="row">
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  startIcon={<EditOutlinedIcon></EditOutlinedIcon>}
+                >
+                  User Name
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  startIcon={<EditOutlinedIcon></EditOutlinedIcon>}
+                >
+                  Password
+                </Button>
+              </div>
+              <div className="row">
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  startIcon={<SubjectIcon></SubjectIcon>}
+                  onClick={event =>  window.location.href='coursereg'}
 
-        var details = [
-            {   
-                id:1,
-                nameTag:"Name:",
-                value:"sample name"
+                >
+                  Course Registration
+                </Button>
+                
+              </div>
+              <div className="row">
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  startIcon={<DateRangeOutlinedIcon></DateRangeOutlinedIcon>}
+                  onClick={event =>  window.location.href='stutimetable'}
 
-            },
-            {   
-                id:2,
-                nameTag:"E Number:",
-                value:"E/xx/xxx"
-
-            },
-            {   
-                id:3,
-                nameTag:"Password:",
-                value:"samplePassword"
-
-            }
-        ]
-
-        this.state.details = details;
-
-    }
-
-
-    render(){
-
-        return(
-            <div className="userCard">
-                <img src={userIcon} alt="userIcon" className="userIcon"/>
-                <div className="cardSet">
-                    {this.state.details.map( detail=> <InputField key={detail.id} nameTag={detail.nameTag} value={detail.value}></InputField>)}
-                </div>
-                <a className="logoutButton">Log out</a>
+                >
+                  My Timetables
+                </Button>
+                
+              </div>
             </div>
-        );
-
-
-
-    }
-
-
-
-
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default UserCard;

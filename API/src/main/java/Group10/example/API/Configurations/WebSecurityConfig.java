@@ -24,9 +24,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-
-    @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
@@ -91,12 +88,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/student/**").hasRole("USER")
-                .antMatchers("/login").permitAll().anyRequest().authenticated()
+        http.cors().and().csrf().disable()
+                .authorizeRequests().antMatchers("/admin/**",   "/groups/**").hasRole("ADMIN")
+                .antMatchers("/lecturer/**","/groups/**").hasRole("LECTURER")
+                //.antMatchers("/groups/**").hasAnyRole("Admin","LECTURER")
+                .antMatchers("/student/**").hasRole("STUDENT")
+                .antMatchers("/login","/groups/**").permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
                 and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }

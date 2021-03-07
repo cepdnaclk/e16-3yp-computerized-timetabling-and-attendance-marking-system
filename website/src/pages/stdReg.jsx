@@ -1,54 +1,39 @@
-import React, { Component } from 'react';
-import NavBar from '../components/navbar'
-import TextInput from '../components/textInput'
-import '../css/stdReg.css'
+import React from 'react'
+import StudentForm from "./stdForm";
+import PageHeaderStudent from "../components/PageHeaderStudent";
+import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
+import { Paper,makeStyles } from '@material-ui/core';
+import bgImage from '../images/bg4.jpg'
+import NavBar from "../components/navbar";
+import Footer from '../components/footer'
 
 
-class StdReg extends Component {
-    state = {  }
-
-    constructor(){
-        super();
-        this.state = {
-            f1 : '',
-            f2 : '',
-            f3 : '',
-            f4 : '',
-            f5 : '',
-            f6 : ''
-        }
+const useStyles = makeStyles(theme => ({
+    pageContent: {
+        margin: theme.spacing(5),
+        padding: theme.spacing(3),
+        backgroundColor: 'hsla(0, 0%, 100%, 0.4)',
+        marginTop:'1%'
+      
     }
-    
-    changeHandler = (event) => {
+}))
 
-        let name = event.target.name;
-        let value = event.target.value;
-        this.setState({[name]:value});
+export default function Employees() {
 
-    }
+    const classes = useStyles();
 
-    sendReq = () =>{
-        //sent http request using state object
-        console.log(this.state)
-    }
-
-    render() { 
-        return (  
-            <React.Fragment>
-                <NavBar pageName="Student Registration" />
-                    <div className="dataFields">
-                        <TextInput tagname="f1" name="Registration Number :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f2" name="FirstName :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f3" name="LastName :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f4" name="Year :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f5" name="Semester :" oc={this.changeHandler}></TextInput>
-                        <TextInput tagname="f6" name="Department :" oc={this.changeHandler}></TextInput>
-                    </div>
-                    <button onClick={this.sendReq} className="submitButton">Submit</button>
-               
-            </React.Fragment>
-        );
-    }
+    return (
+        <>
+            <img src={bgImage} className="homeloginImg"></img>
+            <NavBar pageName="Student Registration" />
+            <PageHeaderStudent
+                title="Student Registration"
+                icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
+            />
+            <Paper className={classes.pageContent}>
+                <StudentForm />
+            </Paper>
+            <Footer/>
+        </>
+    )
 }
- 
-export default StdReg;
