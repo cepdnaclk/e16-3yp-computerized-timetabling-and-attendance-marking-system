@@ -712,6 +712,11 @@ section {
   justifyContent:center
 }
 
+.final-device-details{
+  display:flex;
+  justifyContent:center
+}
+
 
 
 /*--------------------------------------------------------------
