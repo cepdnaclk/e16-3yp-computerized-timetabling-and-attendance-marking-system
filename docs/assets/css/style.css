@@ -717,6 +717,11 @@ section {
   justifyContent:center
 }
 
+.final-device-details-inner{
+  display:grid;
+  grid-template-columns:50% 50%
+}
+
 
 
 /*--------------------------------------------------------------
