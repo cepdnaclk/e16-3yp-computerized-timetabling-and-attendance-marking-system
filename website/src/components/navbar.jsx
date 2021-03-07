@@ -39,7 +39,7 @@ class NavBar extends Component {
       //    <a href="#" onClick={this.handleLogout} className="logout"><img src={logoutIcon} alt="logoutIcon" className="logoutIcon"></img></a>
       // </nav>
       <div>
-        <Navbar className="my-navbar" bg="dark" variant="dark" fixed="top">
+        <Navbar className="my-navbar"  variant="dark" fixed="top">
           <Navbar.Brand>
             <img
               src={PeraLogo}

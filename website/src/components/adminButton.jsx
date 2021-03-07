@@ -19,6 +19,9 @@ class AdminButton extends Component {
         else if(this.props.val === '3'){
             url += 'adminreg';
         }
+        else if(this.props.val === '5'){
+            url += 'studentgroups';
+        }
         return ( 
 
             <a href={url} className="adminButton">
