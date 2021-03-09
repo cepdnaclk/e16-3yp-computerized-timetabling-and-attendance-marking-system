@@ -46,16 +46,24 @@
 
 .my-navbar {
   position: fixed;
- }
+  background-color: #132036;
+}
 
 .my-nav {
   display: flex;
   align-items: center;
 }
 
-.my-nav>img {
+.my-nav > img {
   position: absolute;
   top: 17%;
   height: 60%;
   width: 3%;
+}
+
+.nav-link {
+  color: rgb(114, 110, 110);
+}
+.nav-link:hover {
+  color: whitesmoke;
 }

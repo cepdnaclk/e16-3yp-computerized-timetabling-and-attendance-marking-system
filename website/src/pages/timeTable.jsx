@@ -9,6 +9,7 @@ import AddSchedules from "../components/addSchedules";
 import PopOver from '../components/popOver'
 import SubmitSchedules from "../components/submitSchedules";
 import axios from "axios";
+import Footer from '../components/footer'
 
 
 const GET_LECTUREROOMS_URL = "/lecturerooms/all";
@@ -373,6 +374,7 @@ class TimeTable extends Component {
             </div>
           </div>
         </div>
+        <Footer/>
       </React.Fragment>
     );
   }

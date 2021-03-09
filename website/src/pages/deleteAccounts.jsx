@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import NavBar from '../components/navbar'
 import DeleteCard from '../components/deleteCard'
 import '../css/deleteAccounts.css'
+import bgImage from '../images/bg4.jpg'
+import Footer from '../components/footer'
 
 class DeleteAccounts extends Component {
     state = {  }
@@ -32,6 +34,7 @@ class DeleteAccounts extends Component {
     render() { 
         return ( 
             <React.Fragment>
+            <img src={bgImage} className="homeloginImg"></img>
             <NavBar pageName="Delete Accounts" />
             <div className="daCardPanel">
                 <DeleteCard f="f1" name="Registration Number :" cardName="Student Account" oc={this.changeHandler} sr={this.sendReq}></DeleteCard>
@@ -40,7 +43,7 @@ class DeleteAccounts extends Component {
                 <DeleteCard f="f4" name="Batch Prefix :" cardName="Student Batch" oc={this.changeHandler} sr={this.sendReq}></DeleteCard>
             </div>
             
-          
+          <Footer/>
             
             </React.Fragment>
             

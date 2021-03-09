@@ -7,6 +7,7 @@ import axios from "axios";
 import "../css/home.css";
 import "../css/lecturerDashboard.css";
 import LoadingComponent from "../components/loadingComponent";
+import Footer from '../components/footer'
 
 const LECT_ALL_COURSES_URL = "/lec/find/allcourses";
 const FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
@@ -88,7 +89,12 @@ class LecturerDashboard extends Component {
             courses={this.state.courses}
             oc={this.onSerchValueChanged}
           />
+
+          <Footer/>
+
         </div>
+
+ 
       );
     }
     return <LoadingComponent></LoadingComponent>;
