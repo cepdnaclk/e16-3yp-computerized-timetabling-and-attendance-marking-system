@@ -698,6 +698,31 @@ section {
 }
 
 
+/*--------------------------------------------------------------
+# Final Device
+--------------------------------------------------------------*/
+
+.section-final-device{
+  
+  
+}
+
+.section-final-device-outer{
+  display:flex;
+  justifyContent:center;
+}
+
+.final-device-details{
+  display:flex;
+  justifyContent:center;
+}
+
+.final-device-details-inner{
+  display:grid;
+  grid-template-columns:50% 50%;
+}
+
+
 
 /*--------------------------------------------------------------
 # Team
