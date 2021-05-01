@@ -10,6 +10,7 @@ import PopOver from '../components/popOver'
 import SubmitSchedules from "../components/submitSchedules";
 import axios from "axios";
 import Footer from '../components/footer'
+import LoadingComponent from "../components/loadingComponent"
 
 
 const GET_LECTUREROOMS_URL = "/lecturerooms/all";
@@ -53,6 +54,7 @@ class TimeTable extends Component {
     lectureRooms: [],
     courses: [],
     workDone:false,
+    loading:false
   };
 
   componentWillMount() {
@@ -299,6 +301,7 @@ class TimeTable extends Component {
 
   render() {
 
+    if(this.state.loading === false) return <LoadingComponent></LoadingComponent>
     
 
     return (

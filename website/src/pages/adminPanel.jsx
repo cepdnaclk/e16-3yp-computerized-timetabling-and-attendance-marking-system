@@ -20,16 +20,18 @@ class AdminPanel extends Component {
             <React.Fragment>
                 <img src={bgImage} className="homeloginImg"></img>
                 <NavBar pageName="Admin Panel" />
-                <div className="buttonPanel">
+                <div className="admin-outer">
+                    <div className="buttonPanel">
 
-                    <AdminButton t1="CREATE" t2="STUDENT ACCOUNTS" val="1" img={b1}></AdminButton>
-                    <AdminButton t1="CREATE" t2="LECTURER ACCOUNTS" val="2" img={b2}></AdminButton>
-                    <AdminButton t1="CREATE" t2="ADMIN ACCOUNTS" val="3" img={b3}></AdminButton>
-                    <AdminButton t1="DELETE" t2="ACCOUNTS" val="4" img={b4}></AdminButton>
-                    <AdminButton t1="STUDENT" t2="GROUPS" val="5" img={b5}></AdminButton>
-                    <AdminButton t1="MODIFY" t2="TIMETABELS" val="6" img={b6}></AdminButton>
+                        <AdminButton t1="CREATE" t2="STUDENT ACCOUNTS" val="1" img={b1}></AdminButton>
+                        <AdminButton t1="CREATE" t2="LECTURER ACCOUNTS" val="2" img={b2}></AdminButton>
+                        <AdminButton t1="CREATE" t2="ADMIN ACCOUNTS" val="3" img={b3}></AdminButton>
+                        <AdminButton t1="DELETE" t2="ACCOUNTS" val="4" img={b4}></AdminButton>
+                        <AdminButton t1="STUDENT" t2="GROUPS" val="5" img={b5}></AdminButton>
+                        <AdminButton t1="MODIFY" t2="TIMETABELS" val="6" img={b6}></AdminButton>
 
                     </div>
+                </div>
                 
                 <Footer/>
             
