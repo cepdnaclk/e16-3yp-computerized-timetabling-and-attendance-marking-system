@@ -1,0 +1,12 @@
+.ll-inner {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.ll-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 6%;
+  padding-bottom: 5%;
+}
