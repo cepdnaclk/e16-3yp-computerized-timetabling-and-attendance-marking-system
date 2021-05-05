@@ -19,15 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RestController
 @RequestMapping("/lec")
 public class LecturerController {
-	
-	@Autowired
-	private GroupService groupService;
-	
-	@Autowired
+
+    @Autowired
+    private GroupService groupService;
+
+    @Autowired
     StudentRepository studentRepo;
-	
-	@Autowired
-	LecturerService lecturerService;
+
+    @Autowired
+    LecturerService lecturerService;
 
     @Autowired
     GroupRepository groupRepo;
@@ -37,8 +37,8 @@ public class LecturerController {
 
     @Autowired
     CourseRepository courseRepository;
-	
-	@PostMapping("/creategroup")
+
+    @PostMapping("/creategroup")
     public HashMap<String,String> createGroup(@RequestBody Group group){
 
         HashMap<String, String> map = new HashMap<>();
@@ -51,8 +51,8 @@ public class LecturerController {
         map.put("group_id",group.getGroupID());
         return map;
     }
-	
-	@GetMapping(value="/all/students/{group_id}")
+
+    @GetMapping(value="/all/students/{group_id}")
     public List<Student> getStudents(@PathVariable("group_id") String groupId){
         Optional<Group> group =groupService.findGroupByID(groupId);
         List<Student> students = new ArrayList<Student>();
@@ -76,37 +76,37 @@ public class LecturerController {
 
         return students;
     }
-	
-	@GetMapping(value="/removegroup/{group_id}")
-	public HashMap<String,String> removeGroup(String groupId){
-		
-		HashMap<String, String> map = new HashMap<>();
-		lecturerService.deleteStudentGroup(groupId);
-		map.put("msg","group deleted successfully");
-		return map;
-		
-	}
+
+    @GetMapping(value="/removegroup/{group_id}")
+    public HashMap<String,String> removeGroup(String groupId){
+
+        HashMap<String, String> map = new HashMap<>();
+        lecturerService.deleteStudentGroup(groupId);
+        map.put("msg","group deleted successfully");
+        return map;
+
+    }
 
 
-	@PostMapping(value = "/addcourse")
+    @PostMapping(value = "/addcourse")
     public Optional<Lecturer> addCourseToLecturer(@RequestParam("lecturer")String lecturerId,@RequestParam("course")String courseId){
         System.out.println("addCourseToLecturer Controller");
-	    return lecturerService.addCourseToLecturer(lecturerId,courseId);
+        return lecturerService.addCourseToLecturer(lecturerId,courseId);
     }
 
     @DeleteMapping(value = "/deletecourse")
     public Optional<Lecturer> removeCourseToLecturer(@RequestParam("lecturer")String lecturerId,@RequestParam("course")String courseId){
-	    return lecturerService.removeCourseToLecturer(lecturerId,courseId);
+        return lecturerService.removeCourseToLecturer(lecturerId,courseId);
     }
 
     @GetMapping(value = "/find/all")
     public Collection<Lecturer> findAll(){
-	    return lecturerService.findAll();
+        return lecturerService.findAll();
     }
 
     @GetMapping(value = "/find/{id}")
     public Optional<Lecturer> findById(@PathVariable("id")String id){
-	    return lecturerService.findById(id);
+        return lecturerService.findById(id);
     }
 
     @GetMapping(value = "/find/allcourses")
@@ -117,6 +117,20 @@ public class LecturerController {
             Optional<Course> course = courseRepository.findById(s);
             course.ifPresent(courses::add);
         }
+        return courses;
+    }
+
+    @GetMapping(value = "/findallcoursesbylectureid/{id}")
+    public Collection<Course> findAllCourses(@PathVariable("id")String lecturerId){
+        Optional<Lecturer> lecturer = lecturerService.findById(lecturerId);
+        ArrayList<Course> courses = new ArrayList<>();
+        lecturer.ifPresent(lec -> {
+            for (String s:lec.getCourseIds()){
+                Optional<Course> course = courseRepository.findById(s);
+                course.ifPresent(courses::add);
+            }
+        });
+
         return courses;
     }
 
