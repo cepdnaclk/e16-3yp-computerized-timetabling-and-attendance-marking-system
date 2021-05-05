@@ -111,7 +111,7 @@ public class ScheduleDAO {
         Optional<LectureRoom> lectureRoom = lectureRoomRepository.findById(scheduleUpdateTemplate.getRoomId());
         schedule.ifPresent(s -> {
             course.ifPresent(c -> s.setCourseId(c.getCourseId()));
-            course.ifPresent(c -> s.setCourseNumber(s.getCourseNumber()));
+            course.ifPresent(c -> s.setCourseNumber(c.getCourseNumber()));
             lectureRoom.ifPresent(l ->s.setRoomId(l.getRoomId()));
             lectureRoom.ifPresent(l -> s.setRoomName(l.getRoomName()));
             s.setLabOrLecture(scheduleUpdateTemplate.getLabOrLecture());
