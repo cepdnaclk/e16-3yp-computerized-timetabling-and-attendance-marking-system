@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -129,6 +130,17 @@ public class LoginActivity extends AppCompatActivity {
 
             if(!s.equals("Bad Credentials") && !s.equals("Access Denied")){
                 studentToken = s;
+
+                //write token to internal storage
+
+                try {
+                    FileOutputStream fileOutputStream = openFileOutput("token.txt",MODE_PRIVATE);
+                    fileOutputStream.write(s.getBytes());
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 Intent homeIntent = new Intent(LoginActivity.this,HomeActivity.class);
                 startActivity(homeIntent);
                 finish();
