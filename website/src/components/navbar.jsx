@@ -24,7 +24,7 @@ class NavBar extends Component {
   handleHome = () => {
     if (localStorage.getItem("sid")) {
       this.props.history.push("/Home");
-    } else if (localStorage.getItem("lid")) {
+    } else if (localStorage.getItem("lfn")) {
       this.props.history.push("/LecturerDashboard");
     } else {
       this.props.history.push("/AdminPanel");
@@ -39,7 +39,7 @@ class NavBar extends Component {
       //    <a href="#" onClick={this.handleLogout} className="logout"><img src={logoutIcon} alt="logoutIcon" className="logoutIcon"></img></a>
       // </nav>
       <div>
-        <Navbar className="my-navbar"  variant="dark" fixed="top">
+        <Navbar className="my-navbar" variant="dark" fixed="top">
           <Navbar.Brand>
             <img
               src={PeraLogo}
