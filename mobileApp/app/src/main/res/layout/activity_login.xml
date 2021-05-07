@@ -42,26 +42,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/perLogo"
-        android:layout_width="291dp"
-        android:layout_height="151dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="64dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/pera_logo" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginBottom="56dp"
-        android:width="210"
-        android:height="30"
+        android:width="210dp"
+        android:height="30dp"
         android:text="UserName :"
         app:layout_constraintBottom_toTopOf="@+id/loginUsername"
         app:layout_constraintStart_toStartOf="parent" />
@@ -72,10 +60,36 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginBottom="40dp"
-        android:width="210"
-        android:height="30"
+        android:width="210dp"
+        android:height="30dp"
         android:text="Password"
         app:layout_constraintBottom_toTopOf="@+id/loginPassword"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="70dp"
+        app:cardCornerRadius="75dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/pera" />
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+    />
+
+
+
+
+    >
 </androidx.constraintlayout.widget.ConstraintLayout>
