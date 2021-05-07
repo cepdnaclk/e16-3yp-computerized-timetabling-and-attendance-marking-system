@@ -135,6 +135,13 @@
 			<scope>test</scope>
 		</dependency>
 
+<!--		including the Firebase-SDK-->
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>7.0.0</version>
+		</dependency>
+
 
 
 	</dependencies>

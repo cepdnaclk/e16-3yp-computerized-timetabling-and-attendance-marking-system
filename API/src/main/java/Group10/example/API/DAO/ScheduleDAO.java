@@ -2,6 +2,7 @@ package Group10.example.API.DAO;
 
 import Group10.example.API.Model.*;
 import Group10.example.API.Repository.*;
+import Group10.example.API.Service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,15 +20,17 @@ public class ScheduleDAO {
     private final LecturerRepository lecturerRepository;
     private final AttendanceRepository attendanceRepository;
     private final AttendanceDAO attendanceDAO;
+    private final NotificationService notificationService;
 
     @Autowired
-    public ScheduleDAO(ScheduleRepository scheduleRepository, CourseRepository courseRepository, LectureRoomRepository lectureRoomRepository, LecturerRepository lecturerRepository, AttendanceRepository attendanceRepository, AttendanceDAO attendanceDAO) {
+    public ScheduleDAO(ScheduleRepository scheduleRepository, CourseRepository courseRepository, LectureRoomRepository lectureRoomRepository, LecturerRepository lecturerRepository, AttendanceRepository attendanceRepository, AttendanceDAO attendanceDAO, NotificationService notificationService) {
         this.scheduleRepository = scheduleRepository;
         this.courseRepository = courseRepository;
         this.lectureRoomRepository = lectureRoomRepository;
         this.lecturerRepository = lecturerRepository;
         this.attendanceRepository = attendanceRepository;
         this.attendanceDAO = attendanceDAO;
+        this.notificationService = notificationService;
     }
 
     public Schedule addScheduleItem(Schedule schedule) {
@@ -41,15 +44,18 @@ public class ScheduleDAO {
             requested.ifPresent(c::addLectureRoom);
             courseRepository.save(c);
         });
+        //add by schedule id
+        notificationService.addByScheduleId(s.getScheduleId());
         return s;
     }
 
     public ArrayList<Schedule> addScheduleList(ArrayList<Schedule> schedules) {
-        ArrayList<Schedule> schedulesList = new ArrayList<>();
         for(Schedule s:schedules){
-            schedulesList.add(this.addScheduleItem(s));
+            scheduleRepository.insert(s);
+            //add by schedule id
+            notificationService.addByScheduleId(s.getScheduleId());
         }
-        return schedulesList;
+        return schedules;
     }
 
     public Collection<Schedule> findAllSchedules() {
@@ -102,6 +108,9 @@ public class ScheduleDAO {
             s.setLabOrLecture(scheduleUpdatePayload.getLabOrLecture());
             scheduleRepository.save(s);
         });
+        //update = delete + add
+        notificationService.deleteById(scheduleId);
+        notificationService.addByScheduleId(scheduleId);
         return schedule;
     }
 
@@ -116,17 +125,26 @@ public class ScheduleDAO {
             lectureRoom.ifPresent(l -> s.setRoomName(l.getRoomName()));
             s.setLabOrLecture(scheduleUpdateTemplate.getLabOrLecture());
             scheduleRepository.save(s);
+
+            //update = delete + add
+            notificationService.deleteById(s.getScheduleId());
+            notificationService.addByScheduleId(s.getScheduleId());
         });
         return schedule;
     }
 
     public Result deleteScheduleById(String scheduleId) {
         scheduleRepository.deleteById(scheduleId);
+
+        //delete notification
+        notificationService.deleteById(scheduleId);
         return new Result("success");
     }
 
     public Result deleteAllSchedulesByCourseId(String courseId) {
         scheduleRepository.removeAllByCourseId(courseId);
+        //delete all
+        notificationService.deleteAllNotifications();
         return new Result("success");
     }
 
