@@ -16,4 +16,6 @@ public interface AttendanceRepository extends MongoRepository<Attendance, String
     void removeAllByStudentId(String studentId);
 
     void removeAllByCourseId(String courseId);
+
+
 }
