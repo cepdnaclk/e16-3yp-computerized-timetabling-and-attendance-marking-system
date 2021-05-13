@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                 studentToken = s;
 
                 //write token to internal storage
-
+                GlobalDataClass.setToken(s.trim());
                 try {
                     FileOutputStream fileOutputStream = openFileOutput("token.txt",MODE_PRIVATE);
                     fileOutputStream.write(s.getBytes());
@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Intent homeIntent = new Intent(LoginActivity.this,HomeActivity.class);
+                Intent homeIntent = new Intent(LoginActivity.this,WeekDaysActivity.class);
                 startActivity(homeIntent);
                 finish();
             }
