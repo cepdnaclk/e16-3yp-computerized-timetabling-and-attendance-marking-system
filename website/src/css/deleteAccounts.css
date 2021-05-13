@@ -1,0 +1,14 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.daCardPanel {
+  position: absolute;
+  display: grid;
+  width: 65%;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 10px;
+  top: 20%;
+  left: 15%;
+}

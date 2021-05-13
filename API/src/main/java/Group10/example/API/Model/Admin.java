@@ -1,7 +1,10 @@
 package Group10.example.API.Model;
 
+import Group10.example.API.Exception.ValidPassword;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Document(collection = "Admin")
@@ -13,8 +16,12 @@ public class Admin {
         @NotNull(message = "User Name is mandatory")
         private String userName;
 
-        @NotNull(message = "password is mandatory")
+        //@NotNull(message = "password is mandatory")
+        //@ValidPassword
         private String password;
+
+        @Email(message = "Email should be valid")
+        private String email;
 
         private String role;
 
@@ -48,5 +55,13 @@ public class Admin {
 
         public void setRole(String role) {
                 this.role = role;
+        }
+
+        public String getEmail() {
+                return email;
+        }
+
+        public void setEmail(String email) {
+                this.email = email;
         }
 }

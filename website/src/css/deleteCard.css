@@ -1,0 +1,35 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.deleteCard {
+  background-color:transparent;
+  border: 1px soli black;
+  border-radius: 5px;
+  margin: 5px 5px 5px 5px;
+}
+
+.dbTitle {
+  font-weight: bold;
+  text-align: center;
+}
+
+.dbtextInput {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  background-color: transparent;
+}
+
+.deleteButton {
+  position: relative;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+  bottom: -50%;
+  right: -10%;
+  padding-bottom: 2px;
+}

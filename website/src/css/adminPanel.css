@@ -1,0 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.buttonPanel {
+  display: grid;
+  position: absolute;
+  grid-template-columns: 33% 33% 33%;
+  grid-column-gap: 10px;
+  top: 100px;
+}
+
+.admin-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

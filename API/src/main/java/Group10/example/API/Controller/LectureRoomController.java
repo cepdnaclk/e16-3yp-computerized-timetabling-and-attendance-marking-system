@@ -6,6 +6,7 @@ import Group10.example.API.Service.LectureRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -13,12 +14,8 @@ import java.util.Optional;
 @RequestMapping("/lecturerooms")
 public class LectureRoomController {
 
-    private final LectureRoomService lectureRoomService;
-
     @Autowired
-    public LectureRoomController(LectureRoomService lectureRoomService) {
-        this.lectureRoomService = lectureRoomService;
-    }
+    private LectureRoomService lectureRoomService;
 
     @GetMapping("/all")
     public Collection<LectureRoom> getLectureRooms(){
@@ -26,7 +23,7 @@ public class LectureRoomController {
     }
 
     @PostMapping("/add")
-    public LectureRoom addLectureRoom(@RequestBody LectureRoom lectureRoom){
+    public LectureRoom addLectureRoom(@Valid @RequestBody LectureRoom lectureRoom){
         return lectureRoomService.addLectureRoom(lectureRoom);
     }
 
@@ -41,9 +38,9 @@ public class LectureRoomController {
     }
 
     @PutMapping(value = "/update/{id}")
-    public Optional<LectureRoom> updateLectureRoomById(@PathVariable("id") String id,@RequestBody LectureRoomUpdatePayLoad lectureRoomUpdatePayLoad){
+    public Optional<LectureRoom> updateLectureRoomById(@PathVariable("id") String id,@Valid @RequestBody LectureRoomUpdatePayLoad lectureRoomUpdatePayLoad){
         return lectureRoomService.updateLectureRoomById(id,lectureRoomUpdatePayLoad);
-    }
+    } 
 
     @GetMapping(value = "/findbydevice/{id}")
     public Optional<LectureRoom> findByDevice(@PathVariable("id") int device_id){

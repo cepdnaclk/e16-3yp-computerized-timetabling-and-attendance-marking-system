@@ -1,16 +1,23 @@
 package Group10.example.API.Model;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
-@Document(collation = "Groups")
+@Document(collection = "Groups")
 public class Group {
+
+
+    public Group(@NotNull(message = "Group Name is mandatory") String groupName){
+
+        this.groupName = groupName;
+
+    }
+
+    Group(){}
 
     @Id
     private String groupID;
@@ -19,6 +26,7 @@ public class Group {
     private String groupName;
 
     private String subject;
+
 
     public HashSet<String> studentList = new HashSet<>();
 
