@@ -11,6 +11,9 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TimeTableActivity extends AppCompatActivity {
 
     @Override
@@ -18,9 +21,11 @@ public class TimeTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
 
+
         Intent intent = getIntent();
         int position = intent.getIntExtra("position",0);
 
+        this.setTitle(intent.getStringExtra("label"));
 
         RecyclerView recyclerView = findViewById(R.id.reView);
         MyListAdapter adapter = null;

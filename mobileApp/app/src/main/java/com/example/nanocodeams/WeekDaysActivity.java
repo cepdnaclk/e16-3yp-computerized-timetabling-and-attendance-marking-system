@@ -63,6 +63,7 @@ public class WeekDaysActivity extends AppCompatActivity {
                 if(isTtDataRecved) {
                     Intent intent = new Intent(WeekDaysActivity.this, TimeTableActivity.class);
                     intent.putExtra("position", 0);
+                    intent.putExtra("label", "MONDAY");
                     startActivity(intent);
                 }
             }
@@ -74,6 +75,7 @@ public class WeekDaysActivity extends AppCompatActivity {
                 if(isTtDataRecved) {
                     Intent intent = new Intent(WeekDaysActivity.this, TimeTableActivity.class);
                     intent.putExtra("position", 1);
+                    intent.putExtra("label", "TUESDAY");
                     startActivity(intent);
                 }
             }
@@ -85,6 +87,7 @@ public class WeekDaysActivity extends AppCompatActivity {
                 if(isTtDataRecved) {
                     Intent intent = new Intent(WeekDaysActivity.this, TimeTableActivity.class);
                     intent.putExtra("position", 2);
+                    intent.putExtra("label", "WEDNESDAY");
                     startActivity(intent);
                 }
             }
@@ -96,6 +99,7 @@ public class WeekDaysActivity extends AppCompatActivity {
                 if(isTtDataRecved) {
                     Intent intent = new Intent(WeekDaysActivity.this, TimeTableActivity.class);
                     intent.putExtra("position", 3);
+                    intent.putExtra("label", "THURSDAY");
                     startActivity(intent);
                 }
             }
@@ -107,6 +111,7 @@ public class WeekDaysActivity extends AppCompatActivity {
                 if(isTtDataRecved) {
                     Intent intent = new Intent(WeekDaysActivity.this, TimeTableActivity.class);
                     intent.putExtra("position", 4);
+                    intent.putExtra("label", "FRIDAY");
                     startActivity(intent);
                 }
             }

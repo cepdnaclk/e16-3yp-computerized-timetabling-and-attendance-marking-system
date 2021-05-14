@@ -2,6 +2,8 @@ package com.example.nanocodeams;
 
 import org.json.JSONArray;
 
+import java.util.Map;
+
 public class GlobalDataClass {
 
     private static JSONArray timeTable;

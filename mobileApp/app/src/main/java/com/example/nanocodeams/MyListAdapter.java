@@ -28,8 +28,21 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+
+
         try {
-            holder.textView.setText(schedule.get(position).toString());
+            String tmpSch = schedule.get(position).toString().trim();
+            tmpSch = tmpSch.substring(1,tmpSch.length()-1);
+            String[] schParts = tmpSch.split(",",5);
+            for(int i=0 ; i<5 ; i++) schParts[i] = schParts[i].substring(1,schParts[i].length()-1);
+            String txt = schParts[0] +"\n" + schParts[1] +"\n" +schParts[2] +"\n" +schParts[3] +"\n" +schParts[4];
+
+            holder.courseCode.setText(schParts[3]);
+            holder.location.setText(schParts[4]);
+            holder.startTime.setText(schParts[0]);
+            holder.endTime.setText(schParts[1]);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -44,13 +57,19 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textView;
+        public TextView courseCode;
+        public TextView location;
+        public TextView startTime;
+        public TextView endTime;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            this.textView = itemView.findViewById(R.id.simpleSch);
+            this.courseCode = itemView.findViewById(R.id.courseCode);
+            this.location = itemView.findViewById(R.id.location);
+            this.startTime = itemView.findViewById(R.id.startTime);
+            this.endTime = itemView.findViewById(R.id.endTime);
 
         }
     }
