@@ -38,6 +38,7 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
 
     String studentToken = null;
+    boolean isLoggedIn;
 
 
     @Override
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         final TextView password = findViewById(R.id.loginPassword);
         Button submitButton = findViewById(R.id.submit);
 
+        isLoggedIn = false;
 
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             OkHttpClient client = new OkHttpClient();
             MediaType Json = MediaType.parse("application/json;charset=utf-8");
             JSONObject data = new JSONObject();
+            String val = "";
 
             //Toast.makeText(getApplicationContext(),"started", Toast.LENGTH_SHORT).show();
             Log.e("work","started");
@@ -112,14 +115,19 @@ public class LoginActivity extends AppCompatActivity {
                 int code = response.code();
                 Log.e("Code", String.valueOf(code));
                 Log.e("response",responseBody);
-                if(response.code() != 200) return "Bad Credentials";
-                if(!role.equals("ROLE_STUDENT")) return "Access Denied";
-                return  token;
+                if(response.code() != 200) val = "Bad Credentials";
+                else if(!role.equals("ROLE_STUDENT"))  val = "Access Denied";
+                else{
+                    val = token;
+                    isLoggedIn = true;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            finally {
+                return val;
+            }
 
-            return null;
         }
 
         @Override
@@ -128,11 +136,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-            if(!s.equals("Bad Credentials") && !s.equals("Access Denied")){
+            if(!s.equals("Bad Credentials") && !s.equals("Access Denied") && isLoggedIn){
                 studentToken = s;
 
                 //write token to internal storage
-
+                GlobalDataClass.setToken(s.trim());
                 try {
                     FileOutputStream fileOutputStream = openFileOutput("token.txt",MODE_PRIVATE);
                     fileOutputStream.write(s.getBytes());
