@@ -1,3 +1,8 @@
+plugins {
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+    // Other plugins here if pre-existing
+}
+
 apply plugin: 'com.android.application'
 
 android {
@@ -19,6 +24,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '30.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -35,4 +45,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //onesignal sdk
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
+
 }
+apply plugin: 'com.google.gms.google-services'
