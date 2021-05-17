@@ -3,11 +3,14 @@ package com.example.nanocodeams;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
@@ -24,8 +27,12 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,13 +89,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private class WebRequest extends AsyncTask<String,String,String>{
 
-
         @Override
         protected String doInBackground(String... strings) {
 
             OkHttpClient client = new OkHttpClient();
             MediaType Json = MediaType.parse("application/json;charset=utf-8");
             JSONObject data = new JSONObject();
+            RequestBody body;
+            Request request;
             String val = "";
 
             //Toast.makeText(getApplicationContext(),"started", Toast.LENGTH_SHORT).show();
@@ -100,10 +108,9 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            RequestBody body = RequestBody.create(Json,data.toString());
+            body = RequestBody.create(Json,data.toString());
 
-            Request request = new Request.Builder().url("https://efac-attendance.herokuapp.com/login").post(body).build();
-
+            request = new Request.Builder().url("https://efac-attendance.herokuapp.com/login").post(body).build();
             Response response = null;
             try {
                 response = client.newCall(request).execute();
@@ -134,8 +141,6 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-
-
             if(!s.equals("Bad Credentials") && !s.equals("Access Denied") && isLoggedIn){
                 studentToken = s;
 
@@ -149,6 +154,8 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+
+                //go to home
                 Intent homeIntent = new Intent(LoginActivity.this,HomeActivity.class);
                 startActivity(homeIntent);
                 finish();
@@ -159,5 +166,38 @@ public class LoginActivity extends AppCompatActivity {
 
 
         }
+
+        public String getToken(){
+
+            String token = null;
+
+            FileInputStream fileInputStream = null;
+            try {
+                fileInputStream = openFileInput("token.txt");
+                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                StringBuffer stringBuffer = new StringBuffer();
+
+                String lines;
+                while( (lines = bufferedReader.readLine()) != null){
+                    stringBuffer.append(lines+"\n");
+
+                }
+                token = stringBuffer.toString();
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+            return token;
+        }
+
     }
 }
