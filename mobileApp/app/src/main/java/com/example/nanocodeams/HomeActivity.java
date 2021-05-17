@@ -1,8 +1,12 @@
 package com.example.nanocodeams;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,18 +17,55 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
+    RecyclerView recyclerView_col;
+    ArrayList<MainModel> mainModels;
+    MainAdoptor mainAdoptor;
+    ListAdaptor listAdaptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        TextView sampleText = findViewById(R.id.token);
+        recyclerView = findViewById(R.id.recycler_view);
 
-        String token = getToken();
-        sampleText.setText(token);
+        String [] sub = {"CO324","CO322","CO321"};
+        String [] time = {"8-10 am","10-12 am","1-3 pm"};
+        String [] room= {"room 1","room 2","room 3"};
+        String [] course_ID ={"CO321","CO322","CO323","CO324","CO325","EE386"};
+        String [] courses = {"Embedded Systems",
+                "Data Structures and Algorithms", "Computer Communication Networks II",
+                "Network and Web Application Design","Computer and Network Security"
+                , "Electronics II"
+        };
+
+        mainModels = new ArrayList<>();
+
+        for (int i=0;i< sub.length;i++){
+
+            MainModel models = new MainModel(time[i],room[i],sub[i]);
+            mainModels.add(models);
+        }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                HomeActivity.this,LinearLayoutManager.HORIZONTAL,false);
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        mainAdoptor = new MainAdoptor(mainModels,HomeActivity.this);
+
+        recyclerView.setAdapter(mainAdoptor);
+
+        recyclerView_col = findViewById(R.id.recycler_col_view);
+        recyclerView_col.setLayoutManager(new LinearLayoutManager(this));
+        listAdaptor = new ListAdaptor(this,course_ID,courses);
+        recyclerView_col.setAdapter(listAdaptor);
 
 
     }
