@@ -17,14 +17,14 @@
     "bootstrap": "^4.6.0",
     "date-fns": "^2.17.0",
     "jquery": "^3.5.1",
-    "mdbreact": "^5.0.1",
+    "mdbreact": "^4.14.0",
     "react": "^17.0.1",
     "react-block-ui": "^1.3.3",
     "react-bootstrap": "^1.5.1",
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.14.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.0",
+    "react-scripts": "^2.1.8",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -51,5 +51,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://efac-attendance.herokuapp.com"
+  "proxy": "https://efac-attendance.herokuapp.com",
+  "devDependencies": {
+    "@babel/code-frame": "^7.10.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.0.5"
+  }
 }
