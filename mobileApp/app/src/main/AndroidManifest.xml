@@ -11,9 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TimeTableActivity"></activity>
-        <activity android:name=".WeekDaysActivity"
-            android:label="TIME TABLE"/>
+        <activity
+            android:name=".NotificationActivity"
+            android:label="NOTIFICATIONS">
+        </activity>
+        <activity android:name=".TimeTableActivity" />
+        <activity
+            android:name=".WeekDaysActivity"
+            android:label="TIME TABLE" />
         <activity android:name=".HomeActivity" />
         <activity
             android:name=".LoginActivity"
