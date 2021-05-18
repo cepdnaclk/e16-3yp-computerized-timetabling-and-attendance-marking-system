@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="home" android:id="@+id/home_des" android:icon="@drawable/ic_home"/>
+    <item android:title="timetable" android:id="@+id/tt_des" android:icon="@drawable/calendar"/>
+
+</menu>

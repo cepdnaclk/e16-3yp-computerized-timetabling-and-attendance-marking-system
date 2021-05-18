@@ -14,7 +14,8 @@
         <activity android:name=".TimeTableActivity"></activity>
         <activity android:name=".WeekDaysActivity"
             android:label="TIME TABLE"/>
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".HomeActivity"
+            android:label="HOME" />
         <activity
             android:name=".LoginActivity"
             android:label="LOGIN" />

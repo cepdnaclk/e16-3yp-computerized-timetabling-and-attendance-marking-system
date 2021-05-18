@@ -1,12 +1,16 @@
 package com.example.nanocodeams;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +24,26 @@ public class TimeTableActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.btm_nav3);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if(item.getItemId() == R.id.home_des){
+                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                    overridePendingTransition(0,0);
+                    return  true;
+                }
+                else if(item.getItemId() == R.id.tt_des){
+                    startActivity(new Intent(getApplicationContext(),WeekDaysActivity.class));
+                    overridePendingTransition(0,0);
+                    return  true;
+                }
+                return false;
+            }
+        });
 
 
         Intent intent = getIntent();
