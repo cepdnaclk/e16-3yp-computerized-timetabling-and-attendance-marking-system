@@ -1,14 +1,19 @@
 package com.example.nanocodeams;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -31,6 +36,22 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.btm_nav);
+        bottomNavigationView.setSelectedItemId(R.id.home_des);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if(item.getItemId() == R.id.tt_des){
+                    startActivity(new Intent(getApplicationContext(),WeekDaysActivity.class));
+                    overridePendingTransition(0,0);
+                    return  true;
+                }
+                return false;
+            }
+        });
 
         recyclerView = findViewById(R.id.recycler_view);
 
