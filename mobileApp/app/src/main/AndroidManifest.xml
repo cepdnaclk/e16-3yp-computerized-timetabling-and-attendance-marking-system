@@ -20,6 +20,10 @@
         <activity
             android:name=".HomeActivity"
             android:label="HOME" />
+        <activity
+            android:name=".NotificationActivity"
+            android:label="NOTIFICATIONS">
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
