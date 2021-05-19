@@ -44,7 +44,9 @@
         android:layout_height="40dp"
         android:id="@+id/btm_nav"
         app:labelVisibilityMode="unlabeled"
-        android:background="#fff"
-        app:menu="@menu/bottom_nav"/>
+        android:background="@color/colorPrimary"
+        app:menu="@menu/bottom_nav"
+        app:itemIconTint="@drawable/item_selected"
+        />
 
 </LinearLayout>
