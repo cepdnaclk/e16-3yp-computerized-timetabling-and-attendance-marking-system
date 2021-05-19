@@ -1,9 +1,8 @@
 package Group10.example.API.Service;
 
-import Group10.example.API.Model.Admin;
-import Group10.example.API.Model.Lecturer;
-import Group10.example.API.Model.Student;
+import Group10.example.API.Model.*;
 import Group10.example.API.Repository.AdminRepository;
+import Group10.example.API.Repository.HardwareDeviceRepository;
 import Group10.example.API.Repository.LecturerRepository;
 import Group10.example.API.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import Group10.example.API.Model.MobileUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +34,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     LecturerRepository lecRepo;
 
+    @Autowired
+    HardwareDeviceRepository hardwareRepo;
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -45,6 +45,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Student student = studRepo.findByuserName(s);
         Admin admin = adminRepo.findByuserName(s);
         Lecturer lecturer = lecRepo.findByuserName(s);
+        HardwareDevice hardwareDevice = hardwareRepo.findByUserName(s);
 
         List<SimpleGrantedAuthority> roles;
 
@@ -65,6 +66,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
             roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_LECTURER"));
             return new User(lecturer.getUserName(),lecturer.getPassword(), roles);
+
+        }
+        else if(hardwareDevice != null){
+
+            roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_HARDWARE"));
+            return new User(hardwareDevice.getUserName(),hardwareDevice.getPassword(), roles);
 
         }
 
