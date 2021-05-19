@@ -14,11 +14,16 @@
         <activity android:name=".TimeTableActivity"></activity>
         <activity android:name=".WeekDaysActivity"
             android:label="TIME TABLE"/>
-        <activity android:name=".HomeActivity"
-            android:label="HOME" />
         <activity
             android:name=".LoginActivity"
             android:label="LOGIN" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="HOME" />
+        <activity
+            android:name=".NotificationActivity"
+            android:label="NOTIFICATIONS">
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
