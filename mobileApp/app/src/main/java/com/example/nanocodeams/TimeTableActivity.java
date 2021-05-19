@@ -26,6 +26,7 @@ public class TimeTableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_time_table);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.btm_nav3);
+        bottomNavigationView.setSelectedItemId(R.id.tt_des);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -41,6 +42,12 @@ public class TimeTableActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     return  true;
                 }
+                else if(item.getItemId() == R.id.noti_des){
+                    startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
+                    overridePendingTransition(0,0);
+                    return  true;
+                }
+
                 return false;
             }
         });

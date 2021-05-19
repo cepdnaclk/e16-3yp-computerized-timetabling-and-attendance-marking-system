@@ -75,13 +75,94 @@ public class LoginActivity extends AppCompatActivity {
                 else {
 
                     Log.e("Button","....................clicked.....................");
-                   /* WebRequest webRequest = new WebRequest();
-                    webRequest.execute(name,pw);*/
+                   WebRequest webRequest = new WebRequest();
+                    webRequest.execute(name,pw);
 
 
                 }
             }
         });
+    }
+
+    private class WebRequest extends AsyncTask<String,String,String>{
+
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            OkHttpClient client = new OkHttpClient();
+            MediaType Json = MediaType.parse("application/json;charset=utf-8");
+            JSONObject data = new JSONObject();
+            String val = "";
+
+            //Toast.makeText(getApplicationContext(),"started", Toast.LENGTH_SHORT).show();
+            Log.e("work","started");
+            try {
+                data.put("userName",strings[0]);
+                data.put("password",strings[1]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            RequestBody body = RequestBody.create(Json,data.toString());
+
+            Request request = new Request.Builder().url("https://efac-attendance.herokuapp.com/login").post(body).build();
+
+            Response response = null;
+            try {
+                response = client.newCall(request).execute();
+                String responseBody = response.body().string().trim();
+                String role = responseBody.substring(9,21).trim();
+                String token = responseBody.substring(32,responseBody.length()-2);
+                Log.e("token",token);
+                Log.e("role",role);
+                int code = response.code();
+                Log.e("Code", String.valueOf(code));
+                Log.e("response",responseBody);
+                if(response.code() != 200) val = "Bad Credentials";
+                else if(!role.equals("ROLE_STUDENT"))  val = "Access Denied";
+                else{
+                    val = token;
+                    isLoggedIn = true;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            finally {
+                return val;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+
+
+            if(!s.equals("Bad Credentials") && !s.equals("Access Denied") && isLoggedIn){
+                studentToken = s;
+
+                //write token to internal storage
+                GlobalDataClass.setToken(s.trim());
+                try {
+                    FileOutputStream fileOutputStream = openFileOutput("token.txt",MODE_PRIVATE);
+                    fileOutputStream.write(s.getBytes());
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Intent homeIntent = new Intent(LoginActivity.this,HomeActivity.class);
+                startActivity(homeIntent);
+                finish();
+            }
+            else{
+                Toast.makeText(getApplicationContext(),s, Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
     }
 
 

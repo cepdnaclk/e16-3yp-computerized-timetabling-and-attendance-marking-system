@@ -59,6 +59,11 @@ public class WeekDaysActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     return  true;
                 }
+                else if(item.getItemId() == R.id.noti_des){
+                    startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
+                    overridePendingTransition(0,0);
+                    return  true;
+                }
                 return false;
             }
         });
