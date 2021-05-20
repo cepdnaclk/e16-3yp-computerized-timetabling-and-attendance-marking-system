@@ -37,7 +37,6 @@ let times = [
 ];
 class TimeTable extends Component {
   state = {
-    timeTable: [],
     newSchedules: [],
     startTime: "08:00",
     endTime: "08:00",
@@ -54,6 +53,8 @@ class TimeTable extends Component {
 
   componentWillMount() {
     const auth = "Bearer " + localStorage.getItem("token");
+
+    
     this.setState(
       {
         timeTable: JSON.parse(localStorage.getItem("timeTable")).result,
@@ -86,6 +87,8 @@ class TimeTable extends Component {
     const auth = "Bearer " + localStorage.getItem("token");
 
     FIND_LEC_SCHEDULE_URL += localStorage.getItem("lid");
+
+    
 
     axios
       .get(FIND_LEC_SCHEDULE_URL, {

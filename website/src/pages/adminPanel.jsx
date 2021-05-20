@@ -83,6 +83,7 @@ class AdminPanel extends Component {
       .then((response) => {
         // console.log("timetable response data = ", response);
         localStorage.setItem("timeTable", JSON.stringify(response.data));
+        console.log("Hi from admin");
         this.setState({ timeTable: response.data }, () => {
           this.setState({ loading2: true });
         });

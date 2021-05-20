@@ -183,9 +183,9 @@ export default function LecForm() {
             
             <Form onSubmit={handleSubmit}>
             
-                    <Grid container>
-                        <Grid item xs={6}>
-
+                    <Grid container >
+                        <Grid item  >
+							
                             <Controls.Input
                                     name="userName"
                                     label="User Name"
@@ -200,6 +200,7 @@ export default function LecForm() {
                                 value={values.firstName}
                                 onChange={handleInputChange}
                                 error={errors.firstName}
+								
                             />
                             <Controls.Input
                                 name="lastName"
@@ -224,7 +225,8 @@ export default function LecForm() {
                                 options={StudentService.getDepartmentCollection()}
                                 error={errors.departmentId}
                             />
-
+							
+							<div className="lcReg-buttons-outer">
                             <div>
                                 <Controls.Button
                                     type="submit"
@@ -240,6 +242,7 @@ export default function LecForm() {
                                     color="default"
                                     onClick={resetForm} />
                             </div>
+							</div>
                         </Grid>
                     </Grid>
             </Form>
