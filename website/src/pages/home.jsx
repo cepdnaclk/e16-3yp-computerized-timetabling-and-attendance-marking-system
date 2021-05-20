@@ -77,7 +77,7 @@ class Home extends Component {
         <img src={bgImage} className="homeloginImg"></img>
         <h2 className="hm-title">My Attendance records</h2>
         <CourseList page={this.state.page} courses={this.state.courses} sw={this.state.searchWord} />
-        <UserCard data={[localStorage.getItem("sfn"), localStorage.getItem("sen")]} />
+		<UserCard data={[localStorage.getItem("sfn"), localStorage.getItem("sen")]} />
      </div>
      <Footer/>
      </>

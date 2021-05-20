@@ -19,7 +19,6 @@
 .stdgps-outer {
   margin-top: 40px;
   min-height: 400px;
-  height:400px;
   display: grid;
   grid-template-columns: 50% 50%;
   justify-content: center;
