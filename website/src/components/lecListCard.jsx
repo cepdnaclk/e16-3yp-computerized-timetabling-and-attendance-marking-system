@@ -7,16 +7,16 @@ class LecListCard extends Component {
     state = {  }
     render() { 
         return ( 
-            <div className="llc-outer llc-card" onClick={()=>this.props.func(this.props.lectID)}>
+            <a className="llc-outer llc-card" href="/admintimetable">
                         
                 <div class="llc-avatar">
                     <img class="llc-image" alt="" src={groupIcon} />
                 </div>
             
                 
-                <Button className="llc-para" disableFocusRipple={true} style={{ backgroundColor: 'transparent' ,width:200}} onClick={this.onClickRedirect}>{this.props.groupName}</Button>
+                <Button className="llc-para" disableFocusRipple={true} style={{ backgroundColor: 'transparent' ,width:200}} >{this.props.groupName}</Button>
                 
-            </div>
+            </a>
          );
     }
 }
