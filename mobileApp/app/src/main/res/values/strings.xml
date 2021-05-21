@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">AMS</string>
+    <string-array name="remainder">
+        <item>Lecture Remainder</item>
+        <item>Lab Remainder</item>
+        <item>Lecture Remainder</item>
+        <item>Lab Remainder</item>
+        <item>Lecture Remainder</item>
+    </string-array>
+    <string-array name="time">
+        <item>5m ago</item>
+        <item>1h ago</item>
+        <item>4h ago</item>
+        <item>1d ago</item>
+        <item>1d ago</item>
+    </string-array>
+    <string-array name="Course">
+        <item>CO 321 - Embedded Systems</item>
+        <item>CO 227 - Combined Project</item>
+        <item>GP 106 - Computing</item>
+        <item>EM 214 - Numerical Methods</item>
+        <item>CO 321 - Embedded Systems</item>
+    </string-array>
+    <string-array name="message">
+        <item>Lecture will start at 3.00 p.m in Lecture Room 3 By Dr.Akila Silva</item>
+        <item>Lab will start at 1.00 p.m in Lecture Room 8 By Dr.Sahan Rathnayake</item>
+        <item>Lecture will start at 10.00 a.m in Lecture Room 19 By Dr.Kumudu Weerasinghe</item>
+        <item>Lab will start at 10.00 a.m in Lab Room 2 By Dr.Akila Silva</item>
+        <item>Lecture will start at 8.00 a.m in Lecture Room 11 By Dr.Akila Silva</item>
+    </string-array>
+</resources>

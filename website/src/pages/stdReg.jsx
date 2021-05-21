@@ -6,14 +6,14 @@ import { Paper,makeStyles } from '@material-ui/core';
 import bgImage from '../images/bg4.jpg'
 import NavBar from "../components/navbar";
 import Footer from '../components/footer'
+import "../css/stdRg.css"
 
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
-        margin: theme.spacing(5),
         padding: theme.spacing(3),
-        backgroundColor: 'hsla(0, 0%, 100%, 0.4)',
-        marginTop:'1%'
+        backgroundColor: 'transparent',
+      
       
     }
 }))
@@ -26,6 +26,8 @@ export default function Employees() {
         <>
             <img src={bgImage} className="homeloginImg"></img>
             <NavBar pageName="Student Registration" />
+			<div className = "stdRg-outer">
+				<div className = "stdRg-inner">
             <PageHeaderStudent
                 title="Student Registration"
                 icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
@@ -33,6 +35,8 @@ export default function Employees() {
             <Paper className={classes.pageContent}>
                 <StudentForm />
             </Paper>
+			</div>
+			</div>
             <Footer/>
         </>
     )

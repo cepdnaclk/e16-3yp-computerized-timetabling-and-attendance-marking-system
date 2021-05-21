@@ -110,17 +110,18 @@ class GroupCard extends Component {
                         </DialogActions>
                         </Dialog>
                     </div>
-
-                    <a className="gc-outer gc-card" >
-                        
+                    <a className="gc-outer gc-card" style={{width:350}}>
+							
                             <div class="gc-avatar">
                                 <img class="gc-image" alt="" src={groupIcon} />
                             </div>
                         
                             
-                            <Button className="gc-para" disableFocusRipple={true} style={{ backgroundColor: 'transparent' }} onClick={this.onClickRedirect}>{this.state.groupName}</Button>
-                            <div className="gc-buttons">
-                                <IconButton aria-label="delete">
+                            
+							<Button className="gc-para" disableFocusRipple={true} style={{ backgroundColor: 'transparent' }} onClick={this.onClickRedirect}>{this.state.groupName}</Button>
+                            <div className="gc-buttons-outer">
+							<div className="gc-buttons">
+                                <IconButton aria-label="delete" >
                                     <DeleteIcon onClick={this.onOpenDialog}/>
                                 </IconButton>
                             </div>
@@ -130,6 +131,8 @@ class GroupCard extends Component {
                                 </IconButton>
                             
                             </div>
+							</div>
+							
                     </a>
                 </div>
             

@@ -5,11 +5,13 @@
 }
 
 .stdgps-search-outer {
+	margin-top:40px;
   background-color: rgba(255, 255, 255, 0.4);
   box-shadow: 4px 4px 8px -3px rgba(163, 71, 71, 0.15);
 }
 
 .stdgps-groupList {
+	width:400px;
   display: grid;
   text-decoration: none;
 }
@@ -20,6 +22,7 @@
   display: grid;
   grid-template-columns: 50% 50%;
   justify-content: center;
+  
 }
 
 .stdgps-extra {
@@ -27,6 +30,7 @@
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 15%;
+  
 }
 
 .gdclass {

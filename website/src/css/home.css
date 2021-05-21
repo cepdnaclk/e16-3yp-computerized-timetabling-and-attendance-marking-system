@@ -20,6 +20,20 @@
   display: inline-block;
   padding: 20px;
   border-radius: 5px;
-  top: 50px;
+  top: 100px;
   left: 208px;
+  margin-bottom:50px;
+}
+
+.home-courseList{
+	padding:10px;
+	padding-bottom:50px;
+}
+
+.atdtble-coursedetails-outer{
+	padding:50px;
+}
+
+.atdtble-tableouter{
+	padding-bottom:60px;
 }

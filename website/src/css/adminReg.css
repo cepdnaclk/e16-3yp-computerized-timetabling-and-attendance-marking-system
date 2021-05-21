@@ -1,0 +1,24 @@
+.adminreg-outer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top:100px;
+  padding-bottom:100px;
+  
+}
+.adminreg-inner{
+	border-radius: 10px;
+   background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2rem 4rem -3rem rgba(0, 45, 64, 0.5),
+    0 0rem 8rem 0 rgba(0, 45, 64, 0.1);
+	
+	
+	
+}
+
+.adminReg-outer-buttons{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+	
+}

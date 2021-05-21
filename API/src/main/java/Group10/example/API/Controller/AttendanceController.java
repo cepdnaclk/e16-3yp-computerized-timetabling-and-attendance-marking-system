@@ -65,7 +65,7 @@ public class AttendanceController {
     //this must return only one object (collection has only one object)
     @GetMapping(value = "attendance/findattendancebystudentidandcourseid")//checked
     public Attendance findAttendanceByStudentAndCourse(@RequestParam(name = "course")String courseId,
-                                                                   @RequestParam(name = "student")String studentId){
+                                                       @RequestParam(name = "student")String studentId){
         return attendanceService.findAttendanceByStudentAndCourse(courseId,studentId);
     }
 
@@ -81,6 +81,12 @@ public class AttendanceController {
     @PostMapping(value = "attendance/addcompleterecord")//checked
     public String addCompleteAttendanceRecord(@Valid @RequestBody AttendanceLogList attendanceLogList){
         return attendanceService.addCompleteAttendanceRecord(attendanceLogList);
+    }
+
+    /////////////////////////////////////////////////////////new////////////////////
+    @PostMapping(value = "attendance/addrecord")
+    public String addRecords(@RequestBody AttendanceNew attendanceNew) {
+        return attendanceService.addRecords(attendanceNew);
     }
 
 

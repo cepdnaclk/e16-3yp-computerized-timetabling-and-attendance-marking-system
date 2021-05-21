@@ -89,11 +89,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/admin/**",   "/groups/**").hasRole("ADMIN")
+                .authorizeRequests().antMatchers("/admin/**",   "/groups/**" , "/hardware/**").hasRole("ADMIN")
                 .antMatchers("/lecturer/**","/groups/**").hasRole("LECTURER")
                 //.antMatchers("/groups/**").hasAnyRole("Admin","LECTURER")
                 .antMatchers("/student/**").hasRole("STUDENT")
-                .antMatchers("/login","/groups/**").permitAll().anyRequest().authenticated()
+                .antMatchers("/login","/groups/**","/test/**","/pushnotification/**","/notification/**","/attendance/**").permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
                 and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

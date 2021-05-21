@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "217731884665",
+    "project_id": "onesignalams",
+    "storage_bucket": "onesignalams.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217731884665:android:c493fe2ca6cc95206c96a8",
+        "android_client_info": {
+          "package_name": "com.example.nanocodeams"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217731884665-l92m38qpto4a4gfo4t4aoat21e3q6dj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaJaInZAYlphUnjp0LzyYAIG7mIO9DirU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217731884665-l92m38qpto4a4gfo4t4aoat21e3q6dj2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

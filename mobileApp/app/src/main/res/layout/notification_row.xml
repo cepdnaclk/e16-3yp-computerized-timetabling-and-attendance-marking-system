@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    >
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginLeft="25dp"
+        app:cardCornerRadius="30dp"
+        android:layout_marginRight="25dp"
+        app:cardBackgroundColor="#A09E9E"
+        android:innerRadius="0dp"
+        tools:layout_editor_absoluteY="87dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+
+                >
+
+                <!--                image-->
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/notification_remainder" />
+
+                <!--            remainder-->
+                <TextView
+                    android:id="@+id/textRemainder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/imageView2"
+                    android:text="Lecture Remainder" />
+
+                <!--            time-->
+                <TextView
+                    android:id="@+id/textTime"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:text="5h ago" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <!--            course-->
+                <TextView
+                    android:id="@+id/textCourse"
+                    android:layout_marginLeft="20dp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CO 321 - Embedded Systems" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <!--            message-->
+                <TextView
+                    android:id="@+id/textMessage"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lecture will start at 3.00 p.m in Lecture Room 3 By Dr.Akila Silva" />
+            </RelativeLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

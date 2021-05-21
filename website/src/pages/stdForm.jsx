@@ -249,7 +249,7 @@ export default function EmployeeForm() {
                         />
 
 
-
+						<div className = "stdRg-button-outer">
                         <div>
                             <Controls.Button
                                 type="submit"
@@ -265,6 +265,7 @@ export default function EmployeeForm() {
                                 color="default"
                                 onClick={resetForm} />
                         </div>
+						</div>
                     </Grid>
                 </Grid>
             </Form>
