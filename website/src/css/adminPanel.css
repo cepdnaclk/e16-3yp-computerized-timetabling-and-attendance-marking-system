@@ -9,10 +9,13 @@
   grid-template-columns: 33% 33% 33%;
   grid-column-gap: 10px;
   top: 100px;
+  padding-bottom: 80px;
 }
 
 .admin-outer {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 50px;
+  
 }

@@ -40,9 +40,10 @@ let times = [
   "16:30",
   "17:00",
 ];
+
 class TimeTable extends Component {
   state = {
-    timeTable: [],
+    timeTable : [],
     newSchedules: [],
     startTime: "08:00",
     endTime: "08:00",

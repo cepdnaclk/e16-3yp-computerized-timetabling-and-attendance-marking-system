@@ -36,12 +36,14 @@ class DeleteAccounts extends Component {
             <React.Fragment>
             <img src={bgImage} className="homeloginImg"></img>
             <NavBar pageName="Delete Accounts" />
+			<div className="delAcc-outer">
             <div className="daCardPanel">
                 <DeleteCard f="f1" name="Registration Number :" cardName="Student Account" oc={this.changeHandler} sr={this.sendReq}></DeleteCard>
                 <DeleteCard f="f2" name="Lecturer/Admin Id :" cardName="Non-Student Account" oc={this.changeHandler} sr={this.sendReq}></DeleteCard>
                 <DeleteCard f="f3" name="Group Id :" cardName="Student Group" oc={this.changeHandler} sr={this.sendReq}></DeleteCard>
                 <DeleteCard f="f4" name="Batch Prefix :" cardName="Student Batch" oc={this.changeHandler} sr={this.sendReq}></DeleteCard>
             </div>
+			</div>
             
           <Footer/>
             

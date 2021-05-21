@@ -16,7 +16,7 @@ class LecList extends Component {
   };
 
   doSomething = (lectID) => {
-    //console.log(lectID)
+    console.log("do something")
     this.setState({ loading: false });
 
     this.setState({

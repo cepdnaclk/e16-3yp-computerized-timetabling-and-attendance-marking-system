@@ -1,17 +1,21 @@
 .gc-card {
   display: grid;
-  grid-template-columns: 30% 30% 20% 20%;
+  grid-template-columns: 30% 10% 60%;
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 5px;
   justify-content: center;
   align-content: center;
   box-shadow: 4px 4px 8px -3px rgba(163, 71, 71, 0.15);
-  width: 300px;
+  width: 400px;
   margin: 10px;
   text-decoration: none;
   color: black;
   height: 120px;
 }
+
+
+
+
 
 .gc-para {
   position: relative;
@@ -39,6 +43,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  display:inline-block;
+}
+
+.gc-buttons-outer{
+	display:grid;
+	gap:40px;
+	grid-template-columns: 50% 50%;
+	padding-right:80px;
+	
 }
 
 .gc-content-container {
