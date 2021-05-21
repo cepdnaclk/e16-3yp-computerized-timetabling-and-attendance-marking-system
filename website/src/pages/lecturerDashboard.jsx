@@ -7,7 +7,7 @@ import axios from "axios";
 import "../css/home.css";
 import "../css/lecturerDashboard.css";
 import LoadingComponent from "../components/loadingComponent";
-import Footer from '../components/footer'
+import Footer from "../components/footer";
 
 const LECT_ALL_COURSES_URL = "/lec/find/allcourses";
 const FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
@@ -33,7 +33,6 @@ class LecturerDashboard extends Component {
         },
       })
       .then((response) => {
-        // console.log(response);
         localStorage.setItem(
           "lecCourses",
           JSON.stringify({ courses: response.data })
@@ -56,7 +55,6 @@ class LecturerDashboard extends Component {
         },
       })
       .then((response) => {
-        // console.log("timetable response data = ", response);
         localStorage.setItem("timeTable", JSON.stringify(response.data));
         this.setState({ timeTable: response.data }, () => {
           this.setState({ loading2: true });
@@ -90,11 +88,8 @@ class LecturerDashboard extends Component {
             oc={this.onSerchValueChanged}
           />
 
-          <Footer/>
-
+          <Footer />
         </div>
-
- 
       );
     }
     return <LoadingComponent></LoadingComponent>;
