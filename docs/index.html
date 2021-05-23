@@ -586,7 +586,7 @@
 
             <!--        unit testing-->
             <div class="section-title">
-                <h3>Unit Testing</h3>
+                <h3>Unit Testing - API</h3>
                 <div style="text-align: left"><p><b>&nbsp; &nbsp; UNIT TESTING</b>, also known as COMPONENT TESTING, is
                     a level of
                     software testing where individual units / components of a software are tested. The purpose is to
@@ -600,6 +600,55 @@
             <div class="section-title">
                 <h4>Results</h4>
                 <img src="images/testing/unitResult.png" class="img-fluid" alt="" style="border: 5px solid #555;"/>
+            </div>
+
+            <!--            ui testing-->
+            <div class="section-title">
+                <h3>UI Testing - Mobile App</h3>
+                <div style="text-align: left"><p>In <b>&nbsp; &nbsp; UI TESTING</b>, test runs on a device or an emulator.
+                    In the background, your app will be installed and then a testing app will
+                    also be installed which will control your app, lunching it and running UI
+                    tests as needed</p>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <h4>Example :- User Login</h4>
+                <div style="text-align: left"><p>First Student will enter the username .
+                    Then he/she will close the keyboard.Next, student will enter the password.
+                    After that, he/she will close the keyboard again.
+                    Finally, student will preform click button.
+                </p>
+                </div>
+                <img src="images/app-ui/userlogin.jpg" style="width: 250px; height: 500px; border: 5px solid #555; border-radius: 10px" class="img-fluid" alt=""/>
+
+            </div>
+            <div class="section-title">
+                <h4>Programme</h4>
+                <br>
+                <img src="images/app-ui/code.png" class="img-fluid" alt="" style="border: 5px solid #555;"/>
+            </div>
+
+            <div class="section-title">
+                <h4>Result</h4>
+                <br>
+                <div style="text-align: center"><p>After Running the Test, Mobile app's Login UI will redirect to corresponding user's home page.
+                </p><br></div>
+                <img src="images/app-ui/userhome.jpg" class="img-fluid" alt="" style="width: 250px; height: 500px; border: 5px solid #555; border-radius: 10px"/>
+            </div>
+            <!--        performance testing-->
+            <div class="section-title">
+                <h3>Performance Testing - Website</h3>
+                <div style="text-align: center"><p>website <b>performance</b>, was measured using
+                    <a href="https://web.dev/measure/?gclid=CjwKCAjwtJ2FBhAuEiwAIKu19roFqVeryGGHWw59E10bQumkALN9eu51kLJa2LzTPhmZpBVkfXT9vhoCHtwQAvD_BwE">Web.dev</a>
+                    site.Performance details are as follows.
+                </p>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <h4>Results</h4>
+                <img src="images/web/performance-testing.jpg" class="img-fluid" alt="" style="border: 5px solid #555;"/>
             </div>
 
             <!--        summary report-->
@@ -659,6 +708,50 @@
                         </td>
                         <td>JUnit</td>
                         <td>Attendance details are correctly calculated and stored in the database.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>UI Testing in Mobile App</td>
+                        <td>
+                            <ui>
+                                <li>Mobile App UI s were tested with different user inputs.</li>
+                                <li>Button clicks were checked with different pressed times to see output</li>
+                            </ui>
+                        </td>
+                        <td>Expresso</td>
+                        <td>
+                            <ui>
+                                <li>Forms can not submit without proper inputs</li>
+                                <li>Only registered students can log in</li>
+                                <li>No matter which time duration button was pressed.It gives the correct function after button was released.</li>
+                            </ui>
+                            </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>Performance Testing in website</td>
+                        <td>
+                            <ui>
+                                <li>Test the performance of the website by metrics such as  first paint and time to interactive to determine lag.</li>
+                                <li>Test the HTTPS usage to correct image aspect ratios.</li>
+                                <li>Check for best practices to ensure site is discoverable.</li>
+                                <li>Check for common issues that may prevent users from accessing website content.</li>
+                            </ui>
+                        </td>
+                        <td>Web.dev</td>
+                        <td>
+                            <ui>
+                                <li>performance is quite low the following reasons may be possible
+                                    <ol>
+                                        <li>Usage of unencoded images</li>
+                                        <li>Bad aspect ratios of images</li>
+                                        <li>Bad API response time</li>
+                                    </ol>
+                                </li>
+                                <li>Accessibility and Best practices are at a good level </li>
+                                <li>SEO is very high because website is hosted in AWS and AWS is take care of SEO </li>
+                            </ui>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -720,7 +813,35 @@
                         </td>
                         <td>To improve UX with debouncing of push buttons</td>
                     </tr>
-
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>LCD Display</td>
+                        <td>
+                            <ui>
+                                <li>Test the screen clearness of the LCD display under different light conditions</li>
+                            </ui>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>LCD display screen must be clear to use the hardware device.</li>
+                                <li>Letters and numbers must be clearly visible</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>SD Card module</td>
+                        <td>
+                            <ui>
+                                <li>Test the ability to create files in unique names</li>
+                                <li>Test the ability to write and delete files</li>
+                                <li>Test the ability to delete files</li>
+                            </ui>
+                        </td>
+                        <td>
+                            To properly handle the connection failure or power failure conditions
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
