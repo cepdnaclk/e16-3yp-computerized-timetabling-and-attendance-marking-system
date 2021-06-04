@@ -1,0 +1,41 @@
+{
+    "title": "Computerized Timetabling and Attendance Marking System",
+    "team": [
+        {
+            "name": "Saubagya Munasingha",
+            "email": "e16242@eng.pdn.ac.lk",
+            "eNumber": "E/16/242",
+            "github_profile":"https://github.com/AVSSAM",
+            "linkedin_profile":"https://www.linkedin.com/in/saubhagya-munasinghe-9a4211214/"
+        },
+        {
+            "name": "Nuwan Piyarathna",
+            "email": "e16286@eng.pdn.ac.lk",
+            "eNumber": "E/16/286",
+            "github_profile":"https://github.com/NuwanHarsha",
+            "linkedin_profile":"https://www.linkedin.com/in/nuwanharsha/"
+        },
+        {
+            "name": "Erandana Wijerathne",
+            "email": "e16399@eng.pdn.ac.lk",
+            "eNumber": "E/16/399",
+            "github_profile":"https://github.com/Erandana",
+            "linkedin_profile":"https://www.linkedin.com/in/erandana-wijerathne-166258157/"
+        }
+    ],
+    "supervisors": [
+        {
+            "name": "Dr. Isuru Navinne ",
+            "email": "isurunawinne@eng.pdn.ac.lk",
+            "linkedin_profile":"https://www.linkedin.com/in/isuru-nawinne-73302833/",
+            "researchgate_profile":"https://www.researchgate.net/profile/Isuru-Nawinne"
+        },
+        {
+            "name": "Mr. Ziyan Maraikar",
+            "email": "ziyanm@pdn.ac.lk",
+            "linkedin_profile":"#",
+            "researchgate_profile":"#"
+        }
+    ],
+    "tags": ["Web", "Embedded Systems"]
+}
